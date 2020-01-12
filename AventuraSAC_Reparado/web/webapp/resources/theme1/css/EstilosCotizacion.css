@@ -1,0 +1,215 @@
+
+#bodys{
+    background: #632432 ;
+    width:100%;
+}
+
+.card-header{
+     background-color: white;
+}
+
+.card-body{
+     background-color: white;
+}
+
+
+.card card-header {
+    background : #6699ff;
+    height: 40%;
+    width: 90%;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 5px;
+
+}
+
+.card card-body {
+    height: 50%;
+    width: 90%;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 5px;
+}
+
+#img img{
+    margin:30px 0px;
+    width: 270px;
+    height: 150px;
+}
+
+#escritos {
+    margin: 0px 0px;
+    position: relative;
+    right: 0px;
+    top:70px;
+}
+
+#escritos h3{
+    font-family: 'Arial', serif;
+    font-size: 10px;
+}
+
+
+
+#fieldset {
+    
+    margin: 40px 20px;
+    padding: 33px 30px;
+    text-align: center;
+    position: relative;
+}
+
+#fieldset h4 {
+
+    margin: 10px 10px;
+  
+}
+
+#fieldset h4 > strong {
+
+    color: white;
+    
+}
+
+#ngui {
+
+    margin: 0px 30px;
+    text-align: center;
+    padding: 15px; 
+}
+
+#ngui input{
+
+    width: 25px;
+    height: 25px;
+    background: white;
+
+}
+
+#fld{
+    background-color: #ffcccc;
+}
+
+#fieldset1 {
+    background-color: #ffcccc;
+    margin: 10px 0px 0px 10px;
+    padding: 20px 60px;
+    height: 50%; /*Ancho*/
+    width: 98%;/*Largoo*/
+    text-align: left;
+    font-family: 'Libre Baskerville', serif;
+    right: 100px;
+}
+
+#fieldset1 h5{
+    color: black;
+}
+
+#fila1 input {
+    padding: 0% 17%;
+    margin: 20px 0px;
+    width: 240px;
+    height: 40px;
+    background-color:  white;
+}
+
+#fila2 input {
+    padding: 0% 17%;
+    margin: 20px 0px;
+    width: 240px;
+    height: 40px;
+    background-color:  white;
+}
+
+
+#col2 fieldset{
+    position: relative;
+    left: 490px;
+    top:10px;
+}
+
+#titulodescripcion h3{
+    color: white;
+}
+
+#tabla{
+    width: 90%;
+    height: 40%;
+}
+
+#tabla th{
+    text-align: center;
+    background-color: #ffcccc;
+}
+
+#tabla td{
+    background-color: white;
+    
+}
+
+table,th  {
+    border: 1px solid black;
+}
+
+table,td  {
+    border: 1px solid black;
+    
+}
+
+
+#fieldset3 {
+    background-color: #ffcccc;
+    margin: 0% -30%;
+    padding: 10px 20px;
+    height: 100%; /*Ancho*/
+    width: 92%;/*Largoo*/
+    text-align: left;
+    font-family: 'Libre Baskerville', serif;
+}
+
+
+
+
+#fieldset3 label{
+    margin: 5px 0px;
+    width: 110px;
+}
+
+#fieldset3 input{
+    background-color: white;
+    padding: 0% 20%;
+    margin: 5px 0px;
+    width: 110px;
+    height: 35px;
+}
+
+
+#fieldset4 {
+    background-color: white;
+    margin: 0% 70%;
+    padding: 0% 5%;
+    height: 110px; /*Ancho*/
+    width: 26%;/*Largoo*/
+    text-align: center;
+    font-family: 'Libre Baskerville', serif;
+}
+
+#fieldset4 p{
+    color:black;
+}
+
+#fieldset4 button{
+    margin: -5% 1%;
+    padding: 0% 7%;
+    background-color: #ffcccc;
+
+}
+
+.fila8 button{
+    height: 25%;
+}
+
+#ultimoparrafo p{
+    color:white;
+}
+

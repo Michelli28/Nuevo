@@ -1,0 +1,50 @@
+#body{
+    background: #adb5bd;
+}
+
+#carta{
+    width: 100%;
+    height: 100%;
+    margin: 9% auto;
+    padding: 6%;
+    margin-bottom: auto;
+    background: #F5F7FA;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 1%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 1.5%;
+}
+
+.card-header h3{
+    font-family: Georgia, cursive;
+    font-size: 20px;
+}
+
+#femision {
+   margin: 10px 100px;
+}
+
+#femisionI {
+   width: 250px;
+}
+
+#fentrega {
+   margin: 10px 0px;
+}
+
+#fentregaI {
+   width: 250px;
+}
+
+#cardheader{
+    background: #C1FCEC ;
+}
+
+.p-4 input{
+    background: white;
+}

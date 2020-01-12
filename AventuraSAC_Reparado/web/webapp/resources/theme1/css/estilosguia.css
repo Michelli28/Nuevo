@@ -1,0 +1,179 @@
+
+body{
+	 background: linear-gradient(to bottom, #6699ff 0%, #99ffcc 100%);
+	}
+
+
+h1 img{
+	margin:60px 180px;
+	height: 120px;
+}
+
+#Contenedorlogo{
+	background-color: #F5F7FA ;
+	position: 	absolute;
+	top: 3em;
+   	left: 18em;
+   	width: 63em;
+   	height: 20em;
+
+}
+
+#Contenedorlogo2{
+	right: 40em;
+}
+
+#imagen{
+	margin:5px 70px;
+	bottom: 1em;
+}
+
+h1{
+	margin: 0px 0px 30px -170px;
+	height: 210px;
+	position: relative;
+  	left: 20px;
+  	bottom: 30px;
+
+}
+
+#escritos {
+	margin: 50px -430px;
+	position: relative;
+	right: 180px;
+	top:120px;
+}
+
+#fieldset {
+
+	margin: 20px 170px;
+	padding: 20px 40px;
+	text-align: center;
+	position: relative;
+	left: 70px;
+	top:40px;
+}
+
+#fieldset input{
+
+	width: 10px;
+	height: 25px;
+
+}
+
+
+#fieldset h3{
+
+	margin: 10px 10px;
+}
+
+#ngui {
+
+	margin: 0px 25px;
+	text-align: center;
+}
+
+
+#main{
+
+	width: 1450px;/*Largoo*/
+	top: 5em;
+   	left: 8em;
+   	width: 80em;
+   	height: 10em;
+
+}
+
+#main2{
+
+		background-color: #F5F7FA ;
+		position: 	absolute;
+		margin: 0px 0px 0px 60px;	
+		height: 52em;
+		border-color: #aaaaaa;
+}
+
+#main3{
+	height: 50em;
+}
+
+
+#fieldset1 {
+	margin: 0px 0px 0px 30px;
+	padding: 0px 30px;
+	height: 250px; /*Ancho*/
+	width: 650px;/*Largoo*/
+	text-align: left;
+	font-family: 'Libre Baskerville', serif;
+
+}
+
+#fila1 input {
+	margin: 20px 0px;
+	width: 250px;
+	height: 40px;
+	background-color: #ffcccc;
+}
+
+
+#fila2 input{
+	margin: 20px 0px;
+	width: 250px;
+	height: 40px;
+	background-color: #ffcccc;
+}
+#fieldset2 {
+	margin: 0px 0px 0px 30px;
+	padding: 0px 30px;
+	height: 140px; /*Ancho*/
+	width: 920px;/*Largoo*/
+	text-align: left;
+	font-family: 'Libre Baskerville', serif;
+
+
+}
+
+#fila3 label{
+
+	margin: 10px 0px 0px 0px;
+
+}
+#fila3 input {
+	margin: 20px 0px;
+	width: 180px;
+	height: 45px;
+	background-color: #ffcccc;
+}
+
+
+#tabla th{
+	text-align: center;
+	background-color: #ffcccc;
+}
+
+table,th  {
+	border: 1px solid black;
+}
+
+table,td  {
+	border: 1px solid black;
+}
+
+
+#fieldset4 {
+
+	margin: -100px 0px 0px 970px;
+	padding: 5px 51px;
+	height: 120px; /*Ancho*/
+	width: 260px;/*Largoo*/
+	text-align: center;
+	font-family: 'Libre Baskerville', serif;
+}
+
+#fieldset4 button{
+	margin: 0px 0px 0px 5px;
+	padding: 0px 10px;
+	height: 45px;
+	background-color: #ffcccc;
+
+}

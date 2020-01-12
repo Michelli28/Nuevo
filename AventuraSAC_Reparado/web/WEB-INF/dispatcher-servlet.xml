@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd 
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
+    
+   
+    <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/>
+
+    <!--
+    Most controllers will use the ControllerClassNameHandlerMapping above, but
+    for the index controller we are using ParameterizableViewController, so we must
+    define an explicit mapping for it.
+    -->
+    <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <props>
+                <prop key="index.htm">indexController</prop>
+                
+                <prop key="index.htm">indexController</prop>
+                <prop key="clientes.htm">clienteController</prop>
+                <prop key="nuevocliente.htm">clienteController</prop>
+                <prop key="editarcliente.htm">clienteController</prop>
+                <prop key="eliminarcliente.htm">clienteController</prop>
+                <prop key="obtenercliente.htm">clienteController</prop>
+                
+                <prop key="empleados.htm">empleadoController</prop>
+                <prop key="nuevoempleado.htm">empleadoController</prop>
+                <prop key="editarempleado.htm">empleadoController</prop>
+                <prop key="eliminarempleado.htm">empleadoController</prop>
+                
+                <prop key="proveedores.htm">proveedorController</prop>
+                <prop key="nuevoproveedor">proveedorController</prop>
+                <prop key="editarproveedor.htm">proveedorController</prop>
+                <prop key="eliminarproveedor.htm">proveedorController</prop>
+                
+                <prop key="Cotizacion.htm">cotizacionController</prop>
+                
+                <prop key="login.htm">loginController</prop>
+                <prop key="validar.htm">loginController</prop>
+                <prop key="menu.htm">loginController</prop>
+                <prop key="menucliente.htm">loginController</prop>
+                <prop key="menualmacen.htm">loginController</prop>
+                <prop key="menuventas.htm">loginController</prop>
+                <prop key="menulogistica.htm">loginController</prop>
+                <prop key="nuevo.htm">loginController</prop>
+                 
+                <prop key="GuiaRemision.htm">guiaremisionController</prop>
+                <prop key="GuiaRemisionDetalle.htm">guiaremisionController</prop>
+                
+                <prop key="FichaTecnica.htm">fichaTecnicaController</prop>
+                <prop key="editarficha.htm">fichaTecnicaController</prop>
+                <prop key="eliminarficha.htm">fichaTecnicaController</prop>
+                
+                <prop key="OrdenCompra.htm">ordencompraController</prop>
+                
+                <prop key="nuevopedido.htm">pedidoController</prop>
+                <prop key="listapedidos.htm">pedidoController</prop>
+                <prop key="listapedidostrabajador.htm">pedidoController</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+          p:prefix="/WEB-INF/jsp/"
+          p:suffix=".jsp" />
+
+    <mvc:resources mapping="/resources/**" location="/resources/theme1" cache-period="10000"/>
+    <mvc:annotation-driven />
+    
+    <!--
+    The index controller.
+    -->
+    <bean name="indexController"
+          class="org.springframework.web.servlet.mvc.ParameterizableViewController"
+          p:viewName="index" />
+    
+     <bean name="clienteController"
+          class="controller.ClienteController" />
+    
+    <bean name="empleadoController"
+          class="controller.EmpleadoController" />
+    
+    <bean name="proveedorController"
+          class="controller.ProveedorController" />
+    
+    <bean name="cotizacionController"
+          class="controller.CotizacionController" />
+    
+    <bean name="guiaremisionController"
+          class="controller.GuiaRemisionController" />
+      
+    <bean name="loginController"
+          class="controller.LoginController" />
+    
+    <bean name="fichaTecnicaController"
+          class="controller.FichaTecnicaController" />
+      
+    <bean name="ordencompraController"
+          class="controller.OrdenCompraController" />
+    
+    <bean name="pedidoController"
+          class="controller.PedidoController" />
+
+</beans>

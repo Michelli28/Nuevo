@@ -1,0 +1,134 @@
+#bodys {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    background: #632432 ;
+}
+
+#carta  {
+    height: 100%;
+    width: 100%;
+    margin: 9% auto;
+    padding: 6%;
+    margin-bottom: auto;
+    background: #F5F7FA;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 1%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 1.5%;
+}
+
+#nuevo {
+    
+    display: inline-block;
+    font-size: 1.20em;
+    margin: 0px 0px 15px 0px;
+    width: 100px;
+    height: 45px;
+    padding: 10px 0px;
+    text-decoration: none;
+ 
+}
+
+.card-header h3{
+    font-family: fantasy;
+    font-size: 30px;
+    margin-top: 1%; 
+}
+
+#fiel {
+    
+   border: 1px solid black;
+   width: 35%;
+   margin: 1% 32%; 
+    
+}
+
+#botones {
+    
+   margin: 15px;
+   text-align: center;  
+}
+
+.btn-primary {
+    width: 30%;
+    color: black !important;
+    background: #f1b0b7 !important; 
+    margin: 10px 10px;
+}
+
+.btn-secondary {
+
+    width: 30%;
+    padding: 11px;
+    margin: 10px 20px;
+    height: 47px;
+    background: #f1b0b7 !important;
+    border-color: black;
+    color: black !important;
+    text-decoration: none;
+    text-align: center;
+}
+
+
+#razon1 {
+    margin: 0px 40px;
+} 
+
+#razon {
+    width: 180px;
+}
+
+#ruc2 {
+    margin: 0px 0px;
+}
+
+#ruc {
+    
+    width: 185px;
+    height: 50px;
+    
+}
+
+#dis1 {
+    margin: 0px 40px;
+}
+
+#idDistrito {
+    
+    width: 190px;
+}
+
+#tel {
+    
+    
+    margin: 0px 40px;
+    
+}
+
+#tel1 {
+    
+    
+    height: 50px;
+    
+}
+
+#corr1 {
+    
+    
+    margin: 0px 40px;
+    
+}
+
+#clav1 {
+    
+    
+    margin: 0px 40px;
+    
+}

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="AventuraSAC_ReparadoPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>model.entities.Detallefactura</class>
+    <class>model.entities.Estado</class>
+    <class>model.entities.OrdencompraDetalle</class>
+    <class>model.entities.Tipomodelo</class>
+    <class>model.entities.Pedido</class>
+    <class>model.entities.Movimientoalmacen</class>
+    <class>model.entities.Distrito</class>
+    <class>model.entities.Cargo</class>
+    <class>model.entities.Fichatecnica</class>
+    <class>model.entities.Guiaremision</class>
+    <class>model.entities.Empleado</class>
+    <class>model.entities.Cliente</class>
+    <class>model.entities.Pagos</class>
+    <class>model.entities.CotizacionDetalle</class>
+    <class>model.entities.GuiaremisionDetalle</class>
+    <class>model.entities.Cotizacion</class>
+    <class>model.entities.Insumohilo</class>
+    <class>model.entities.Proveedor</class>
+    <class>model.entities.Areas</class>
+    <class>model.entities.Ordencompra</class>
+    <class>model.entities.Talla</class>
+    <class>model.entities.PedidoDetalle</class>
+    <class>model.entities.Factura</class>
+    <class>model.entities.Tipotela</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/Aventura?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value=""/>
+    </properties>
+  </persistence-unit>
+</persistence>

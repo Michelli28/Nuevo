@@ -1,0 +1,144 @@
+
+body{
+    background: linear-gradient(to bottom, #6699ff 0%, #99ffcc 100%);
+    width:100%;
+}
+
+.card card-header {
+    background : #6699ff;
+    height: 40%;
+    width: 90%;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 5px;
+}
+
+.card card-body {
+    height: 50%;
+    width: 90%;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 5px;
+}
+
+#img img{
+    margin:20px 0px;
+    width: 200px;
+    height: 100px;
+}
+
+#escritos {
+    margin: 0px 0px;
+    position: relative;
+    right: 0px;
+    top:30px;
+}
+
+#escritos h3{
+    font-family: 'Arial', serif;
+    font-size: 100%;
+}
+
+
+
+#fieldset {
+
+    margin: 0px 10px;
+    padding: 30px 30px;
+    text-align: center;
+    position: relative;
+    width: 30%;
+
+
+}
+
+#fieldset h4 {
+
+    margin: 10px 10px;
+    color: black;
+  
+}
+
+#fieldset h4 > strong {
+
+    color: black;
+    
+}
+
+#ngui {
+
+    margin: -10px 45px;
+    text-align: center;
+    padding: 15px; 
+    color: black;
+}
+
+#ngui input{
+
+    width: 25px;
+    height: 25px;
+    background: white;
+
+}
+
+
+#myModal {
+
+    width: 75%;
+    height: 100%;
+}
+
+#dialog {
+    
+    width: 900px; 
+    margin: 2%;
+    height: 100%;
+    justify-content: center;
+}
+
+#content {
+
+    width: 900px;
+    justify-content: center;
+  
+}
+
+.modal-header { 
+    background: #632432;
+}
+
+#titul  h2{
+
+    margin: 75px auto;   
+    color: white;
+}
+
+
+#main{
+
+    width: 1450px;/*Largoo*/
+    top: 5em;
+    left: 8em;
+    width: 80em;
+    height: 10em;
+
+}
+
+#main2{
+
+    background-color: #F5F7FA ;
+    position: 	absolute;
+    margin: 0px 0px 0px 60px;	
+    height: 99em;
+    border-color: #aaaaaa;
+}
+
+#main3{
+    height: 60em;
+}
+
+#carta2 {
+    width: 33rem;
+    margin: 0px 20px;
+}
+
