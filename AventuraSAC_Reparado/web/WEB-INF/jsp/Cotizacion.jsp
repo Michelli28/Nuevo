@@ -180,7 +180,7 @@
                         <fieldset id="fieldset4" style="border: 1px solid gray">
                             <legend><p>¿Qué acción desea realizar?</p></legend>
                             <div class="row" id="fila8">
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-outline-secondary">Enviar</button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" class="btn btn-outline-secondary">Enviar</button>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-outline-secondary">Cancelar</button>
                             </div>
                         </fieldset>
