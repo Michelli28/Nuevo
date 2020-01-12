@@ -1,12 +1,19 @@
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<!DOCTYPE HTML>
+
 
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
         <link href="<c:url value="webapp/resources/theme1/css/bootstrap.min.css" />" rel="stylesheet">
         <link href="<c:url value="webapp/resources/theme1/css/main.css"/>" rel="stylesheet">
         <link href="../../webapp/resources/theme1/css/estilolistapedido.css" rel="stylesheet" type="text/css"/>
@@ -42,9 +49,9 @@
                                 <th style="text-align: center;">Fecha Registro</th>
                                 <th style="text-align: center;">Fecha Entrega</th>
                                 <th style="text-align: center;">Estado</th>
-                                    <c:forEach var="" items="">
+                                  
                                     <th style="text-align: center;">Acciones</th>
-                                    </c:forEach>
+                                 
                             </tr>
                         </thead>
 
@@ -55,7 +62,7 @@
 
                                     <td style="text-align: center;">${item.fechaRegistro}</td>
                                     <td style="text-align: center;">${item.fechaEntrega}</td>
-                                    <td style="text-align: center;">${item.estado}</td>
+                                    <td style="text-align: center;">${item.idEstado.nombre}</td>
                                     <c:forEach var="x" items="${cotiz}">
                                         <c:if test="${x.idPedido == pedidos.idPedido.idPedido}">
                                             <td style="text-align: center;"><a class="btn btn-info" role="button" href="Cotizacion.htm?idPedido=${item.idPedido}" >Ver Cotización <i class="fas fa-edit"></i></a></td>

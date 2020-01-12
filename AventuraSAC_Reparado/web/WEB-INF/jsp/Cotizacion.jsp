@@ -171,10 +171,10 @@
 
                             </div>
                         </div>
-                        
+
                         <div class="col" >
-                           <label for="observacion" >Observaciones:</label>
-                           <form:textarea path="observacion" cssClass="form-control" id="observacion"/>
+                            <label for="observacion" >Observaciones:</label>
+                            <form:textarea path="observacion" cssClass="form-control" id="observacion"/>
                         </div>
 
                         <fieldset id="fieldset4" style="border: 1px solid gray">
@@ -184,7 +184,7 @@
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-outline-secondary">Cancelar</button>
                             </div>
                         </fieldset>
-                    
+
                     </form:form>
                 </div>
 

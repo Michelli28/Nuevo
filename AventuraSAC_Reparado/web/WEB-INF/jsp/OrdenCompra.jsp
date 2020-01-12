@@ -75,11 +75,11 @@
 
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-sm-4" style="left: 10%;">
+                            <div class="col-sm-4" style="left: 0%;">
                                 <label for="fechaEmision"><strong>Fecha:</strong></label>
-                                <form:input path="fechaEmision" cssClass="form-control"/>
+                                <form:input path="fechaEmision" cssClass="form-control" />
                             </div>
-                            <div class="col-sm-4" style="left: 1%;">
+                            <div class="col-sm-4" style="left: 0%;">
                                 <label for="idProveedor"><strong>Proveedor:</strong></label>
                                 <form:select path="idProveedor.idProveedor" id="idProveedor">
                                     <c:forEach items="${proveedor}" var="x">
@@ -87,11 +87,11 @@
                                     </c:forEach>
                                 </form:select>
                             </div>
-                            <div class="col-sm-4" style="left: 1%;">
-                                <c:if test="${x.idProveedor}"> 
+                            <div class="col-sm-4" style="left: 0%;">
+                                
                                     <label><strong>R.U.C:</strong></label>
                                     <input type="text" name="ruc" value="${x.ruc}">
-                                </c:if>
+                             
                             </div>
 
                         </div>

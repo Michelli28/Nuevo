@@ -136,16 +136,19 @@ public class PedidoJpaController implements Serializable {
                     oldIdPedidoOfPagosListPagos = em.merge(oldIdPedidoOfPagosListPagos);
                 }
             }
+            
+            if(pedido.getPedidoDetalleList() == null){
             for (PedidoDetalle pedidoDetalleListPedidoDetalle : pedido.getPedidoDetalleList()) {
           
                 Pedido oldIdPedidoOfPedidoDetalleListPedidoDetalle = pedidoDetalleListPedidoDetalle.getIdPedido();
+                
                 pedidoDetalleListPedidoDetalle.setIdPedido(pedido);
                 pedidoDetalleListPedidoDetalle = em.merge(pedidoDetalleListPedidoDetalle);
                 if (oldIdPedidoOfPedidoDetalleListPedidoDetalle != null ) {
                     oldIdPedidoOfPedidoDetalleListPedidoDetalle.getPedidoDetalleList().remove(pedidoDetalleListPedidoDetalle);
                     oldIdPedidoOfPedidoDetalleListPedidoDetalle = em.merge(oldIdPedidoOfPedidoDetalleListPedidoDetalle);
                 }
-                
+            }
             }
             for (Cotizacion cotizacionListCotizacion : pedido.getCotizacionList()) {
                 Pedido oldIdPedidoOfCotizacionListCotizacion = cotizacionListCotizacion.getIdPedido();
