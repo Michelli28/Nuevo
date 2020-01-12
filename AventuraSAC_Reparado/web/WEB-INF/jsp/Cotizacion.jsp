@@ -124,7 +124,7 @@
                                             <td >${item.idDetallePedido}</td>
                                             <td >${item.idFicha.descripcion}</td>
                                             <td >${item.idFicha.cantidad}</td>
-                                            <td ><input type="text" name="estado" style="text-align: center;" value="${item.idFicha.estado}"/></td>
+                                            <td ></td>
                                             <td ><input type="text" name="subTotal" class="monto" style="text-align: center;" onkeyup="sumar()"/></td>
 
                                         </tr>

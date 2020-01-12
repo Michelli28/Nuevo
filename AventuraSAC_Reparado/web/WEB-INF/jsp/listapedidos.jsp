@@ -12,7 +12,7 @@
         <link href="../../webapp/resources/theme1/css/estilolistapedido.css" rel="stylesheet" type="text/css"/>
         <title>JSP Page</title>
     </head>
-        <body id="body" style="background: #adb5bd;">
+    <body id="body" style="background: #adb5bd;">
 
         <header id="header">
             <a class="logo" href="menu.htm">Aventura S.A.C.</a>
@@ -24,49 +24,56 @@
         <div class="container md-8">
             <br>
             <div class="card" id="carta">
-             
-                    <div class="card-header" style="background: #C1FCEC ;"> 
-                        <br>
- 
-                                <h2><center>Lista de Pedidos</center></h2>
-                 
-                    </div>
+
+                <div class="card-header" style="background: #C1FCEC ;"> 
+                    <br>
+
+                    <h2><center>Lista de Pedidos</center></h2>
+
+                </div>
                 <br>
-                    <div class="card-body">
+                <div class="card-body">
 
-                        <table class="table" style="width: 100%; height: 100%;">
+                    <table class="table" style="width: 100%; height: 100%;">
 
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th style="text-align: center;">IdPedido</th>
+                        <thead class="thead-dark">
+                            <tr>
+                                <th style="text-align: center;">IdPedido</th>
+                                <th style="text-align: center;">Fecha Registro</th>
+                                <th style="text-align: center;">Fecha Entrega</th>
+                                <th style="text-align: center;">Estado</th>
+                                    <c:forEach var="" items="">
+                                    <th style="text-align: center;">Acciones</th>
+                                    </c:forEach>
+                            </tr>
+                        </thead>
 
-                                    <th style="text-align: center;">Fecha Registro</th>
-                                    <th style="text-align: center;">Fecha Entrega</th>
-                                    <th style="text-align: center;">Estado</th>
+                        <tbody>
+                            <c:forEach var="item" items="${pedidos}">
+                                <tr> 
+                                    <th scope="row" style="text-align: center;">${item.idPedido}</th>
+
+                                    <td style="text-align: center;">${item.fechaRegistro}</td>
+                                    <td style="text-align: center;">${item.fechaEntrega}</td>
+                                    <td style="text-align: center;">${item.estado}</td>
+                                    <c:forEach var="x" items="${cotiz}">
+                                        <c:if test="${x.idPedido == pedidos.idPedido.idPedido}">
+                                            <td style="text-align: center;"><a class="btn btn-info" role="button" href="Cotizacion.htm?idPedido=${item.idPedido}" >Ver Cotización <i class="fas fa-edit"></i></a></td>
+                                        </c:if>
+                                    </c:forEach>
                                 </tr>
-                            </thead>
+                            </c:forEach>
 
-                            <tbody>
-                                <c:forEach var="item" items="${pedidos}">
-                                    <tr> 
-                                        <th scope="row" style="text-align: center;">${item.idPedido}</th>
+                        </tbody>
+                    </table>
 
-                                        <td style="text-align: center;">${item.fechaRegistro}</td>
-                                        <td style="text-align: center;">${item.fechaEntrega}</td>
-                                        <td style="text-align: center;">${item.estado}</td>
-                                    </tr>
-                                </c:forEach>
+                    <center>
+                        <a class="btn btn-dark" href="menucliente.htm" role="button">Regresar al Menú</a> 
 
-                            </tbody>
-                        </table>
-                        
-                        <center>
-                             <a class="btn btn-dark" href="menucliente.htm" role="button">Regresar al Menú</a> 
-                             
-                        </center>
+                    </center>
 
-                    </div>
-          
+                </div>
+
             </div>
         </div>
     </body>

@@ -8,11 +8,13 @@ import javax.persistence.Persistence;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.controllers.ClienteJpaController;
+import model.controllers.CotizacionJpaController;
 import model.controllers.EstadoJpaController;
 import model.controllers.FichatecnicaJpaController;
 import model.controllers.PedidoDetalleJpaController;
 import model.controllers.PedidoJpaController;
 import model.entities.Cliente;
+import model.entities.Cotizacion;
 import model.entities.Estado;
 import model.entities.Fichatecnica;
 import model.entities.Pedido;
@@ -35,6 +37,7 @@ public class PedidoController {
     private FichatecnicaJpaController repo2;
     private PedidoDetalleJpaController repo3;
     private EstadoJpaController repo4;
+    private CotizacionJpaController repo5;
 
     public PedidoController() {
         em = getEntityManager();
@@ -43,6 +46,7 @@ public class PedidoController {
         repo2 = new FichatecnicaJpaController(emf);
         repo3 = new PedidoDetalleJpaController(emf);
         repo4 = new EstadoJpaController(emf);
+        repo5 = new CotizacionJpaController(emf);
     }
 
     private EntityManager getEntityManager() {
@@ -62,6 +66,8 @@ public class PedidoController {
 
         List<Pedido> pedidos = repo.findPedidoEntities();
         
+        List<Cotizacion> cotiz = repo5.findCotizacionEntities();
+        
         List<Pedido> pedidostemporal = new ArrayList();
         
         ModelAndView mv = new ModelAndView();
@@ -74,6 +80,16 @@ public class PedidoController {
                 
             }
         }
+        
+        /*for(Pedido p : pedidos){
+            for(Cotizacion co : cotiz){
+                if(p.getIdPedido() == co.getIdPedido().getIdPedido()){
+                    conuevo.add(co);
+                }
+            }
+        }*/
+        
+        mv.addObject("cotizar", cotiz);
 
         mv.addObject("pedidos", pedidostemporal);
         

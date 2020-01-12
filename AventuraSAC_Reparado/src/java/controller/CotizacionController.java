@@ -119,15 +119,52 @@ public class CotizacionController {
 
     @RequestMapping(value = "Cotizacion.htm", method = RequestMethod.POST)
 
-    public ModelAndView NuevoCliente(@ModelAttribute("cotizacion") Cliente c, HttpServletRequest request) throws Exception {
+    public ModelAndView NuevoCotizacion(@ModelAttribute("cotizacion") Cotizacion c, HttpServletRequest request) throws Exception {
         
         int id = Integer.parseInt(request.getParameter("idPedido"));
         
+        List<Pedido> p = repo2.findPedidoEntities();
         
+        List<PedidoDetalle> pd = new ArrayList<>(repo5.findPedidoDetalleEntities());
         
-        repo.create(c);
+        c.setCotizacionDetalleList(new ArrayList<CotizacionDetalle>());
+        
+        double imp = Double.parseDouble(request.getParameter("imp"));
+        
+        double igv = Double.parseDouble(request.getParameter("igv"));
+        
+        double tot = Double.parseDouble(request.getParameter("total"));
+        
+        double sub = Double.parseDouble(request.getParameter("subTotal"));
+        
+        for(PedidoDetalle pdt : pd){
+            
+            if(pdt.getIdPedido().getIdPedido() == id){
+                List<CotizacionDetalle> lista = new ArrayList<>(repo4.listadoxpedido(pdt.getIdDetallePedido()));
+                
+                if(lista.size() == 0){
+                    
+                    CotizacionDetalle detalleC = new CotizacionDetalle();
+                    
+                    detalleC.setIdCotizacion(c);
+                    detalleC.setIdDetallePedido(pdt);
+                    detalleC.setSubTotal(sub);
+                    
+                }
+            }
+        }
+        
+        c.setIdPedido(p.get(id));
+        
+        c.setImporte(imp);
+        
+        c.setIgv(igv);
+        
+        c.setTotal(tot);
+        
+        repo3.create(c);
 
-        return new ModelAndView("redirect:/menu.htm");
+        return new ModelAndView("redirect:/listapedidostrabajador.htm");
     }
 
 }
