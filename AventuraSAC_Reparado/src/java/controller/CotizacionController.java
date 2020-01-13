@@ -66,6 +66,8 @@ public class CotizacionController {
         List<PedidoDetalle> pdtem = new ArrayList();
 
         int id = Integer.parseInt(request.getParameter("idPedido"));
+        
+        request.getSession().setAttribute("idPedido",id);
 
         List<Pedido> p = repo2.findPedidoEntities();
 
@@ -117,51 +119,61 @@ public class CotizacionController {
         return mv;
     }
 
-    @RequestMapping(value = "Cotizacion.htm", method = RequestMethod.POST)
+    @RequestMapping(value = "generarcotizacion.htm", method = RequestMethod.GET)
 
-    public ModelAndView NuevoCotizacion(@ModelAttribute("cotizacion") Cotizacion c, HttpServletRequest request) throws Exception {
-        
-        int id = Integer.parseInt(request.getParameter("idPedido"));
-        
+    public ModelAndView GenerarCotizacion(HttpServletRequest request) throws Exception {
+
+        int id = Integer.parseInt(request.getParameter("idPedidoa"));
+
         List<Pedido> p = repo2.findPedidoEntities();
-        
+
         List<PedidoDetalle> pd = new ArrayList<>(repo5.findPedidoDetalleEntities());
         
+        Cotizacion c = new Cotizacion();
+
         c.setCotizacionDetalleList(new ArrayList<CotizacionDetalle>());
-        
+
         double imp = Double.parseDouble(request.getParameter("imp"));
-        
+
         double igv = Double.parseDouble(request.getParameter("igv"));
-        
+
         double tot = Double.parseDouble(request.getParameter("total"));
-        
+
         double sub = Double.parseDouble(request.getParameter("subTotal"));
         
-        for(PedidoDetalle pdt : pd){
-            
-            if(pdt.getIdPedido().getIdPedido() == id){
+        String fecha = request.getParameter("fechaEmision");
+        
+        String observacion = request.getParameter("observacion");
+
+        for (PedidoDetalle pdt : pd) {
+
+            if (pdt.getIdPedido().getIdPedido() == id) {
                 List<CotizacionDetalle> lista = new ArrayList<>(repo4.listadoxpedido(pdt.getIdDetallePedido()));
-                
-                if(lista.size() == 0){
-                    
+
+                if (lista.size() == 0) {
+
                     CotizacionDetalle detalleC = new CotizacionDetalle();
-                    
+
                     detalleC.setIdCotizacion(c);
                     detalleC.setIdDetallePedido(pdt);
                     detalleC.setSubTotal(sub);
-                    
+
                 }
             }
         }
-        
+
         c.setIdPedido(p.get(id));
         
+        c.setFechaEmision(fecha);
+        
+        c.setObservacion(observacion);
+
         c.setImporte(imp);
-        
+
         c.setIgv(igv);
-        
+
         c.setTotal(tot);
-        
+
         repo3.create(c);
 
         return new ModelAndView("redirect:/listapedidostrabajador.htm");

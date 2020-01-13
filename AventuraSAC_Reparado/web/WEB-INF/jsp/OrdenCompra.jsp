@@ -75,11 +75,11 @@
 
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-sm-4" style="left: 0%;">
+                            <div class="col-sm-4" >
                                 <label for="fechaEmision"><strong>Fecha:</strong></label>
                                 <form:input path="fechaEmision" cssClass="form-control" />
                             </div>
-                            <div class="col-sm-4" style="left: 0%;">
+                            <div class="col-sm-4" >
                                 <label for="idProveedor"><strong>Proveedor:</strong></label>
                                 <form:select path="idProveedor.idProveedor" id="idProveedor">
                                     <c:forEach items="${proveedor}" var="x">
@@ -87,16 +87,40 @@
                                     </c:forEach>
                                 </form:select>
                             </div>
-                            <div class="col-sm-4" style="left: 0%;">
-                                
-                                    <label><strong>R.U.C:</strong></label>
-                                    <input type="text" name="ruc" value="${x.ruc}">
-                             
+                            <div class="col-sm-4" >
+
+                                <label><strong>R.U.C:</strong></label>
+                                <input type="text" name="ruc" value="${x.ruc}">
+
                             </div>
 
                         </div>
+                        <br>
+
+                        <div class="row">
+                            <div class="col-sm-4" >
+                                <label for="descripcion"><strong>Descripción:</strong></label>
+                                <input type="text" name="descripcion"  id="descripcion"/>
+                            </div>
+                            <div class="col-sm-4" >
+
+                                <label for="cantidad"><strong>Cantidad:</strong></label>
+                                <input type="text" name="cantidad" id="cantidad">
+
+                            </div>
+                            <div class="col-sm-4" >
+
+                                <button id="adicionar" class="btn btn-success" type="button">Agregar</button>
+                            </div>
+
+                        </div>
+
+                        <p>Elementos en la Tabla:
+                        <div id="adicionados"></div>
+                        </p>
+
                         <hr style="border: solid gray 1px;">
-                        <table class="table" style="width: 100%;">
+                        <table class="table" style="width: 100%;" id="mytable">
                             <thead class="thead-dark">
                                 <tr>
                                     <th style="text-align: center;">Cantidad</th>
@@ -104,18 +128,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr> 
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                                <tr> 
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                                <tr> 
-                                    <th></th>
-                                    <th></th>
-                                </tr>
+
                             </tbody>
                         </table>
 
@@ -123,7 +136,7 @@
 
                         <center>
                             <input type="submit" class="btn btn-dark"value="Guardar"/>
-                            <a class="btn btn-dark" href="menucliente.htm" role="button">Regresar al Menú</a> 
+                            <a class="btn btn-dark" href="menu.htm" role="button">Regresar al Menú</a> 
                         </center>
 
                     </div>
@@ -133,6 +146,40 @@
             </div>
 
         </div>
+
+        <script>
+            $(document).ready(function () {
+                //obtenemos el valor de los input
+
+                $('#adicionar').click(function () {
+                    var nombre = document.getElementById("descripcion").value;
+                    var apellido = document.getElementById("cantidad").value;
+                    var i = 1; //contador para asignar id al boton que borrara la fila
+                    var fila = '<tr id="row' + i + '"><td>' + nombre + '</td><td>' + apellido + '</td><td>' + cedula + '</td><td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">Quitar</button></td></tr>'; //esto seria lo que contendria la fila
+
+                    i++;
+
+                    $('#mytable tr:first').after(fila);
+                    $("#adicionados").text(""); //esta instruccion limpia el div adicioandos para que no se vayan acumulando
+                    var nFilas = $("#mytable tr").length;
+                    $("#adicionados").append(nFilas - 1);
+                    //le resto 1 para no contar la fila del header
+                    document.getElementById("apellido").value = "";
+                    document.getElementById("cedula").value = "";
+                    document.getElementById("nombre").value = "";
+                    document.getElementById("nombre").focus();
+                });
+                $(document).on('click', '.btn_remove', function () {
+                    var button_id = $(this).attr("id");
+                    //cuando da click obtenemos el id del boton
+                    $('#row' + button_id + '').remove(); //borra la fila
+                    //limpia el para que vuelva a contar las filas de la tabla
+                    $("#adicionados").text("");
+                    var nFilas = $("#mytable tr").length;
+                    $("#adicionados").append(nFilas - 1);
+                });
+            });
+        </script>
 
         <br>
         <br>

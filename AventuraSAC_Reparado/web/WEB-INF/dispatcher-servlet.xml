@@ -44,6 +44,8 @@
                 <prop key="eliminarproveedor.htm">proveedorController</prop>
                 
                 <prop key="Cotizacion.htm">cotizacionController</prop>
+                <prop key="generarcotizacion.htm">cotizacionController</prop>
+
                 
                 <prop key="login.htm">loginController</prop>
                 <prop key="validar.htm">loginController</prop>
