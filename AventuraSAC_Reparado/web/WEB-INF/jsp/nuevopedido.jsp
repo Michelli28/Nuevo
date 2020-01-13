@@ -46,17 +46,17 @@
                             <div class="p-4" class="form-group" id="femision">
 
                                 <label for="fechaRegistro">Fecha Emisión: </label>
-                                <form:input path="fechaRegistro" cssClass="form-control" id="femisionI"/>
+                                <form:input path="fechaRegistro" style="background: #F0E9FF;" cssClass="form-control" id="femisionI"/>
                             </div>
                             <div class="p-4" class="form-group" id="fentrega">
                                 <label for="fechaRegistro">Fecha Entrega: </label>
-                                <form:input path="fechaEntrega" cssClass="form-control" id="fentregaI"/>
+                                <form:input path="fechaEntrega" style="background: #F0E9FF;" cssClass="form-control" id="fentregaI"/>
                             </div>
                         </div>
                     </div>
                     <div class="card-body" >
                             
-                        <a class="btn btn-primary" href="FichaTecnica.htm" role="button" id="nuevo">Agregar Ficha</a>
+                        <a class="btn btn-info" style="text-decoration: none;" href="FichaTecnica.htm" role="button" id="nuevo">Agregar Ficha</a>
                         <br>
                         <br>
                         <table class="table">
@@ -69,7 +69,7 @@
                                     <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody style="background: #F0E9FF;">
                                 <c:forEach var="item" items="${ficha}">
                                     <tr>
                                         <th scope="row">${item.idFicha}</th>
@@ -77,8 +77,8 @@
                                         <th>${item.cantidad}</th>
                                         <th>${item.idEstado.nombre}</th>
                                         <td scope="col-2">
-                                            <a class="btn btn-info" role="button" href="editarficha.htm?id=${item.idFicha}" ><i class="fas fa-edit"></i></a> 
-                                            <button  class="btn btn-warning" type="button" onclick="eliminar('${item.idFicha}')" ><i class="fas fa-trash-alt"></i></button>
+                                            <a class="btn btn-warning" role="button" style="height: 50%;" href="editarficha.htm?id=${item.idFicha}" ><i class="fas fa-edit"></i></a> 
+                                            <button  class="btn btn-danger" type="button" onclick="eliminar('${item.idFicha}')" ><i class="fas fa-trash-alt"></i></button>
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -96,7 +96,7 @@
                         
                         <center>
                             <input type="submit" class="btn btn-dark"value="Enviar"/>
-                            <a class="btn btn-dark" href="menucliente.htm" role="button">Regresar al Menú</a> 
+                            <a class="btn btn-dark" style="text-decoration: none;" href="menucliente.htm" role="button">Regresar al Menú</a> 
                         </center>
                     </div>
                 </form:form>

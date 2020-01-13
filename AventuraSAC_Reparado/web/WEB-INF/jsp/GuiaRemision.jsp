@@ -17,123 +17,137 @@
 
 
     </head>
-    <body>
+    <body id="body">
+
         <header id="header">
-            <a class="logo" href="index.html">Aventura S.A.C.</a>
+            <a class="logo" href="menu.htm">Aventura S.A.C.</a>
             <nav>
-                <a href="#menu">Menu</a>
+                <a href="login.htm">Salir</a>
             </nav>
         </header>
-         
-            <div id="container">
-                <section id="Contenedor1" class="wrapper" >
-                    <div id="Contenedorlogo" class="inner" style="border:9px double">
-                        <div id="Contenedorlogo2" class="content">
-                            <div class="row">
-                                <div class="col" id="imagen">
-                                    <h1><img src="webapp/resources/theme1/images/logo.PNG"></h1>
-                                </div> 
-                                <div class="col" id="escritos">
-                                    <center>
-                                        <p>Cal. Mercaderes Nro. 164 Dpto. 203</p>
-                                        <p>Urb. Las Gardenias (Alt. Cuadra 50 de la Avenida Benavides)</p>
-                                    </center>
-                                </div>
-                                <div class="col">
-                                    <fieldset style="border:1px solid black" id="fieldset">
-                                        <h3> R.U.C. N° 20111807958 </h3>
-                                        <H3><strong>Guía de Remisión</strong></H3>
-                                        <div class="row" id="ngui">
-                                            N° &nbsp;&nbsp;&nbsp;<input type="text" name="nroguia">&nbsp;-&nbsp;0000041
+
+        <div class="container md-8">
+
+            <div class="card" id="carta">
+
+                <form:form method="post" modelAttribute="guiaremision">
+
+                    <div class="card-header" id="cardheader">
+                        <br>
+                        <center><h2><strong>Guía de Remisión</strong></h2></center>
+
+                        <div class="d-flex flex-row">
+
+                            <div  class="p-4" id="img">
+
+                                <img src="webapp/resources/theme1/images/logo2.png">
+
+                            </div>
+
+                            <div class="p-4"  id="escritos">
+                                <p>Cal. Mercaderes Nro. 164 Dpto. 203 </p>
+                                <p>Urb. Las Gardenias (Alt. Cuadra 50 de la Avenida Benavides)</p>
+
+                            </div>
+
+                            <div class="p-4" id="fieldset">
+
+                                <fieldset style="border:1px solid black" id="fld" >
+
+                                    <h5><strong> R.U.C. N° 20111807958 </strong></h5>
+                                    <div class="d-flex flex-row" id="ngui">
+                                        <div class="p-3">
+                                            N° 
                                         </div>
-                                    </fieldset>
-                                </div>
+                                        <div class="p-3">
+                                            <input type="text" style="background: #F0E9FF;" name="idGuiaRemision">
+                                        </div>
+                                        <div class="p-3">
+                                            -&nbsp;0000041
+                                        </div>
+                                    </div>
+
+                                </fieldset>
                             </div>
                         </div>
                     </div>
-                </section>
-<form:form method="post" modelAttribute="guiaremision">
-                <section id="main" class="wrapper" >
-                    <div id="main2" class="inner" style="border:9px double">
-                        <div id="main3" class="content">
-
-                            <fieldset id="fieldset1" style="border: 1px solid gray">
-                                <legend><strong>Ingresar datos</strong></legend>
-                                <div class="row" id="fila1">
-                                    <div class="col-sm-4">
-                                      <label for="fechaEmision">Fecha Emision:</label>
-                                <form:input path="fechaEmision"  cssClass="form-control" placeholder="Ingresar fecha" />
-                                    </div>
-                                </div>
-                                <div class="row" id="fila2">
-                                    <div class="col-sm-3">	
-                                         <label for="puntoLlegada">Punto de Llegada:</label>
-                                <form:input path="puntoLlegada"  cssClass="form-control" placeholder="Ingresar lugar de llegada" />
-                                    </div>	
-                                    <div class="col-sm-3">  
-                                        <label for="destinatario">Destinatario:</label>
-                                <form:input path="destinatario"  cssClass="form-control" placeholder="Ingresar Destinatario" />
-                                    </div>
-                                </div>
-                            </fieldset>
-
-                            <hr style="border: 1px solid gray">
-
-                            <fieldset id="fieldset2" style="border: 1px solid gray">
-                                <legend><strong>Ingresar datos</strong></legend>
-                                <div class="row" id="fila3">
-                                    <div class="col-sm-3">
-                                        <label for="rUCtransporte" >RUC Transporte:</label>
-                                   <form:input path="rUCtransporte"  cssClass="form-control" />
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <label for="nombreTransportista">Nombre de Chofer:</label>
-                                     <form:input path="nombreTransportista"  cssClass="form-control" />
-                                    </div>
-                                    <div class="col-sm-3">		
-                                        <label for="marcayPlaca">Marca y Placa:</label>
-                                     <form:input path="marcayPlaca"  cssClass="form-control" />
-                                    </div>
-                                    <div class="col-sm-3">      
-                                        <label for="licencia">Licencia:</label>
-                                     <form:input path="licencia"  cssClass="form-control" />
-                                    </div>
-                                </div>
-                            </fieldset>
-                        </form:form>
-                            <br>
-                            
-                 <form:form method="post" modelAttribute="guiaremisionDetalle">          
-                           <fieldset id="fieldset1" style="border: 1px solid gray">
-                                <legend><strong>Detalles</strong></legend>
-                                <div class="row" id="fila1">
-                                    <div class="col-sm-4">
-                                        <label for="cantidad">Cantidad:</label>
-                                        <input type=""  />
-                                    </div>
-                                </div>
-                                <div class="row" id="fila2">
-                                    <div class="col-sm-2">	
-                                        <label for="descripcion">Descripcion:</label>
-                                        <input type="text" name="descripcion"  cssClass="form-control" />
-                                    </div>	
-                                </div>
-                            </fieldset>
-                  </form:form>
-                            
 
 
-                            <fieldset id="fieldset4" style="border: 1px solid gray">
-                                <legend>¿Qué acción desea realizar?</legend>
-                                <div class="row" id="fila8">
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-outline-secondary">Enviar</button>
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-outline-secondary">Cancelar</button>
-                                </div>
-                            </fieldset>
+                    <div class="card-body">
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label for="fechaEmision">Fecha Emision:</label>
+                                <form:input path="fechaEmision"  style="background: #F0E9FF;" cssClass="form-control" placeholder="Ingresar fecha" />
+                            </div>
+                            <div class="col-sm-4">	
+                                <label for="puntoLlegada">Punto de Llegada:</label>
+                                <form:input path="puntoLlegada"  style="background: #F0E9FF;" cssClass="form-control" placeholder="Ingresar lugar de llegada" />
+                            </div>	
+                            <div class="col-sm-4">  
+                                <label for="destinatario">Destinatario:</label>
+                                <form:input path="destinatario"  style="background: #F0E9FF;" cssClass="form-control" placeholder="Ingresar Destinatario" />
+                            </div>
                         </div>
-                    </div>
-                </section>
+
+                        <hr style="border: 1px solid gray">
+                        <fieldset style="border: 1px solid gray" id="datostransporte">
+                            <legend><strong>Ingresar datos</strong></legend>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label for="rUCtransporte" >RUC Transporte:</label>
+                                    <form:input path="rUCtransporte" style="background: #F0E9FF;" cssClass="form-control" placeholder="RUC Transporte" />
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="nombreTransportista">Nombre de Chofer:</label>
+                                    <form:input path="nombreTransportista" style="background: #F0E9FF;" cssClass="form-control" placeholder="Nombre Chofer" />
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-sm-6">		
+                                    <label for="marcayPlaca">Marca y Placa:</label>
+                                    <form:input path="marcayPlaca" style="background: #F0E9FF;" cssClass="form-control" placeholder="Marca y Placa" />
+                                </div>
+                                <div class="col-sm-6">      
+                                    <label for="licencia">Licencia:</label>
+                                    <form:input path="licencia" style="background: #F0E9FF;" cssClass="form-control" placeholder="Licencia"/>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form:form>
+
+                    <hr style="border: 1px solid gray ">
+
+                    <form:form method="post" modelAttribute="guiaremisionDetalle">          
+                        <fieldset id="fieldset1" style="border: 1px solid gray">
+                            <legend><strong>Detalles</strong></legend>
+                            <div class="row" id="fila1">
+                                <div class="col-sm-4">
+                                    <label for="cantidad">Cantidad:</label>
+                                    <input type=""  />
+                                </div>
+                            </div>
+                            <div class="row" id="fila2">
+                                <div class="col-sm-2">	
+                                    <label for="descripcion">Descripcion:</label>
+                                    <input type="text" name="descripcion"  cssClass="form-control" />
+                                </div>	
+                            </div>
+                        </fieldset>
+                    </form:form>
+
+
+
+                    <fieldset id="fieldset4" style="border: 1px solid gray">
+                        <legend>¿Qué acción desea realizar?</legend>
+                        <div class="row" id="fila8">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-outline-secondary">Enviar</button>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-outline-secondary">Cancelar</button>
+                        </div>
+                    </fieldset>
+                </div>
             </div>
-        </form>
+        </div>
     </body>
 </html>
