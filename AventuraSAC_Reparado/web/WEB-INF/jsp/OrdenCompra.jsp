@@ -96,6 +96,7 @@
 
                         </div>
                         <br>
+                        <hr style="border: solid gray 1px;">
 
                         <div class="row">
                             <div class="col-sm-4" >
@@ -109,8 +110,8 @@
 
                             </div>
                             <div class="col-sm-4" >
-
-                                <button id="adicionar" class="btn btn-success" type="button">Agregar</button>
+                                <br>
+                                <button id="adicionar" class="btn btn-success" type="button" style="margin: 15px 0px; width: 200px" onclick="guardar()">Agregar</button>
                             </div>
 
                         </div>
@@ -119,15 +120,17 @@
                         <div id="adicionados"></div>
                         </p>
 
-                        <hr style="border: solid gray 1px;">
+
                         <table class="table" style="width: 100%;" id="mytable">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th style="text-align: center;">Cantidad</th>
                                     <th style="text-align: center;">Descripción</th>
+                                    <th style="text-align: center;">Cantidad</th>
+                                    <th style="text-align: center;">Accion</th>
+
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="tablita">
 
                             </tbody>
                         </table>
@@ -147,42 +150,44 @@
 
         </div>
 
+
+
+        <br>
+        <br>
+
         <script>
-            $(document).ready(function () {
-                //obtenemos el valor de los input
 
-                $('#adicionar').click(function () {
-                    var nombre = document.getElementById("descripcion").value;
-                    var apellido = document.getElementById("cantidad").value;
-                    var i = 1; //contador para asignar id al boton que borrara la fila
-                    var fila = '<tr id="row' + i + '"><td>' + nombre + '</td><td>' + apellido + '</td><td>' + cedula + '</td><td><button type="button" name="remove" id="' + i + '" class="btn btn-danger btn_remove">Quitar</button></td></tr>'; //esto seria lo que contendria la fila
+            function guardar() {
 
-                    i++;
+                var _nom = document.getElementById("descripcion").value;
+                var _ape = document.getElementById("cantidad").value;
+                var i = 1;
 
-                    $('#mytable tr:first').after(fila);
-                    $("#adicionados").text(""); //esta instruccion limpia el div adicioandos para que no se vayan acumulando
-                    var nFilas = $("#mytable tr").length;
-                    $("#adicionados").append(nFilas - 1);
-                    //le resto 1 para no contar la fila del header
-                    document.getElementById("apellido").value = "";
-                    document.getElementById("cedula").value = "";
-                    document.getElementById("nombre").value = "";
-                    document.getElementById("nombre").focus();
-                });
-                $(document).on('click', '.btn_remove', function () {
+                var fila = "<tr><td style='text-align: center;'>" + _nom + "</td><td style='text-align: center;'>" + _ape + "</td><td><button type='button' name='remove' id='" + i + "' class='btn btn-danger btn_remove' onclick='remove()' >Quitar</button></td></tr>";
+                i++;
+                 $("#adicionados").text(""); //esta instruccion limpia el div adicioandos para que no se vayan acumulando
+                var btn = document.createElement("mytable TR");
+                btn.innerHTML = fila;
+                 $("#adicionados").append(btn - 1);
+                document.getElementById("tablita").appendChild(btn);
+                document.getElementById("cantidad").value = "";
+                document.getElementById("descripcion").value = "";
+                document.getElementById("descripcion").focus();
+
+                function remove() {
                     var button_id = $(this).attr("id");
                     //cuando da click obtenemos el id del boton
                     $('#row' + button_id + '').remove(); //borra la fila
                     //limpia el para que vuelva a contar las filas de la tabla
                     $("#adicionados").text("");
-                    var nFilas = $("#mytable tr").length;
-                    $("#adicionados").append(nFilas - 1);
-                });
-            });
-        </script>
+                    var btn = document.createElement("TR");
+                    $("#adicionados").append(btn - 1);
+                }
 
-        <br>
-        <br>
+            }
+
+
+        </script>
 
     </body>
 </html>
