@@ -131,7 +131,7 @@
                                 </tr>
                             </thead>
                             <tbody id="tablita">
-
+                                
                             </tbody>
                         </table>
 
@@ -162,29 +162,30 @@
                 var _nom = document.getElementById("descripcion").value;
                 var _ape = document.getElementById("cantidad").value;
                 var i = 1;
-
-                var fila = "<tr><td style='text-align: center;'>" + _nom + "</td><td style='text-align: center;'>" + _ape + "</td><td><button type='button' name='remove' id='" + i + "' class='btn btn-danger btn_remove' onclick='remove()' >Quitar</button></td></tr>";
-                i++;
-                 $("#adicionados").text(""); //esta instruccion limpia el div adicioandos para que no se vayan acumulando
-                var btn = document.createElement("mytable TR");
+                var fila = '<tr id="row" ' + i + '><td style="text-align: center;">' + _nom + '</td><td style="text-align: center;">' + _ape + '</td><td><button type="button" id="' + i + '" class="btn btn-danger btn_remove" onclick="remove()" >Quitar</button></td></tr>';
+                //$("#adicionados").value = i++;
+                var btn = document.createElement("TR");
                 btn.innerHTML = fila;
-                 $("#adicionados").append(btn - 1);
                 document.getElementById("tablita").appendChild(btn);
                 document.getElementById("cantidad").value = "";
                 document.getElementById("descripcion").value = "";
                 document.getElementById("descripcion").focus();
-
-                function remove() {
-                    var button_id = $(this).attr("id");
-                    //cuando da click obtenemos el id del boton
-                    $('#row' + button_id + '').remove(); //borra la fila
-                    //limpia el para que vuelva a contar las filas de la tabla
-                    $("#adicionados").text("");
-                    var btn = document.createElement("TR");
-                    $("#adicionados").append(btn - 1);
-                }
-
             }
+
+
+            $(document).on('click', '.btn_remove', function () {
+                var button_id = $(this).attr("id");
+                //cuando da click obtenemos el id del boton
+                $('#row' + button_id + '').remove(); //borra la fila
+                //limpia el para que vuelva a contar las filas de la tabla
+                $("#adicionados").text("");
+                var btn = document.createElement("TR");
+                $("#adicionados").append(btn - 1);
+            });
+
+
+
+
 
 
         </script>

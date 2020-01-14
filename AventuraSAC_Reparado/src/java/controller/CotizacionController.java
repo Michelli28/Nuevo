@@ -127,7 +127,7 @@ public class CotizacionController {
 
         List<Pedido> p = repo2.findPedidoEntities();
 
-        List<PedidoDetalle> pd = new ArrayList<>(repo5.findPedidoDetalleEntities());
+        List<PedidoDetalle> pd = repo5.findPedidoDetalleEntities();
         
         Cotizacion c = new Cotizacion();
 
@@ -168,9 +168,17 @@ public class CotizacionController {
             }
         }
         
-
-        c.setIdPedido(id);
+        for(Pedido PD : p){
+            if(PD.getIdPedido() == id){
+                //List<Pedido> pedido = new ArrayList<>(repo2.listadoxpedidos(PD.getIdPedido()));
+                
+                c.setIdPedido(PD);
+            }
+        }
         
+
+        //c.setIdPedido(pedido);
+         
         c.setFechaEmision(fecha);
         
         c.setObservacion(observacion);

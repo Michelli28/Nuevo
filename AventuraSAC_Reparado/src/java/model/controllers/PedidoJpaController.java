@@ -438,6 +438,22 @@ public class PedidoJpaController implements Serializable {
         }
     }
 
+     public List<Pedido> listadoxpedidos(int idPedido) {
+        EntityManager em = getEntityManager();
+        List<Pedido> lista = new ArrayList();
+        try {
+            Query q = em.createQuery("SELECT p FROM Pedido p WHERE p.idPedido = :idPedido").setParameter("idPedido",idPedido);
+            lista = (List<Pedido>)q.getResultList();
+            System.out.println("Listado por pedido" + lista.size());
+
+        } 
+        finally {
+            em.close();
+        }
+        return lista;
+    }
+
+    
     public Pedido findPedido(Integer id) {
         EntityManager em = getEntityManager();
         try {
