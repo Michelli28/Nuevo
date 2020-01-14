@@ -96,12 +96,12 @@ public class CotizacionJpaController implements Serializable {
                 cotizacion.setIdPedido(idPedidoNew);
             }
             List<CotizacionDetalle> attachedCotizacionDetalleListNew = new ArrayList<CotizacionDetalle>();
-            if (cotizacionDetalleListNew != null) {
+            
                 for (CotizacionDetalle cotizacionDetalleListNewCotizacionDetalleToAttach : cotizacionDetalleListNew) {
                     cotizacionDetalleListNewCotizacionDetalleToAttach = em.getReference(cotizacionDetalleListNewCotizacionDetalleToAttach.getClass(), cotizacionDetalleListNewCotizacionDetalleToAttach.getIdDetalleCotizacion());
                     attachedCotizacionDetalleListNew.add(cotizacionDetalleListNewCotizacionDetalleToAttach);
                 }
-            }
+            
             cotizacionDetalleListNew = attachedCotizacionDetalleListNew;
             cotizacion.setCotizacionDetalleList(cotizacionDetalleListNew);
             cotizacion = em.merge(cotizacion);

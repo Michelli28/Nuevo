@@ -67,7 +67,7 @@ public class CotizacionController {
 
         int id = Integer.parseInt(request.getParameter("idPedido"));
         
-        request.getSession().setAttribute("idPedido",id);
+        request.setAttribute("idPedido", id);
 
         List<Pedido> p = repo2.findPedidoEntities();
 
@@ -119,11 +119,11 @@ public class CotizacionController {
         return mv;
     }
 
-    @RequestMapping(value = "generarcotizacion.htm", method = RequestMethod.GET)
+    @RequestMapping(value = "generarcotizacion.htm", method = RequestMethod.POST)
 
     public ModelAndView GenerarCotizacion(HttpServletRequest request) throws Exception {
 
-        int id = Integer.parseInt(request.getParameter("idPedidoa"));
+        int id = Integer.parseInt(request.getParameter("idPedido"));
 
         List<Pedido> p = repo2.findPedidoEntities();
 
@@ -133,13 +133,19 @@ public class CotizacionController {
 
         c.setCotizacionDetalleList(new ArrayList<CotizacionDetalle>());
 
-        double imp = Double.parseDouble(request.getParameter("imp"));
-
-        double igv = Double.parseDouble(request.getParameter("igv"));
-
-        double tot = Double.parseDouble(request.getParameter("total"));
-
         double sub = Double.parseDouble(request.getParameter("subTotal"));
+
+        String imp = request.getParameter("imp");
+        
+        double impo = Double.parseDouble(imp);
+
+        String igv = request.getParameter("igv");
+        
+        double igvv = Double.parseDouble(igv);
+
+        String tot = request.getParameter("total");
+        
+        double total = Double.parseDouble(tot);
         
         String fecha = request.getParameter("fechaEmision");
         
@@ -161,18 +167,19 @@ public class CotizacionController {
                 }
             }
         }
+        
 
-        c.setIdPedido(p.get(id));
+        c.setIdPedido(id);
         
         c.setFechaEmision(fecha);
         
         c.setObservacion(observacion);
 
-        c.setImporte(imp);
+        c.setImporte(impo);
 
-        c.setIgv(igv);
+        c.setIgv(igvv);
 
-        c.setTotal(tot);
+        c.setTotal(total);
 
         repo3.create(c);
 
