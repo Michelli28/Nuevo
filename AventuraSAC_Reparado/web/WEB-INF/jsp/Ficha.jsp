@@ -34,7 +34,7 @@
 
             <div class="card" id="carta">     
 
-                <form:form method="post" modelAttribute="fichatecnica" id="formulario">
+                <form:form method="post" modelAttribute="fichatecnica" id="formulario" >
 
                     <div class="card-header" id="cardheader">
                         <br>
@@ -122,6 +122,12 @@
                                 <form:input path="cantidad"  style="background: #F0E9FF;" cssClass="form-control" placeholder="Ingresar cantidad"/>
                             </div>
                         </div>
+                        <div>
+                            <label for="cantidad" >Muestra:</label>
+                            <button type="button" >Adjuntar</button>
+
+                            <input type="file" name="file" value="Subir"/>
+                        </div>
 
                         <hr style="border: 1px solid gray">
 
@@ -129,7 +135,7 @@
                             <div class="col-sm-5" style="right: 15%;">
                                 <div class="d-flex flex-row">
                                     <div  class="p-6">
-                                        <div class="card" id="carta2" style="left: 55%;">
+                                        <div class="card" id="carta2" >
                                             <div class="card-body" id="body2">
                                                 <h5 class="card-title">Combinación de colores:</h5>
                                                 <h6 class="card-subtitle mb-2 text-muted">Seleccionar..</h6>
@@ -182,61 +188,60 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-3" style="left: 20%; margin: 3% 0%;">
-                                <div>
-                                    <label for="idEstado" >Estado:</label>
-                                    <form:select path="idEstado.idEstado" id="fentregaI">
+                            <div>
+                             
+                                    <form:select path="hidden" id="fentregaI" >
                                         <c:forEach items="${estado}" var="x">
                                             <option value="${x.idEstado}">${x.nombre}</option>
                                         </c:forEach>
                                     </form:select>
-                                </div>
+                           
                             </div>
                         </div>
-                            <hr style="border: 1px solid gray">
-                            <center>
-                                <input type="submit" class="btn btn-dark"  value="Registrar" id="btn">
-                                <a class="btn btn-dark" style="text-decoration: none;" href="pedidos.htm">Regresar</a>
-                            </center>
-                        </div>
-                    </form:form>
-                </div>
+                        <hr style="border: 1px solid gray">
+                        <center>
+                            <input type="submit" class="btn btn-dark"  value="Registrar" id="btn">
+                            <a class="btn btn-dark" style="text-decoration: none;" href="pedidos.htm">Regresar</a>
+                        </center>
+                    </div>
+                </form:form>
             </div>
+        </div>
 
-            <script>
-                $(function () {
-                    $("#btn").on("click", function () {
-                        $("#formulario").validate({
-                            rules:
-                                    {
-                                        descripcion: {required: true, minlength: 5, maxlength: 50, lettersonly: true},
-                                        cantidad: {required: true, numbersonly: true},
-                                        etiqueta: {required: true, minlength: 3, maxlength: 10}
+        <script>
+            $(function () {
+                $("#btn").on("click", function () {
+                    $("#formulario").validate({
+                        rules:
+                                {
+                                    descripcion: {required: true, minlength: 5, maxlength: 50, lettersonly: true},
+                                    cantidad: {required: true, numbersonly: true},
+                                    etiqueta: {required: true, minlength: 3, maxlength: 10}
 
-                                    },
-                            messages:
-                                    {
-                                        descripcion: {required: 'El campo es requerido', minlength: 'El mínimo permitido son 5 caracteres',
-                                            maxlength: 'El máximo permitido son 50 caracteres', lettersonly: 'Porfavor, solo letras'},
-                                        cantidad: {required: 'El campo es requerido', numbersonly: 'Por favor, solo ingrese números'},
-                                        etiqueta: {required: 'El campo es requerido', minlength: 'El mínimo permitido son 3 caracteres',
-                                            maxlength: 'El máximo permitido son 10 caracteres', lettersonly: 'Porfavor, solo letras'}
-                                    }
-                        });
+                                },
+                        messages:
+                                {
+                                    descripcion: {required: 'El campo es requerido', minlength: 'El mínimo permitido son 5 caracteres',
+                                        maxlength: 'El máximo permitido son 50 caracteres', lettersonly: 'Porfavor, solo letras'},
+                                    cantidad: {required: 'El campo es requerido', numbersonly: 'Por favor, solo ingrese números'},
+                                    etiqueta: {required: 'El campo es requerido', minlength: 'El mínimo permitido son 3 caracteres',
+                                        maxlength: 'El máximo permitido son 10 caracteres', lettersonly: 'Porfavor, solo letras'}
+                                }
                     });
                 });
-            </script>
+            });
+        </script>
 
-            <script>
-                $(document).ready(function () {      //DOM manipulation code  
-                    jQuery.validator.addMethod("lettersonly", function (value, element) {
-                        return this.optional(element) || /^[a-z]+$/i.test(value);
-                    }, "Por favor, solo letras");
-                    jQuery.validator.addMethod("numbersonly", function (value, element) {
-                        return this.optional(element) || /^[0-9]+$/i.test(value);
-                    }, "Por favor, solo números");
-                });
-            </script>
+        <script>
+            $(document).ready(function () {      //DOM manipulation code  
+                jQuery.validator.addMethod("lettersonly", function (value, element) {
+                    return this.optional(element) || /^[a-z]+$/i.test(value);
+                }, "Por favor, solo letras");
+                jQuery.validator.addMethod("numbersonly", function (value, element) {
+                    return this.optional(element) || /^[0-9]+$/i.test(value);
+                }, "Por favor, solo números");
+            });
+        </script>
 
     </body>
 </html>

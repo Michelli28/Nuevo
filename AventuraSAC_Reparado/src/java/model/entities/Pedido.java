@@ -6,6 +6,8 @@
 package model.entities;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -66,10 +68,12 @@ public class Pedido implements Serializable {
     private Cliente idCliente;
 
     public Pedido() {
+        fechaRegistro = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
     }
 
     public Pedido(Integer idPedido) {
         this.idPedido = idPedido;
+        fechaRegistro = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
     }
 
     public Pedido(Integer idPedido, String fechaRegistro, String fechaEntrega) {
@@ -187,5 +191,5 @@ public class Pedido implements Serializable {
     public String toString() {
         return "model.entities.Pedido[ idPedido=" + idPedido + " ]";
     }
-    
+
 }

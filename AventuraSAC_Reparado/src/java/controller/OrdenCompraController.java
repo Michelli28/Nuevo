@@ -5,9 +5,11 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.servlet.http.HttpServletRequest;
 import model.controllers.OrdencompraDetalleJpaController;
 import model.controllers.OrdencompraJpaController;
 import model.controllers.ProveedorJpaController;
+import model.entities.Empleado;
 import model.entities.Ordencompra;
 import model.entities.Proveedor;
 import org.springframework.stereotype.Controller;
@@ -49,7 +51,11 @@ public class OrdenCompraController  {
     }
     @RequestMapping(value = "OrdenCompra.htm", method = RequestMethod.GET)
     
-    public ModelAndView NuevaOrdenCompra(Model model) {
+    public ModelAndView NuevaOrdenCompra(Model model, HttpServletRequest request) {
+        
+        Empleado e = (Empleado) request.getSession().getAttribute("usuario");
+        
+        request.setAttribute("usuario", e);
         
         ModelAndView mv = new ModelAndView();
         
@@ -64,11 +70,17 @@ public class OrdenCompraController  {
         return mv;
     }
     
-    @RequestMapping(value = "OrdenCompra.htm", method = RequestMethod.POST)
+    @RequestMapping(value = "generarorden.htm", method = RequestMethod.POST)
     
-    public ModelAndView NuevaFichaTecnica(@ModelAttribute("ordencompra") Ordencompra o) throws Exception{
+    public ModelAndView NuevaFichaTecnica(Model model, HttpServletRequest request) throws Exception{
         
-        repo.create(o);
+        
+        
+        Empleado e = (Empleado) request.getSession().getAttribute("usuario");
+
+        int id = Integer.parseInt(request.getParameter("idEmpleado"));
+
+        //repo.create(o);
         
         return new ModelAndView("redirect:/menu.htm");
     }

@@ -60,7 +60,9 @@
                                     <td style="text-align: center">${item.fechaRegistro}</td>
                                     <td style="text-align: center">${item.fechaEntrega}</td>
                                     <td style="text-align: center">
-                                        <a class="btn btn-info" role="button" href="Cotizacion.htm?idPedido=${item.idPedido}" >Generar Cotización <i class="fas fa-edit"></i></a>
+                                        <c:if test="${item.cotizacionList.size() == 0}">
+                                            <a class="btn btn-info" role="button" href="Cotizacion.htm?idPedido=${item.idPedido}" >Generar Cotización <i class="fas fa-edit"></i></a>
+                                        </c:if>
                                     </td>
                                 </tr>
                             </c:forEach>
