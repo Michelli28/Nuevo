@@ -116,26 +116,35 @@
                             <table class="table" id="table">
                                 <thead class="thead-dark">
                                     <tr class="encabezado">
-                                        <th>IdPedido</th>
-                                        <th>IdFicha</th>
-                                        <th>Descripcion</th>
-                                        <th>Cantidad</th>
-                                        <th>Estado</th>
-                                        <th>Subtotal</th>
+                                        <th style="text-align: center;">IdFicha</th>
+                                        <th style="text-align: center;">Descripcion</th>
+                                        <th style="text-align: center;">Cantidad</th>
+                                        <th style="text-align: center;">Estado</th>
+                                        <th style="text-align: center;">Subtotal</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <c:forEach var="item" items="${detalle}">
                                         <tr>
-                                            <td scope="row" >${item.idPedido.idPedido}</td>
-                                            <td >${item.idDetallePedido}</td>
-                                            <td >${item.idFicha.descripcion}</td>
-                                            <td >${item.idFicha.cantidad}</td>
-                                            <td ></td>
-                                            <td ><input type="text" name="subTotal" class="monto" style="text-align: center;" onkeyup="sumar()"/></td>
+                                            <td style="text-align: center;">${item.idDetallePedido}</td>
+                                            <td style="text-align: center;">${item.idFicha.descripcion}</td>
+                                            <td style="text-align: center;">${item.idFicha.cantidad}</td>
+                                            <td style="text-align: center;"><select name="idEstado" >
+                                        <c:forEach items="${estado}" var="x">
+                                            <c:if test="${item.idFicha.idEstado.idEstado == x.idEstado}">
+                                            <option value="${x.idEstado}">${x.nombre}</option>
+                                            </c:if>
+                                            <c:if test="${item.idFicha.idEstado.idEstado != x.idEstado}">
+                                            <option value="${x.idEstado}">${x.nombre}</option>
+                                            </c:if>
+                                        </c:forEach>
+                                    </select>
+                                  
+                                    </td>
+                                    <td ><input type="text" name="subTotal" class="monto" style="text-align: center;" onkeyup="sumar()"/></td>
 
-                                        </tr>
-                                    </c:forEach>
+                                    </tr>
+                                </c:forEach>
 
                                 </tbody>
 

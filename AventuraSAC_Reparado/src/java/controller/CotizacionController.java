@@ -12,11 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import model.controllers.ClienteJpaController;
 import model.controllers.CotizacionDetalleJpaController;
 import model.controllers.CotizacionJpaController;
+import model.controllers.EstadoJpaController;
 import model.controllers.PedidoJpaController;
 import model.controllers.PedidoDetalleJpaController;
 import model.entities.Cliente;
 import model.entities.Cotizacion;
 import model.entities.CotizacionDetalle;
+import model.entities.Estado;
 import model.entities.Pedido;
 import model.entities.PedidoDetalle;
 import org.springframework.stereotype.Controller;
@@ -36,6 +38,7 @@ public class CotizacionController {
     private CotizacionJpaController repo3;
     private CotizacionDetalleJpaController repo4;
     private PedidoDetalleJpaController repo5;
+    private EstadoJpaController repo6;
 
     public CotizacionController() {
         em = getEntityManager();
@@ -44,6 +47,7 @@ public class CotizacionController {
         repo3 = new CotizacionJpaController(emf);
         repo4 = new CotizacionDetalleJpaController(emf);
         repo5 = new PedidoDetalleJpaController(emf);
+        repo6 = new EstadoJpaController(emf);
 
     }
 
@@ -65,8 +69,10 @@ public class CotizacionController {
 
         List<PedidoDetalle> pdtem = new ArrayList();
 
+        List<Estado> estado = repo6.findEstadoEntities();
+
         int id = Integer.parseInt(request.getParameter("idPedido"));
-        
+
         request.setAttribute("idPedido", id);
 
         List<Pedido> p = repo2.findPedidoEntities();
@@ -108,6 +114,8 @@ public class CotizacionController {
             }
         }
 
+        mv.addObject("estado", estado);
+
         mv.addObject("detalle", pdtem);
 
         mv.addObject("clientes", clty);
@@ -128,7 +136,9 @@ public class CotizacionController {
         List<Pedido> p = repo2.findPedidoEntities();
 
         List<PedidoDetalle> pd = repo5.findPedidoDetalleEntities();
-        
+
+        List<PedidoDetalle> pdtem = new ArrayList();
+
         Cotizacion c = new Cotizacion();
 
         c.setCotizacionDetalleList(new ArrayList<CotizacionDetalle>());
@@ -136,19 +146,19 @@ public class CotizacionController {
         double sub = Double.parseDouble(request.getParameter("subTotal"));
 
         String imp = request.getParameter("imp");
-        
+
         double impo = Double.parseDouble(imp);
 
         String igv = request.getParameter("igv");
-        
+
         double igvv = Double.parseDouble(igv);
 
         String tot = request.getParameter("total");
-        
+
         double total = Double.parseDouble(tot);
-        
+
         String fecha = request.getParameter("fechaEmision");
-        
+
         String observacion = request.getParameter("observacion");
 
         for (PedidoDetalle pdt : pd) {
@@ -164,23 +174,23 @@ public class CotizacionController {
                     detalleC.setIdDetallePedido(pdt);
                     detalleC.setSubTotal(sub);
 
+                    c.getCotizacionDetalleList().add(detalleC);
+
                 }
             }
         }
-        
-        for(Pedido PD : p){
-            if(PD.getIdPedido() == id){
+
+        for (Pedido PD : p) {
+            if (PD.getIdPedido() == id) {
                 //List<Pedido> pedido = new ArrayList<>(repo2.listadoxpedidos(PD.getIdPedido()));
-                
+
                 c.setIdPedido(PD);
             }
         }
-        
 
         //c.setIdPedido(pedido);
-         
         c.setFechaEmision(fecha);
-        
+
         c.setObservacion(observacion);
 
         c.setImporte(impo);
