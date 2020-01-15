@@ -13,6 +13,7 @@ import model.controllers.PagosJpaController;
 import model.controllers.PedidoJpaController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -50,6 +51,14 @@ public class PagoController {
         
         mv.setViewName("RegistrarPago");
         return mv;
+    }
+    
+    @RequestMapping(value = "RegistrarPago.htm",method = RequestMethod.POST)
+    public ModelAndView NuevoProveedor(@ModelAttribute("proveedor") Pagos c) throws Exception{
+        
+        repo.create(c);
+        
+        return new ModelAndView("redirect:/listapedidos.htm");
     }
     
     

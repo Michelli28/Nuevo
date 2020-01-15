@@ -68,7 +68,7 @@
                                     <label>Entidad Bancaria:</label>
                                 </div>
                                 <div class="col-sm-6" style="left:7%;">
-                                    <input type="text" name="Entidad" placeholder="Ingrese entidad">
+                                    <form:input path="banco" cssClass="form-control"  placeholder="Ingrese banco"/>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -76,7 +76,7 @@
                                     <label>Fecha:</label>
                                 </div>
                                 <div class="col-sm-6" style="left:7%;">
-                                    <input type="text" name="Entidad" placeholder="Ingrese fecha">
+                                    <form:input path="fecha" cssClass="form-control"  placeholder="Ingrese fecha"/>
                                 </div>
                             </div>
                         </fieldset>

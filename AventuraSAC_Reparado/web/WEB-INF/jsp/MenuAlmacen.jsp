@@ -145,7 +145,7 @@
                         margin-left: -120px;
                     }
                 </style>
-                <img id="yo" src="webapp/resources/theme1/images/logo.png">
+                <img id="yo" src="webapp/resources/theme1/images/logo.PNG">
             </section>
             <section>
                 <h4>Contáctanos:</h4>

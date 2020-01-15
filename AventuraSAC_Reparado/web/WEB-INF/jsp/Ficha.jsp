@@ -190,7 +190,7 @@
                             </div>
                             <div>
                              
-                                    <form:select path="hidden" id="fentregaI" >
+                                    <form:select path="idEstado.idEstado" id="fentregaI" >
                                         <c:forEach items="${estado}" var="x">
                                             <option value="${x.idEstado}">${x.nombre}</option>
                                         </c:forEach>
