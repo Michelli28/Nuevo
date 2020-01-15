@@ -68,6 +68,8 @@
                 <prop key="nuevopedido.htm">pedidoController</prop>
                 <prop key="listapedidos.htm">pedidoController</prop>
                 <prop key="listapedidostrabajador.htm">pedidoController</prop>
+                
+                <prop key="RegistrarPago.htm">pagoController</prop>
             </props>
         </property>
     </bean>
@@ -113,5 +115,8 @@
     
     <bean name="pedidoController"
           class="controller.PedidoController" />
+    
+    <bean name="pagoController"
+          class="controller.PagoController" />
 
 </beans>
