@@ -67,7 +67,7 @@
 
                     <div class="card-body">
 
-                        <input type="hidden" name="idPedido" value="${idPedido}">
+                        <input type="hidden" name="idPedido" id="idPedido" value="${idPedido}">
 
                         <center>
                             <div class="card-title"><h2><strong>Datos de la Cotización</strong></h2></div>
@@ -130,21 +130,21 @@
                                             <td style="text-align: center;">${item.idFicha.descripcion}</td>
                                             <td style="text-align: center;">${item.idFicha.cantidad}</td>
                                             <td style="text-align: center;"><select name="idEstado" >
-                                        <c:forEach items="${estado}" var="x">
-                                            <c:if test="${item.idFicha.idEstado.idEstado == x.idEstado}">
-                                            <option value="${x.idEstado}">${x.nombre}</option>
-                                            </c:if>
-                                            <c:if test="${item.idFicha.idEstado.idEstado != x.idEstado}">
-                                            <option value="${x.idEstado}">${x.nombre}</option>
-                                            </c:if>
-                                        </c:forEach>
-                                    </select>
-                                  
-                                    </td>
-                                    <td ><input type="text" name="subTotal" class="monto" style="text-align: center;" onkeyup="sumar()"/></td>
+                                                    <c:forEach items="${estado}" var="x">
+                                                        <c:if test="${item.idFicha.idEstado.idEstado == x.idEstado}">
+                                                            <option value="${x.idEstado}">${x.nombre}</option>
+                                                        </c:if>
+                                                        <c:if test="${item.idFicha.idEstado.idEstado != x.idEstado}">
+                                                            <option value="${x.idEstado}">${x.nombre}</option>
+                                                        </c:if>
+                                                    </c:forEach>
+                                                </select>
 
-                                    </tr>
-                                </c:forEach>
+                                            </td>
+                                            <td ><input type="text" name="subTotal" class="monto" style="text-align: center;" onkeyup="sumar()"/></td>
+
+                                        </tr>
+                                    </c:forEach>
 
                                 </tbody>
 
@@ -197,7 +197,7 @@
                         <fieldset id="fieldset4" style="border: 1px solid gray">
                             <legend><p>¿Qué acción desea realizar?</p></legend>
                             <div class="row" id="fila8">
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" class="btn btn-success" value="Enviar" >
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" onclick="Enviar()" class="btn btn-success" value="Enviar" >
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-outline-secondary">Cancelar</button>
                             </div>
                         </fieldset>
@@ -237,6 +237,54 @@
                 document.getElementById('igv').innerHTML = igv;
                 document.getElementById('total').innerHTML = total1;
 
+            }
+
+            function Enviar() {
+                var fichas = obtenerFichas();
+                /*var parametros = "idpedido=" + $("#idPedido").val() +
+                        "&fechaEmision=" + $("#txtfechaactual").val() +
+                        "&fichas=" + fichas +
+                        "&imp=" + $("#imp").val() +
+                        "&igv=" + $("#igv").val() +
+                        "&total=" + $("#total").val() +
+                        "&observacion=" + $("#observacion").val();
+
+                window.location.href = 'generarcotizacion.htm?' + parametros;
+                */
+                $.ajax({
+                    type: 'POST',
+                    url: 'generarcotizacion.htm',
+                    data: {
+                        'idPedido': $("#idPedido").val(),
+                        'fechaEmision': $("#txtfechaactual").val(),
+                        'fichas': fichas,
+                        'imp': $("#imp").val(),
+                        'igv': $("#igv").val(),
+                        'total': $("#total").val(),
+                        'observacion': $("#observacion").val()
+                    },
+                    success: function (data) {
+                        window.location.href = 'listapedidostrabajador.htm';
+                    }
+                });
+            }
+
+            function obtenerFichas() {
+                var cadena = '';
+                // Recorrer las filas TR de la tabla
+                $("#table tbody tr").each(function (i) {
+                    // ID FICHA
+                    cadena += $(this).find('td:eq(0)').text() + ",";
+                    // ESTADO
+                    cadena += $(this).find('td:eq(3)').find("option:selected").val() + ",";
+                    // SUBTOTAL
+                    if ($(this).find('td:eq(3)').find("option:selected").val() === '2') {
+                        cadena += '0;';
+                    } else {
+                        cadena += $(this).find("input").val() + ";";
+                    }
+                });
+                return cadena.substring(0, cadena.length - 1);
             }
 
         </script>

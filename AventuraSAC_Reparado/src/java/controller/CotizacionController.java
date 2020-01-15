@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.StringTokenizer;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -13,12 +14,14 @@ import model.controllers.ClienteJpaController;
 import model.controllers.CotizacionDetalleJpaController;
 import model.controllers.CotizacionJpaController;
 import model.controllers.EstadoJpaController;
+import model.controllers.FichatecnicaJpaController;
 import model.controllers.PedidoJpaController;
 import model.controllers.PedidoDetalleJpaController;
 import model.entities.Cliente;
 import model.entities.Cotizacion;
 import model.entities.CotizacionDetalle;
 import model.entities.Estado;
+import model.entities.Fichatecnica;
 import model.entities.Pedido;
 import model.entities.PedidoDetalle;
 import org.springframework.stereotype.Controller;
@@ -39,6 +42,7 @@ public class CotizacionController {
     private CotizacionDetalleJpaController repo4;
     private PedidoDetalleJpaController repo5;
     private EstadoJpaController repo6;
+    private FichatecnicaJpaController repo7;
 
     public CotizacionController() {
         em = getEntityManager();
@@ -48,7 +52,7 @@ public class CotizacionController {
         repo4 = new CotizacionDetalleJpaController(emf);
         repo5 = new PedidoDetalleJpaController(emf);
         repo6 = new EstadoJpaController(emf);
-
+        repo7 = new FichatecnicaJpaController(emf);
     }
 
     private EntityManager getEntityManager() {
@@ -132,74 +136,85 @@ public class CotizacionController {
     public ModelAndView GenerarCotizacion(HttpServletRequest request) throws Exception {
 
         int id = Integer.parseInt(request.getParameter("idPedido"));
-
-        List<Pedido> p = repo2.findPedidoEntities();
-
-        List<PedidoDetalle> pd = repo5.findPedidoDetalleEntities();
-
-        List<PedidoDetalle> pdtem = new ArrayList();
-
-        Cotizacion c = new Cotizacion();
-
-        c.setCotizacionDetalleList(new ArrayList<CotizacionDetalle>());
-
-        double sub = Double.parseDouble(request.getParameter("subTotal"));
-
-        String imp = request.getParameter("imp");
-
-        double impo = Double.parseDouble(imp);
-
-        String igv = request.getParameter("igv");
-
-        double igvv = Double.parseDouble(igv);
-
-        String tot = request.getParameter("total");
-
-        double total = Double.parseDouble(tot);
-
         String fecha = request.getParameter("fechaEmision");
-
+        String fichas = request.getParameter("fichas");
+        double impo = Double.parseDouble(request.getParameter("imp"));
+        double igvv = Double.parseDouble(request.getParameter("igv"));
+        double total = Double.parseDouble(request.getParameter("total"));
         String observacion = request.getParameter("observacion");
 
-        for (PedidoDetalle pdt : pd) {
+//        List<Pedido> p = repo2.findPedidoEntities();
+//
+//        List<PedidoDetalle> pd = repo5.findPedidoDetalleEntities();
+//
+//        List<PedidoDetalle> pdtem = new ArrayList();
+        Cotizacion c = new Cotizacion();
+        c.setCotizacionDetalleList(new ArrayList<CotizacionDetalle>());
 
-            if (pdt.getIdPedido().getIdPedido() == id) {
-                List<CotizacionDetalle> lista = new ArrayList<>(repo4.listadoxpedido(pdt.getIdDetallePedido()));
-
-                if (lista.size() == 0) {
-
-                    CotizacionDetalle detalleC = new CotizacionDetalle();
-
-                    detalleC.setIdCotizacion(c);
-                    detalleC.setIdDetallePedido(pdt);
-                    detalleC.setSubTotal(sub);
-
-                    c.getCotizacionDetalleList().add(detalleC);
-
-                }
-            }
-        }
-
-        for (Pedido PD : p) {
-            if (PD.getIdPedido() == id) {
-                //List<Pedido> pedido = new ArrayList<>(repo2.listadoxpedidos(PD.getIdPedido()));
-
-                c.setIdPedido(PD);
-            }
-        }
-
-        //c.setIdPedido(pedido);
+        c.setIdPedido(repo2.findPedido(id));
         c.setFechaEmision(fecha);
-
+        c.setImporte(impo);
+        c.setIgv(igvv);
+        c.setTotal(total);
         c.setObservacion(observacion);
 
-        c.setImporte(impo);
+        StringTokenizer stD = new StringTokenizer(fichas, ";");
+        int detalles = stD.countTokens();
+        int idDetallePedido = 0;
+        int idEstado = 0;
+        double subTotal = 0;
+        for (int i = 0; i < detalles; i++) {
+            // Obtenemos los datos de cada pedido
+            String linea = stD.nextToken();
+            StringTokenizer stDatos = new StringTokenizer(linea, ",");
+            idDetallePedido = Integer.parseInt(stDatos.nextToken());
+            idEstado = Integer.parseInt(stDatos.nextToken());
+            subTotal = Double.parseDouble(stDatos.nextToken());
 
-        c.setIgv(igvv);
+            PedidoDetalle pedidoDet = repo5.findPedidoDetalle(idDetallePedido);
 
-        c.setTotal(total);
+            CotizacionDetalle detalleC = new CotizacionDetalle();
+            detalleC.setIdDetalleCotizacion(0);
+            detalleC.setIdCotizacion(c);
+            detalleC.setIdDetallePedido(pedidoDet);
+            detalleC.setSubTotal(subTotal);
+            c.getCotizacionDetalleList().add(detalleC);
 
+            // Actualizar el estado de la ficha tecnica
+            Fichatecnica ft = pedidoDet.getIdFicha();
+            ft.setIdEstado(repo6.findEstado(idEstado));
+            repo7.edit(ft);
+        }
+        
         repo3.create(c);
+
+//        double sub = Double.parseDouble(request.getParameter("subTotal"));
+//        for (PedidoDetalle pdt : pd) {
+//
+//            if (pdt.getIdPedido().getIdPedido() == id) {
+//                List<CotizacionDetalle> lista = new ArrayList<>(repo4.listadoxpedido(pdt.getIdDetallePedido()));
+//
+//                if (lista.size() == 0) {
+//
+//                    CotizacionDetalle detalleC = new CotizacionDetalle();
+//
+//                    detalleC.setIdCotizacion(c);
+//                    detalleC.setIdDetallePedido(pdt);
+//                    detalleC.setSubTotal(sub);
+//
+//                    c.getCotizacionDetalleList().add(detalleC);
+//
+//                }
+//            }
+//        }
+//        for (Pedido PD : p) {
+//            if (PD.getIdPedido() == id) {
+//                //List<Pedido> pedido = new ArrayList<>(repo2.listadoxpedidos(PD.getIdPedido()));
+//
+//            }
+//        }
+        //c.setIdPedido(pedido);
+        
 
         return new ModelAndView("redirect:/listapedidostrabajador.htm");
     }

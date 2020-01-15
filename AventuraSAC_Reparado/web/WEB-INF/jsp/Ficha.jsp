@@ -185,7 +185,7 @@
                             <div class="col-sm-3" style="left: 20%; margin: 3% 0%;">
                                 <div>
                                     <label for="idEstado" >Estado:</label>
-                                    <form:select path="idEstado.idEstado" id="fentregaI" disabled="true">
+                                    <form:select path="idEstado.idEstado" id="fentregaI">
                                         <c:forEach items="${estado}" var="x">
                                             <option value="${x.idEstado}">${x.nombre}</option>
                                         </c:forEach>
