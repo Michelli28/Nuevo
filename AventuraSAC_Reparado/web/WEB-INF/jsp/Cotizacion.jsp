@@ -14,6 +14,7 @@
         <link href="<c:url value="webapp/resources/theme1/css/EstilosCotizacion.css" />" rel="stylesheet">
         <link href="<c:url value="webapp/resources/theme1/css/main.css" />" rel="stylesheet" />
         <script src="<c:url value="webapp/resources/theme1/js/jquery.min.js" />"></script>
+        <script type="text/javascript" src="<c:url value="webapp/resources/theme1/js/jquery.validate.min.js"/>"></script>
 
     </head>
     <body id="bodys">
@@ -27,7 +28,7 @@
 
         <div class="container md-8">
 
-            <form method="post" action="generarcotizacion.htm">
+            <form method="post" action="generarcotizacion.htm" id="formulario">
 
                 <div class="card">
 
@@ -54,7 +55,7 @@
                                     <h3> R.U.C. N° 20111807958 </h3>
                                     <h3><strong>Cotización</strong></h3>
                                     <div class="row" id="ngui">
-                                        N° &nbsp;&nbsp;&nbsp;<input name="idCotizacion">&nbsp;-&nbsp;0000041
+                                        N° &nbsp;&nbsp;&nbsp;<input type="text" id="idCotizacion">&nbsp;-&nbsp;0000041
                                     </div>
 
                                 </fieldset>
@@ -78,30 +79,30 @@
                                 <div class="row" id="fila1">
                                     <div class="col-sm-4">
                                         <label for="">Razón Social:</label>
-                                        <input type="text"  value="${item1.razonSocial}"> 
+                                        <input type="text"  id="razonSocial" value="${item1.razonSocial}"> 
                                     </div>
                                     <div class="col-sm-4">      
                                         <label for="">RUC:</label>
-                                        <input type="text" value="${item1.ruc}"/>
+                                        <input type="text" id="ruc" value="${item1.ruc}"/>
                                     </div>
                                     <div class="col-sm-4">      
                                         <label for="fechaEmision">Fecha de Emision:</label>
-                                        <input type="text" name="fechaEmision" id="txtfechaactual" />
+                                        <input type="text" id="fechaEmision" id="txtfechaactual" />
                                     </div>
                                 </div>
 
                                 <div class="row" id="fila2">
                                     <div class="col-sm-4">
                                         <label for="direccion">Dirección:</label>
-                                        <input type="text" value="${item1.direccion}"/>
+                                        <input type="text" id="direccion" value="${item1.direccion}"/>
                                     </div>
                                     <div class="col-sm-4">
                                         <label for="">Teléfono:</label>
-                                        <input type="text" value="${item1.telefono}"/>
+                                        <input type="text" id="telefono" value="${item1.telefono}"/>
                                     </div>
                                     <div class="col-sm-4">      
                                         <label for="">Correo:</label>
-                                        <input type="text"  value="${item1.correo}"/>
+                                        <input type="text" id="correo" value="${item1.correo}"/>
                                     </div>
                                 </div>
 
@@ -141,7 +142,7 @@
                                                 </select>
 
                                             </td>
-                                            <td ><input type="text" name="subTotal" class="monto" style="text-align: center;" onkeyup="sumar()"/></td>
+                                            <td ><input type="text" name="subTotal"  id="subtotal" class="monto" style="text-align: center;" onkeyup="sumar()"/></td>
 
                                         </tr>
                                     </c:forEach>
@@ -197,7 +198,7 @@
                         <fieldset id="fieldset4" style="border: 1px solid gray">
                             <legend><p>¿Qué acción desea realizar?</p></legend>
                             <div class="row" id="fila8">
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" onclick="Enviar()" class="btn btn-success" value="Enviar" >
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" id="btn" onclick="Enviar()" class="btn btn-success" value="Enviar" >
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-outline-secondary">Cancelar</button>
                             </div>
                         </fieldset>
@@ -286,7 +287,43 @@
                 });
                 return cadena.substring(0, cadena.length - 1);
             }
-
+            
+            
+            
+            
+             
+        </script>
+        
+        <script>
+            $(function () {
+                $("#btn").on("click", function () {
+                    $("#formulario").validate({
+                        rules:
+                                {
+                                    idCotizacion: {required: true, numbersonly: true },
+                                    subtotal: { required: true, numbersonly: true},
+                                    observacion: {required: true, minlength: 15, maxlength: 50}
+                                }, 
+                        messages:
+                                {
+                                    idCotizacion: {required: true, numbersonly: true },
+                                    subtotal: {required: 'El campo es requerido', numbersonly: 'Porfavor, solo números'},
+                                    observacion:  {required: 'El campo es requerido', minlength: 'El mínimo permitido son 15 caracteres' ,maxlength: 'El máximo permitido son 50 caracteres'}
+                                }
+                    });
+                });    
+            });
+        </script>
+        
+        <script>
+            $(document).ready(function () {      //DOM manipulation code  
+                jQuery.validator.addMethod("lettersonly", function (value, element) {
+                    return this.optional(element) || /^[a-z]+$/i.test(value);
+                }, "Por favor, solo letras");
+                jQuery.validator.addMethod("numbersonly", function (value, element) {
+                    return this.optional(element) || /^[0-9]+$/i.test(value);
+                }, "Por favor, solo números");
+            });
         </script>
     </body>
 </html>
