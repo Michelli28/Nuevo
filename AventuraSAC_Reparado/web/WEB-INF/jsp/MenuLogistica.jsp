@@ -94,7 +94,7 @@
                         <div class="image">
                             <img src="webapp/resources/theme1/images/pic01.jpg" alt="" />
                         </div>
-                        <p class="credit">- <strong>Ricardo Espinoza</strong> <span>CEO Aventura</span></p>
+                        <p class="credit">- <strong>Erika Espinoza</strong> <span>CEO Aventura</span></p>
                     </div>
                 </div>
             </section>
@@ -107,7 +107,7 @@
                         <div class="image">
                             <img src="webapp/resources/theme1/images/pic03.jpg" alt="" />
                         </div>
-                        <p class="credit">- <strong>Pepito</strong> <span>CEO - Aventura S.A.C.</span></p>
+                        <p class="credit">- <strong>Juan Valdez</strong> <span>CEO - Aventura S.A.C.</span></p>
                     </div>
                 </div>
             </section>
@@ -120,7 +120,7 @@
                         <div class="image">
                             <img src="webapp/resources/theme1/images/pic02.jpg" alt="" />
                         </div>
-                        <p class="credit">- <strong>Juanito</strong> <span>Jefe de Producción.</span></p>
+                        <p class="credit">- <strong>Carlos Quesada</strong> <span>Jefe de Producción.</span></p>
                     </div>
                 </div>
             </section>
