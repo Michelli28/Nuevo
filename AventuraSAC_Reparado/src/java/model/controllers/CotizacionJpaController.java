@@ -66,7 +66,7 @@ public class CotizacionJpaController implements Serializable {
                 for (CotizacionDetalle cotizacionDetalleListCotizacionDetalle : cotizacion.getCotizacionDetalleList()) {
 //                    Cotizacion oldIdCotizacionOfCotizacionDetalleListCotizacionDetalle = cotizacionDetalleListCotizacionDetalle.getIdCotizacion();
 //                    cotizacionDetalleListCotizacionDetalle.setIdCotizacion(cotizacion);
-                    if (cotizacionDetalleListCotizacionDetalle.getIdDetalleCotizacion() != 0) {
+                    if (cotizacionDetalleListCotizacionDetalle.getIdDetalleCotizacion() == 0) {
                         em.persist(cotizacionDetalleListCotizacionDetalle);
                     }
                     else

@@ -32,7 +32,7 @@
         <div class="container m-8" >
 
             <div class="card"  id="carta" style="margin: 6% auto;">
-                <form:form method="post" modelAttribute="fichatecnica" id="formulario" enctype="multipart/form-data">
+                <form:form method="post" modelAttribute="fichatecnica" id="formulario" >
 
                     <div class="card-header" id="cardheader">
                         <br>
@@ -61,7 +61,7 @@
                                             N° 
                                         </div>
                                         <div class="p-3">
-                                            <input name="idFicha" value="${fichatecnica.idFicha}" type="hidden" />
+                                            <form:hidden path="idFicha" value="${fichatecnica.idFicha}" />
                                         </div>
                                         <div class="p-3">
                                             -&nbsp;0000041
@@ -79,7 +79,7 @@
                         <center><h3 style="font-family: Segou IU; font-size: 20px;"><strong>Ingresar datos de la Prenda</strong></h3></center>
 
 
-                        <form:input path="idEstado" id="fentregaI" type="hidden" value="${fichatecnica.idEstado}"/>
+                        <form:hidden path="idEstado" id="fentregaI" value="${fichatecnica.idEstado}"/>
 
 
                         <div class="row" style="text-align: left;">
@@ -155,7 +155,7 @@
                                     <div class="d-flex flex-row">
                                         <div  class="p-4">
                                             <label for="color1" >Color 1:</label>
-                                            <form:input path="color1" id="c1" style="height: 35px;"  value="${fichatecnica.color1}"/>
+                                            <input type="text" name="color1" id="c1" style="height: 35px;"  value="${fichatecnica.color1}" data-wheelcolorpicker/>
                                             <script>
                                                 $(function () {
 
@@ -170,7 +170,7 @@
                                         <div  class="p-4">
 
                                             <label for="color2" >Color 2:</label>
-                                            <form:input path="color2" id="c2" style="height: 35px;" cssClass="form-control" value="${fichatecnica.color2}"/>
+                                            <input name="color2" type="text" id="c2" style="height: 35px;" value="${fichatecnica.color2}" data-wheelcolorpicker/>
 
                                             <script>
                                                 $(function () {
@@ -185,7 +185,7 @@
                                         <div  class="p-4">
 
                                             <label for="color3" >Color 3:</label>
-                                            <input path="color3" id="c3" style="height: 35px;" cssClass="form-control" value="${fichatecnica.color3}" data-wheelcolorpicker/>
+                                            <input name="color3" type="text" id="c3" style="height: 35px;" value="${fichatecnica.color3}" data-wheelcolorpicker/>
 
                                             <script>
                                                 $(function () {

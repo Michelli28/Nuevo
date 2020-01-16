@@ -154,7 +154,14 @@ public class FichaTecnicaController {
     public ModelAndView EditarFichatecnica(@ModelAttribute("fichatecnica") Fichatecnica f, HttpServletRequest request) throws Exception {
 
         Cliente c = (Cliente) request.getSession().getAttribute("usuario");
-
+        
+        String color1 = request.getParameter("color1");
+        String color2 = request.getParameter("color2");
+        String color3 = request.getParameter("color3");
+        
+        f.setColor1(color1);
+        f.setColor2(color2);
+        f.setColor3(color3);
         f.setIdCliente(c);
 
         repo.edit(f);

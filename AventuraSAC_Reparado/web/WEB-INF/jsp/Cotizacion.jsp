@@ -85,7 +85,7 @@
                                     </div>
                                     <div class="col-sm-4">      
                                         <label for="fechaEmision">Fecha de Emision:</label>
-                                        <input type="text" style="background: #F0E9FF;" id="fechaEmision" id="txtfechaactual" />
+                                        <input type="text" style="background: #F0E9FF;" id="txtfechaactual" name="fechaEmision"/>
                                     </div>
                                 </div>
 
@@ -243,7 +243,7 @@
                 
                 var fichas = obtenerFichas();
 
-               // alert($('#igv').val());
+                //alert(fichas);
                 $.ajax({
                     type: 'POST',
                     url: 'generarcotizacion.htm',

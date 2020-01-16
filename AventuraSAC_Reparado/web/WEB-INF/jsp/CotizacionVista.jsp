@@ -184,7 +184,7 @@
                         <fieldset id="fieldset4" style="border: 1px solid gray">
                             <legend><p>¿Qué acción desea realizar?</p></legend>
                             <div class="row" id="fila8">
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a type="button" class="btn btn-success"  href="RegistrarPago.htm?idPedido=${cotizacion.idPedido}">Ir a pago por adelantado</a>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a type="button" class="btn btn-success"  href="RegistrarPago.htm?idPedido=${cotizacion.idPedido.idPedido}">Ir a pago por adelantado</a>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a type="button" class="btn btn-outline-secondary" href="listapedidos.htm">Cancelar</a>
                             </div>
                         </fieldset>
