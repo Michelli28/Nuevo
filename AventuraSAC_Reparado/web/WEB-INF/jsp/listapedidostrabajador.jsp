@@ -29,8 +29,8 @@
                 <div class="card-header" style="background: #C1FCEC ;">
 
 
-                    <div class="p-4" style="font-family: Segoe UI">
-                        <h2><center>Lista de Pedidos</center></h2>
+                    <div class="p-4" style="font-family: Segoe UI; text-align: center">
+                        <h2>Lista de Pedidos</h2>
                     </div>
 
 
@@ -59,18 +59,22 @@
                                     <td style="text-align: center">${item.idCliente.idCliente}</td>
                                     <td style="text-align: center">${item.fechaRegistro}</td>
                                     <td style="text-align: center">${item.fechaEntrega}</td>
-                                    <td style="text-align: center">
+                                 
                                         <c:if test="${item.cotizacionList.size() == 0}">
-                                            <a class="btn btn-info" role="button" href="Cotizacion.htm?idPedido=${item.idPedido}" >Generar Cotización <i class="fas fa-edit"></i></a>
+                                        <td style="text-align: center;"><a class="btn btn-info" role="button" href="Cotizacion.htm?idPedido=${item.idPedido}" >Generar Cotización <i class="fas fa-edit"></i></a></td>
                                         </c:if>
-                                    </td>
+                                            <c:if test="${item.cotizacionList.size() != 0}">
+                                            <td><label></label></td>
+                                        </c:if>
+                                  
                                 </tr>
                             </c:forEach>
 
                         </tbody>
                     </table>
-
-                    <button><a href="menu.htm" id="regre">Regresar al Menú</a></button>
+                    <div style="text-align: center">
+                    <a href="menuventas.htm" id="regre" class="btn btn-info" style="height: 50px; width: 250px; padding: 10px; font-size: 17px">Regresar al Menú</a>
+                    </div>
 
 
                 </div>
