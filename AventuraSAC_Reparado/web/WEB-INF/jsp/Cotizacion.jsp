@@ -28,9 +28,10 @@
 
         <div class="container md-8">
 
-            <form method="post" action="generarcotizacion.htm" id="formulario">
 
-                <div class="card">
+
+            <div class="card">
+               
 
                     <div class="card-header">
 
@@ -117,9 +118,9 @@
                             <table class="table" id="table">
                                 <thead class="thead-dark">
                                     <tr class="encabezado">
+                                        <th style="text-align: center;">IdPedido</th>
                                         <th style="text-align: center;">IdFicha</th>
                                         <th style="text-align: center;">Descripcion</th>
-                                        <th style="text-align: center;">Cantidad</th>
                                         <th style="text-align: center;">Estado</th>
                                         <th style="text-align: center;">Subtotal</th>
                                     </tr>
@@ -128,12 +129,13 @@
                                     <c:forEach var="item" items="${detalle}">
                                         <tr>
                                             <td style="text-align: center;">${item.idDetallePedido}</td>
+                                            <td style="text-align: center;">${item.idFicha.idFicha}</td>
                                             <td style="text-align: center;">${item.idFicha.descripcion}</td>
-                                            <td style="text-align: center;">${item.idFicha.cantidad}</td>
-                                            <td style="text-align: center;"><select name="idEstado" >
+                                            <td style="text-align: center;">
+                                                <select name="idEstado" id="idEstado">
                                                     <c:forEach items="${estado}" var="x">
                                                         <c:if test="${item.idFicha.idEstado.idEstado == x.idEstado}">
-                                                            <option value="${x.idEstado}">${x.nombre}</option>
+                                                            <option value="${x.idEstado}" selected="selected">${x.nombre}</option>
                                                         </c:if>
                                                         <c:if test="${item.idFicha.idEstado.idEstado != x.idEstado}">
                                                             <option value="${x.idEstado}">${x.nombre}</option>
@@ -163,7 +165,7 @@
                                             <label for="importe" >Importe(S/):</label>
                                         </div>
                                         <div class="p-6">
-                                            <label id="imp" name="imp"></label> 
+                                            <textarea id="imp" name="imp"></textarea> 
 
                                         </div>
                                     </div>
@@ -172,7 +174,7 @@
                                             <label for="igv" >IGV(%18):</label>
                                         </div>
                                         <div class="p-6">
-                                            <label id="igv" name="igv"></label>
+                                            <textarea id="igv" name="igv"></textarea>
                                         </div>	
                                     </div>
                                     <div class="d-flex flex-row" >
@@ -180,7 +182,7 @@
                                             <label for="total" >Total(S/):</label>
                                         </div>
                                         <div  class="p-6">
-                                            <label id="total" name="total"></label>
+                                            <textarea id="total" name="total"></textarea>
 
                                         </div>	
                                     </div>
@@ -198,15 +200,15 @@
                         <fieldset id="fieldset4" style="border: 1px solid gray">
                             <legend><p>¿Qué acción desea realizar?</p></legend>
                             <div class="row" id="fila8">
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button"  onclick="Enviar()" class="btn btn-success"  >Enviar</button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" onclick="Enviar()" class="btn btn-success" >Enviar</button>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-outline-secondary">Cancelar</button>
                             </div>
                         </fieldset>
 
                     </div>
+          
+            </div>
 
-                </div>
-            </form>
         </div>
 
         <script>
@@ -241,17 +243,10 @@
             }
 
             function Enviar() {
+                
                 var fichas = obtenerFichas();
-                /*var parametros = "idpedido=" + $("#idPedido").val() +
-                        "&fechaEmision=" + $("#txtfechaactual").val() +
-                        "&fichas=" + fichas +
-                        "&imp=" + $("#imp").val() +
-                        "&igv=" + $("#igv").val() +
-                        "&total=" + $("#total").val() +
-                        "&observacion=" + $("#observacion").val();
 
-                window.location.href = 'generarcotizacion.htm?' + parametros;
-                */
+               // alert($('#igv').val());
                 $.ajax({
                     type: 'POST',
                     url: 'generarcotizacion.htm',
@@ -287,43 +282,12 @@
                 });
                 return cadena.substring(0, cadena.length - 1);
             }
-            
-            
-            
-            
-             
+
+
+
+
+
         </script>
-        
-        <script>
-            $(function () {
-                $("#btn").on("click", function () {
-                    $("#formulario").validate({
-                        rules:
-                                {
-                                    idCotizacion: {required: true, numbersonly: true },
-                                    subtotal: { required: true, numbersonly: true},
-                                    observacion: {required: true, minlength: 15, maxlength: 50}
-                                }, 
-                        messages:
-                                {
-                                    idCotizacion: {required: true, numbersonly: true },
-                                    subtotal: {required: 'El campo es requerido', numbersonly: 'Porfavor, solo números'},
-                                    observacion:  {required: 'El campo es requerido', minlength: 'El mínimo permitido son 15 caracteres' ,maxlength: 'El máximo permitido son 50 caracteres'}
-                                }
-                    });
-                });    
-            });
-        </script>
-        
-        <script>
-            $(document).ready(function () {      //DOM manipulation code  
-                jQuery.validator.addMethod("lettersonly", function (value, element) {
-                    return this.optional(element) || /^[a-z]+$/i.test(value);
-                }, "Por favor, solo letras");
-                jQuery.validator.addMethod("numbersonly", function (value, element) {
-                    return this.optional(element) || /^[0-9]+$/i.test(value);
-                }, "Por favor, solo números");
-            });
-        </script>
+
     </body>
 </html>

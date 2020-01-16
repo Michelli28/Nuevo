@@ -34,6 +34,8 @@
 
 
             <form:form method="post" modelAttribute="fichatecnica">
+                
+                 <form:input path="idEstado.idEstado" id="fentregaI" type="hidden" value="1"/>
 
                 <div class="card" >
 
