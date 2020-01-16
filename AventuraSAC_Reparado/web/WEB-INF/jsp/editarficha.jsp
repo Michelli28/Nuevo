@@ -23,198 +23,139 @@
 
     </head>
     <body>
-        <header id="header">
+             <header id="header">
             <a class="logo" href="index.html">Aventura S.A.C.</a>
             <nav>
                 <a href="#menu">Menu</a>
             </nav>
         </header>
-        <br>
-        <div class="container md-8">
+        <div class="container m-8" >
 
+            <div class="card"  id="carta" style="margin: 6% auto;">
+                <form:form method="post" modelAttribute="fichatecnica" id="formulario" enctype="multipart/form-data">
 
-            <form:form method="post" modelAttribute="fichatecnica">
-                
-                 <form:input path="idEstado.idEstado" id="fentregaI" type="hidden" value="1"/>
-
-                <div class="card" >
-
-                    <div class="card-header">
-
+                    <div class="card-header" id="cardheader">
+                        <br>
+                        <center><h2><strong>Ficha Técnica</strong></h2></center>
                         <div class="d-flex flex-row">
 
                             <div  class="p-4" id="img">
 
-                                <img src="webapp/resources/theme1/images/logo2.png" alt="Card image cap">
+                                <img src="webapp/resources/theme1/images/logo2.png">
 
                             </div>
 
                             <div class="p-4"  id="escritos">
-
-                                <h3>Cal. Mercaderes Nro. 164 Dpto. 203 </h3>
-                                <h3>Urb. Las Gardenias (Alt. Cuadra 50 de la Avenida Benavides)</h3>
+                                <p>Cal. Mercaderes Nro. 164 Dpto. 203 </p>
+                                <p>Urb. Las Gardenias (Alt. Cuadra 50 de la Avenida Benavides)</p>
 
                             </div>
 
                             <div class="p-4" id="fieldset">
 
-                                <fieldset style="border:1px solid black" >
+                                <fieldset style="border:1px solid black" id="fld" >
 
-                                    <h3> R.U.C. N° 20111807958 </h3>
-                                    <h3><strong>Ficha Técnica</strong></h3>
-                                    <div class="row" id="ngui">
-                                        N° &nbsp;&nbsp;&nbsp;<form:hidden path="idFicha" value="${fichatecnica.idFicha}" />&nbsp;-&nbsp;0000041
+                                    <h5><strong> R.U.C. N° 20111807958 </strong></h5>
+                                    <div class="d-flex flex-row" id="ngui">
+                                        <div class="p-3">
+                                            N° 
+                                        </div>
+                                        <div class="p-3">
+                                            <input name="idFicha" value="${fichatecnica.idFicha}" type="hidden" />
+                                        </div>
+                                        <div class="p-3">
+                                            -&nbsp;0000041
+                                        </div>
                                     </div>
 
                                 </fieldset>
                             </div>
+
                         </div>
 
                     </div>
-
-                    <br />
-                    <br />
-
                     <div class="card-body">
 
-
-                        
-
-                        <div class="card-title"> Ingresar datos de la Prenda</div>
+                        <center><h3 style="font-family: Segou IU; font-size: 20px;"><strong>Ingresar datos de la Prenda</strong></h3></center>
 
 
-                        <div class="d-flex flex-row" id="fila1">
+                        <form:input path="idEstado" id="fentregaI" type="hidden" value="${fichatecnica.idEstado}"/>
 
-                            <div class="p-4">
+
+                        <div class="row" style="text-align: left;">
+                            <div class="col-sm-4">
                                 <label for="descripcion">Descripción:</label>
-
-                                <form:input path="descripcion"  cssClass="form-control" value="${fichatecnica.descripcion}"/>
-
+                                <form:input path="descripcion" style="background: #F0E9FF;" cssClass="form-control"  value="${fichatecnica.descripcion}"/>
                             </div>
-
-                            <div class="p-5">
-
+                            <div class="col-sm-4">
                                 <label for="idTipoModelo" >Modelo: </label>
-
                                 <form:select path="idTipoModelo.idTipoModelo" id="idTipoModelo">
-
                                     <c:forEach items="${listamodelo}" var="x">
-
                                         <c:if test="${x.idTipoModelo == fichatecnica.idTipoModelo.idTipoModelo}">
-                                            <option value="${x.idTipoModelo}" selected="selected" required="required">${x.nombre}</option>
+                                            <option value="${x.idTipoModelo}" selected="selected">${x.nombre}</option>
                                         </c:if>
                                         <c:if test="${x.idTipoModelo != fichatecnica.idTipoModelo.idTipoModelo}">
                                             <option value="${x.idTipoModelo}">${x.nombre}</option>
                                         </c:if>
-
                                     </c:forEach>
-
                                 </form:select>
-
                             </div>
-
-                            <div class="p-4">		
-
+                            <div class="col-sm-4">	
                                 <label for="idTipo">Tela:</label>
-
                                 <form:select path="idTipo.idTipo" id="idTipo">
-
                                     <c:forEach items="${tipotelas}" var="x">
-
                                         <c:if test="${x.idTipo == fichatecnica.idTipo.idTipo}">
-                                            <option value="${x.idTipo}" selected="selected" required="required">${x.nombre}</option>
+                                            <option value="${x.idTipo}" selected="selected">${x.nombre}</option>
                                         </c:if>
                                         <c:if test="${x.idTipo != fichatecnica.idTipo.idTipo}">
                                             <option value="${x.idTipo}">${x.nombre}</option>
                                         </c:if>
-
                                     </c:forEach>
-
                                 </form:select>
-
                             </div>
-
                         </div>
-
-                        <div class="d-flex flex-row" id="fila2">
-
-                            <div class="p-4">
-
-                                <label for="etiqueta">Etiqueta:</label>
-
-                                <form:input path="etiqueta" cssClass="form-control" value="${fichatecnica.etiqueta}"/>
-
+                        <br>
+                        <div class="row" style="text-align: left;">  
+                            <div class="col-sm-4"> 
+                                <label for="etiqueta"><strong>Etiqueta:</strong></label>
+                                <form:input path="etiqueta" style="background: #F0E9FF;" cssClass="form-control" value="${fichatecnica.etiqueta}"/>
                             </div>
-
-
-                            <div class="p-4">
-
-                                <label for="idTalla" >Talla:</label>
-
+                            <div class="col-sm-4">
+                                <label for="idTalla"><strong>Talla:</strong></label>
                                 <form:select path="idTalla.idTalla" id="idTalla">
-
                                     <c:forEach items="${listatallas}" var="x">
-
                                         <c:if test="${x.idTalla == fichatecnica.idTalla.idTalla}">
-                                            <option value="${x.idTalla}" selected="selected" required="required">${x.nombre}</option>
+                                            <option value="${x.idTalla}" selected="selected">${x.nombre}</option>
                                         </c:if>
                                         <c:if test="${x.idTalla != fichatecnica.idTalla.idTalla}">
                                             <option value="${x.idTalla}">${x.nombre}</option>
                                         </c:if>
-
                                     </c:forEach>
-
                                 </form:select>
-
                             </div>
-
-                            <div class="p-4">
-
+                            <div class="col-sm-4">
                                 <label for="cantidad" >Cantidad:</label>
-
-                                <form:input path="cantidad" cssClass="form-control" value="${fichatecnica.cantidad}" />
-
+                                <form:input path="cantidad"  style="background: #F0E9FF;" cssClass="form-control" value="${fichatecnica.cantidad}"/>
                             </div>
-
                         </div>
-                    </div>
+                        <br>
+                        <div class="row" style="text-align: left;">  
+                            <div class="col-sm-4"> 
+                                <label for="filename"><strong>Imagen:</strong></label>
+                                <input type="file" name="filename"/>
+                            </div>
+                        </div>
+                        <hr style="border: 1px solid gray">
 
-                    <hr style="border: 1px solid gray">
-
-                    <div class="d-flex flex-row">
-
-                        <label for="Muestra" class="col-sm-2 col-form-label">Muestra:</label>
-
-                        <div class="col-sm-3">
-
-                            <input type="submit" value="ADJUNTAR IMAGEN PNG">
-
-                        </div>	
-
-                    </div>
-
-
-                    <hr style="border: 1px solid gray">
-
-                    <div class="d-flex flex-row">
-
-                        <div  class="p-6">
-
-                            <div class="card" id="carta2">
-
+                        <center>
+                            <div class="card" id="carta2" >
                                 <div class="card-body" id="body2">
-
                                     <h5 class="card-title">Combinación de colores:</h5>
-
-                                    <h6 class="card-subtitle mb-2 text-muted">Seleccionar..</h6>
-
+                                    <h6 class="card-subtitle mb-2 text-muted">Seleccionar 1 color como mínimo..</h6>
                                     <div class="d-flex flex-row">
-
                                         <div  class="p-4">
-
                                             <label for="color1" >Color 1:</label>
-                                            <input type="text" name="color1" id="c1" value="${fichatecnica.color1}" data-wheelcolorpicker>
-
+                                            <form:input path="color1" id="c1" style="height: 35px;"  value="${fichatecnica.color1}"/>
                                             <script>
                                                 $(function () {
 
@@ -229,7 +170,7 @@
                                         <div  class="p-4">
 
                                             <label for="color2" >Color 2:</label>
-                                            <input type="text" name="color2" id="c2" value="${fichatecnica.color1}" data-wheelcolorpicker>
+                                            <form:input path="color2" id="c2" style="height: 35px;" cssClass="form-control" value="${fichatecnica.color2}"/>
 
                                             <script>
                                                 $(function () {
@@ -244,7 +185,7 @@
                                         <div  class="p-4">
 
                                             <label for="color3" >Color 3:</label>
-                                            <input type="text" name="color3" id="c3" value="${fichatecnica.color1}" data-wheelcolorpicker>
+                                            <input path="color3" id="c3" style="height: 35px;" cssClass="form-control" value="${fichatecnica.color3}" data-wheelcolorpicker/>
 
                                             <script>
                                                 $(function () {
@@ -253,42 +194,59 @@
 
                                                 });
                                             </script>
-
                                         </div>
 
                                     </div>
-
                                 </div>
-
                             </div>
+                        </center>
+                        <hr style="border: 1px solid gray">
+                        <center>
+                            <input type="submit" class="btn btn-dark"  value="Registrar" id="btn" style="width: 200px; height: 50px; ">
+                            <a class="btn btn-dark" style="text-decoration: none; width: 200px; height: 50px; padding: 13px; margin: 0px 10px" href="nuevopedido.htm">Regresar</a>
+                        </center>
 
-                        </div>
 
                     </div>
+                </form:form>
+            </div>
 
-                    <div class="d-flex flex-row">
-
-                        <div class="p-4">
-
-                            <input type="submit" class="btn btn-primary"  value="Registrar" >
-
-                        </div>
-
-                        <div  class="p-4">
-
-                            <a class="btn btn-secondary" href="pedidos.htm" role="button" >Regresar</a>
-
-                        </div>
-
-                    </div>
-
-
-
-
-
-                </div>
-            </form:form>
         </div>
+        <script>
+            $(function () {
+                $("#btn").on("click", function () {
+                    $("#formulario").validate({
+                        rules:
+                                {
+                                    descripcion: {required: true, minlength: 5, maxlength: 50, lettersonly: true},
+                                    cantidad: {required: true, numbersonly: true},
+                                    etiqueta: {required: true, minlength: 3, maxlength: 10}
+
+                                },
+                        messages:
+                                {
+                                    descripcion: {required: 'El campo es requerido', minlength: 'El mínimo permitido son 5 caracteres',
+                                        maxlength: 'El máximo permitido son 50 caracteres', lettersonly: 'Porfavor, solo letras'},
+                                    cantidad: {required: 'El campo es requerido', numbersonly: 'Por favor, solo ingrese números'},
+                                    etiqueta: {required: 'El campo es requerido', minlength: 'El mínimo permitido son 3 caracteres',
+                                        maxlength: 'El máximo permitido son 10 caracteres', lettersonly: 'Porfavor, solo letras'}
+                                }
+                    });
+                });
+            });
+        </script>
+
+        <script>
+            $(document).ready(function () {      //DOM manipulation code  
+                jQuery.validator.addMethod("lettersonly", function (value, element) {
+                    return this.optional(element) || /^[a-z]+$/i.test(value);
+                }, "Por favor, solo letras");
+                jQuery.validator.addMethod("numbersonly", function (value, element) {
+                    return this.optional(element) || /^[0-9]+$/i.test(value);
+                }, "Por favor, solo números");
+            });
+        </script>
+
     </body>
 </html>
 
