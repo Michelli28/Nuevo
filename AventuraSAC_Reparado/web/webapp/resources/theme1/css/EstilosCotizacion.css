@@ -1,16 +1,30 @@
 
 #bodys{
-    background: #632432 ;
+    background: #adb5bd; ;
     width:100%;
+}
+#carta{
+    width: 100%;
+    height: 100%;
+    margin: 5% auto;
+    padding: 6%;
+    margin-bottom: auto;
+    background: #F5F7FA;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 1%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 1.5%;
 }
 
 .card-header{
-     background-color: white;
+     background: #C1FCEC ;
 }
 
-.card-body{
-     background-color: white;
-}
 
 
 .card card-header {
@@ -89,10 +103,11 @@
 
 #fld{
     background-color: #ffcccc;
+    width: 110%;
 }
 
 #fieldset1 {
-    background-color: #ffcccc;
+    background: white;
     margin: 10px 0px 0px 10px;
     padding: 20px 60px;
     height: 50%; /*Ancho*/
@@ -190,7 +205,7 @@ table,td  {
     margin: 0% 70%;
     padding: 0% 5%;
     height: 110px; /*Ancho*/
-    width: 26%;/*Largoo*/
+    width: 28%;/*Largoo*/
     text-align: center;
     font-family: 'Libre Baskerville', serif;
 }
@@ -201,5 +216,6 @@ table,td  {
 
 .filo8 button{
     top:5%;
+    text-align: center;
 }
 

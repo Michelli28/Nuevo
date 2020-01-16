@@ -28,11 +28,8 @@
 
         <div class="container md-8">
 
-
-
-            <div class="card">
+            <div class="card" id="carta">
                
-
                     <div class="card-header">
 
                         <div class="d-flex flex-row">
@@ -56,7 +53,7 @@
                                     <h3> R.U.C. N° 20111807958 </h3>
                                     <h3><strong>Cotización</strong></h3>
                                     <div class="row" id="ngui">
-                                        N° &nbsp;&nbsp;&nbsp;<input type="text" id="idCotizacion">&nbsp;-&nbsp;0000041
+                                        N° &nbsp;&nbsp;&nbsp;<input type="text"style="background: #F0E9FF;"  id="idCotizacion">&nbsp;-&nbsp;0000041
                                     </div>
 
                                 </fieldset>
@@ -80,30 +77,30 @@
                                 <div class="row" id="fila1">
                                     <div class="col-sm-4">
                                         <label for="">Razón Social:</label>
-                                        <input type="text"  id="razonSocial" value="${item1.razonSocial}"> 
+                                        <input type="text"  style="background: #F0E9FF;" id="razonSocial" value="${item1.razonSocial}"> 
                                     </div>
                                     <div class="col-sm-4">      
                                         <label for="">RUC:</label>
-                                        <input type="text" id="ruc" value="${item1.ruc}"/>
+                                        <input type="text" id="ruc" style="background: #F0E9FF;" value="${item1.ruc}"/>
                                     </div>
                                     <div class="col-sm-4">      
                                         <label for="fechaEmision">Fecha de Emision:</label>
-                                        <input type="text" id="fechaEmision" id="txtfechaactual" />
+                                        <input type="text" style="background: #F0E9FF;" id="fechaEmision" id="txtfechaactual" />
                                     </div>
                                 </div>
 
                                 <div class="row" id="fila2">
                                     <div class="col-sm-4">
                                         <label for="direccion">Dirección:</label>
-                                        <input type="text" id="direccion" value="${item1.direccion}"/>
+                                        <input type="text" style="background: #F0E9FF;" id="direccion" value="${item1.direccion}"/>
                                     </div>
                                     <div class="col-sm-4">
                                         <label for="">Teléfono:</label>
-                                        <input type="text" id="telefono" value="${item1.telefono}"/>
+                                        <input type="text" style="background: #F0E9FF;" id="telefono" value="${item1.telefono}"/>
                                     </div>
                                     <div class="col-sm-4">      
                                         <label for="">Correo:</label>
-                                        <input type="text" id="correo" value="${item1.correo}"/>
+                                        <input type="text" style="background: #F0E9FF;" id="correo" value="${item1.correo}"/>
                                     </div>
                                 </div>
 
@@ -144,7 +141,7 @@
                                                 </select>
 
                                             </td>
-                                            <td ><input type="text" name="subTotal"  id="subtotal" class="monto" style="text-align: center;" onkeyup="sumar()"/></td>
+                                            <td ><input type="text" name="subTotal" style="background: #F0E9FF;" id="subtotal" class="monto" style="text-align: center;" onkeyup="sumar()"/></td>
 
                                         </tr>
                                     </c:forEach>
@@ -157,7 +154,7 @@
                         <div class="row">
 
                             <div class="col-sm-3" id="col2">
-                                <fieldset id="fieldset3" style="border: 1px solid gray">
+                                <fieldset id="fieldset3" style="border: 1px solid gray; background: white;">
 
                                     <div class="d-flex flex-row" >
                                         <div class="p-6">
@@ -165,7 +162,7 @@
                                             <label for="importe" >Importe(S/):</label>
                                         </div>
                                         <div class="p-6">
-                                            <textarea id="imp" name="imp"></textarea> 
+                                            <textarea style="background: #F0E9FF;" id="imp" name="imp"></textarea> 
 
                                         </div>
                                     </div>
@@ -174,7 +171,7 @@
                                             <label for="igv" >IGV(%18):</label>
                                         </div>
                                         <div class="p-6">
-                                            <textarea id="igv" name="igv"></textarea>
+                                            <textarea style="background: #F0E9FF;" id="igv" name="igv"></textarea>
                                         </div>	
                                     </div>
                                     <div class="d-flex flex-row" >
@@ -182,7 +179,7 @@
                                             <label for="total" >Total(S/):</label>
                                         </div>
                                         <div  class="p-6">
-                                            <textarea id="total" name="total"></textarea>
+                                            <textarea style="background: #F0E9FF;" id="total" name="total"></textarea>
 
                                         </div>	
                                     </div>
@@ -193,7 +190,7 @@
 
                         <div class="col">
                             <label for="observacion" >Observaciones:</label>
-                            <textarea name="observacion" id="observacion" ></textarea>
+                            <textarea name="observacion" style="background: #F0E9FF;" id="observacion" ></textarea>
 
                         </div>
 
