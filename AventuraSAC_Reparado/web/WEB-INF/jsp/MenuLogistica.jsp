@@ -61,7 +61,7 @@
                     <section>
                         <div class="content">
                             <header>
-                                <a href="#" class="icon fa-file"><span class="label">Icon</span></a>
+                                <a href="OrdenCompra.htm" class="icon fa-file"><span class="label">Icon</span></a>
                                 <h2>GENERAR ORDEN DE COMPRA</h2>
                             </header>
                             <p>Elabora la orden de compra para poder hacer el pedido al proveedor.</p>								

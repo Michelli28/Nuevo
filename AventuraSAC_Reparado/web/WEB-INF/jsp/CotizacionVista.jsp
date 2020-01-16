@@ -77,30 +77,30 @@
                                 <div class="row" id="fila1">
                                     <div class="col-sm-4">
                                         <label for="">Razón Social:</label>
-                                        <input type="text"  id="razonSocial" value="${item1.razonSocial}"> 
+                                        <label style="font-size: 14px;">${item1.razonSocial}</label> 
                                     </div>
                                     <div class="col-sm-4">      
                                         <label for="">RUC:</label>
-                                        <input type="text" id="ruc" value="${item1.ruc}"/>
+                                        <label style="font-size: 14px;">${item1.ruc}</label>
                                     </div>
                                     <div class="col-sm-4">      
-                                        <label for="fechaEmision">Fecha de Emision:</label>
-                                        <input type="text" id="fechaEmision" id="txtfechaactual" value="${cotizacion.fechaEmision}"/>
+                                        <label>Fecha de Emision:</label>
+                                        <label style="font-size: 14px;">${cotizacion.fechaEmision}</label>
                                     </div>
                                 </div>
 
                                 <div class="row" id="fila2">
                                     <div class="col-sm-4">
-                                        <label for="direccion">Dirección:</label>
-                                        <input type="text" id="direccion" value="${item1.direccion}"/>
+                                        <label>Dirección:</label>
+                                        <label style="font-size: 14px;">${item1.direccion}</label>
                                     </div>
                                     <div class="col-sm-4">
-                                        <label for="">Teléfono:</label>
-                                        <input type="text" id="telefono" value="${item1.telefono}"/>
+                                        <label >Teléfono:</label>
+                                        <label style="font-size: 14px;">${item1.telefono}</label>
                                     </div>
                                     <div class="col-sm-4">      
-                                        <label for="">Correo:</label>
-                                        <input type="text" id="correo" value="${item1.correo}"/>
+                                        <label >Correo:</label>
+                                        <label style="font-size: 14px;">${item1.correo}</label>
                                     </div>
                                 </div>
 
@@ -125,11 +125,11 @@
                                 <tbody>
                                      <c:forEach var="item" items="${detalle}">
                                         <tr>
-                                            <td style="text-align: center;">${item.idDetallePedido.idDetallePedido}</td>
-                                            <td style="text-align: center;">${item.idDetallePedido.idFicha.descripcion}</td>
-                                            <td style="text-align: center;">${item.idDetallePedido.idFicha.cantidad}</td>
-                                            <td style="text-align: center;">${item.idDetallePedido.idFicha.idEstado.nombre}</td>
-                                            <td ><input type="text" name="subTotal"  id="subtotal" class="monto" style="text-align: center;" onkeyup="sumar()" value="${item.subTotal}"/></td>
+                                            <td style="text-align: center;font-family: Arial;">${item.idDetallePedido.idDetallePedido}</td>
+                                            <td style="text-align: center;font-family: Arial;">${item.idDetallePedido.idFicha.descripcion}</td>
+                                            <td style="text-align: center;font-family: Arial;">${item.idDetallePedido.idFicha.cantidad}</td>
+                                            <td style="text-align: center;font-family: Arial;">${item.idDetallePedido.idFicha.idEstado.nombre}</td>
+                                            <td style="text-align: center; font-family: Arial;"><label>${item.subTotal}</label>
 
                                         </tr>
                                     </c:forEach>
@@ -198,121 +198,6 @@
            
         </div>
 
-        <script>
-
-            function sumar() {
-
-                var total = 0;
-                var igv = 0.0;
-                var total1 = 0.0;
-
-                $(".monto").each(function () {
-
-                    if (isNaN(parseFloat($(this).val()))) {
-
-                        total += 0;
-
-
-                    } else {
-
-                        total += parseFloat($(this).val());
-                        igv = Number((total * 0.18).toFixed(2));
-                        total1 = Number((total + igv).toFixed(2));
-                    }
-
-                });
-
-                //alert(total);
-                document.getElementById('imp').innerHTML = total;
-                document.getElementById('igv').innerHTML = igv;
-                document.getElementById('total').innerHTML = total1;
-
-            }
-
-            function Enviar() {
-                var fichas = obtenerFichas();
-                /*var parametros = "idpedido=" + $("#idPedido").val() +
-                        "&fechaEmision=" + $("#txtfechaactual").val() +
-                        "&fichas=" + fichas +
-                        "&imp=" + $("#imp").val() +
-                        "&igv=" + $("#igv").val() +
-                        "&total=" + $("#total").val() +
-                        "&observacion=" + $("#observacion").val();
-
-                window.location.href = 'generarcotizacion.htm?' + parametros;
-                */
-                $.ajax({
-                    type: 'POST',
-                    url: 'generarcotizacion.htm',
-                    data: {
-                        'idPedido': $("#idPedido").val(),
-                        'fechaEmision': $("#txtfechaactual").val(),
-                        'fichas': fichas,
-                        'imp': $("#imp").val(),
-                        'igv': $("#igv").val(),
-                        'total': $("#total").val(),
-                        'observacion': $("#observacion").val()
-                    },
-                    success: function (data) {
-                        window.location.href = 'listapedidostrabajador.htm';
-                    }
-                });
-            }
-
-            function obtenerFichas() {
-                var cadena = '';
-                // Recorrer las filas TR de la tabla
-                $("#table tbody tr").each(function (i) {
-                    // ID FICHA
-                    cadena += $(this).find('td:eq(0)').text() + ",";
-                    // ESTADO
-                    cadena += $(this).find('td:eq(3)').find("option:selected").val() + ",";
-                    // SUBTOTAL
-                    if ($(this).find('td:eq(3)').find("option:selected").val() === '2') {
-                        cadena += '0;';
-                    } else {
-                        cadena += $(this).find("input").val() + ";";
-                    }
-                });
-                return cadena.substring(0, cadena.length - 1);
-            }
-            
-            
-            
-            
-             
-        </script>
-        
-        <script>
-            $(function () {
-                $("#btn").on("click", function () {
-                    $("#formulario").validate({
-                        rules:
-                                {
-                                    idCotizacion: {required: true, numbersonly: true },
-                                    subtotal: { required: true, numbersonly: true},
-                                    observacion: {required: true, minlength: 15, maxlength: 50}
-                                }, 
-                        messages:
-                                {
-                                    idCotizacion: {required: true, numbersonly: true },
-                                    subtotal: {required: 'El campo es requerido', numbersonly: 'Porfavor, solo números'},
-                                    observacion:  {required: 'El campo es requerido', minlength: 'El mínimo permitido son 15 caracteres' ,maxlength: 'El máximo permitido son 50 caracteres'}
-                                }
-                    });
-                });    
-            });
-        </script>
-        
-        <script>
-            $(document).ready(function () {      //DOM manipulation code  
-                jQuery.validator.addMethod("lettersonly", function (value, element) {
-                    return this.optional(element) || /^[a-z]+$/i.test(value);
-                }, "Por favor, solo letras");
-                jQuery.validator.addMethod("numbersonly", function (value, element) {
-                    return this.optional(element) || /^[0-9]+$/i.test(value);
-                }, "Por favor, solo números");
-            });
-        </script>
+      
     </body>
 </html>

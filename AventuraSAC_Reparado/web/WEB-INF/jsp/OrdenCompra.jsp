@@ -75,7 +75,7 @@
                     </div>
 
                     <div class="card-body">
-                        <input type="text" name="idEmpleado" id="idEmpleado" value="${usuario.idEmpleado}">
+                        <input type="hidden" name="idEmpleado" value="${usuario.idEmpleado}"/>
                         <div class="row">
                             <div class="col-sm-4" >
                                 <label for="fechaEmision"><strong>Fecha:</strong></label>
@@ -117,10 +117,6 @@
                             </div>
 
                         </div>
-
-                        <p>Elementos en la Tabla:
-                        <div id="adicionados"></div>
-                        </p>
 
 
                         <table class="table" style="width: 100%;" id="table">
@@ -182,7 +178,10 @@
                 table.removeChild(tr);
             }
 
-            function Enviar() {
+
+        </script>
+        <script>
+             function Enviar() {
                 var detalles = obtenerDetalle();
 
                 $.ajax({
@@ -220,11 +219,6 @@
                 });
                 return cadena.substring(0, cadena.length - 1);
             }
-
-
-
-
-
         </script>
 
     </body>
