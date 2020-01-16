@@ -1,0 +1,67 @@
+create table AFP( 	
+idAFP int  IDENTITY(1,1) primary key, 	
+descripcion varchar(30) not null, 	
+tasa decimal(10,3) not null 	
+) 
+go 
+
+CREATE TABLE  Cargo (
+	 idCargo   int  IDENTITY(1,1) primary key NOT NULL,
+	 nomCargo   varchar (50) NOT NULL,
+         HoraExtra double,	 
+)
+go
+
+
+CREATE TABLE Empleado ( 	 
+idEmpleado int IDENTITY(1,1) PRIMARY KEY, 	 
+dni char (8) NOT NULL, 	 
+apePaterno varchar (30) NOT NULL, 	 
+apeMaterno varchar (30) NOT NULL, 	 
+nombres varchar (50) NOT NULL, 	 
+sexo char (1) NOT NULL, 	 
+idCargo int NOT NULL, 	 
+idAFP int NOT NULL, 	 
+FechaIngreso date NOT NULL,
+SueldoContrato double NOT NULL	 
+) 
+go	 
+
+
+Create table Sueldo( 
+idSueldo int IDENTITY(1,1) PRIMARY KEY, 	
+idEmpleado int, 	
+DiasTrabajados int NOT NULL, 	
+Horas Extras int not null, 	
+DescPension double,
+DescSeguro double,
+AsignacionFamiliar double,
+Monto double
+) 
+go 
+
+Create table CTS( 
+idCTS int IDENTITY(1,1) PRIMARY KEY, 	
+idEmpleado int, 	
+FechaSalida date NOT NULL, 	
+Horas Extras int not null, 	
+DescPension double,
+DescSeguro double,
+AsignacionFamiliar double,
+Monto double
+) 
+go
+
+Create table Gratificacion( 
+idGratificacion int IDENTITY(1,1) PRIMARY KEY, 	
+idEmpleado int, 	
+AsignacionFamiliar double,
+Monto double
+) 
+go
+
+
+
+
+alter table Planilla add constraint PK_Planilla_primaryfour primary key (mes, semana, tipo, periodo)
+

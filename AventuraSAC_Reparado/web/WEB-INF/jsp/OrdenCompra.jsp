@@ -15,6 +15,7 @@
         <link href="<c:url value="webapp/resources/theme1/css/bootstrap.min.css" />" rel="stylesheet">
         <link href="<c:url value="webapp/resources/theme1/css/EstilosOrden.css" />" rel="stylesheet">
         <link href="<c:url value="webapp/resources/theme1/css/main.css" />" rel="stylesheet" />
+        <script src="<c:url value="webapp/resources/theme1/js/jquery.min.js" />"></script>
     </head>
 
     <body id="body">
