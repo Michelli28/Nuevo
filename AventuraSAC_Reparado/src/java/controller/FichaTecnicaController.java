@@ -93,7 +93,6 @@ public class FichaTecnicaController {
     }
 
     @RequestMapping(value = "FichaTecnica.htm", method = RequestMethod.POST)
-
     public ModelAndView NuevaFichaTecnica(@ModelAttribute("fichatecnica") Fichatecnica f,
             @RequestParam("filename") MultipartFile file, HttpServletRequest request) throws Exception {
 
