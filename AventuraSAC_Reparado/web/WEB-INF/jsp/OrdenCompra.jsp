@@ -30,7 +30,7 @@
 
             <div class="card" id="carta">
 
-                <form:form method="post" modelAttribute="ordencompra">
+                <form method="post" action="generarorden.htm">
 
                     <div class="card-header" id="cardheader">
                         <br>
@@ -61,7 +61,7 @@
                                         </div>
                                         <div class="p-3">
                                             <input name="idCotizacion">
-                                            <form:hidden path="idOrdenCompra" cssClass="form-control"/>
+                                            <input type="hidden" name="idOrdenCompra" cssClass="form-control"/>
                                         </div>
                                         <div class="p-3">
                                             -&nbsp;0000041
@@ -74,18 +74,19 @@
                     </div>
 
                     <div class="card-body">
+                        <input type="text" name="idEmpleado" id="idEmpleado" value="${usuario.idEmpleado}">
                         <div class="row">
                             <div class="col-sm-4" >
                                 <label for="fechaEmision"><strong>Fecha:</strong></label>
-                                <form:input path="fechaEmision" cssClass="form-control" />
+                                <input type="text" name="fechaEmision" id="txtfechaactual" />
                             </div>
                             <div class="col-sm-4" >
                                 <label for="idProveedor"><strong>Proveedor:</strong></label>
-                                <form:select path="idProveedor.idProveedor" id="idProveedor">
+                                <select path="idProveedor.idProveedor" id="idProveedor">
                                     <c:forEach items="${proveedor}" var="x">
                                         <option value="${x.idProveedor}">${x.razonSocial}</option>
                                     </c:forEach>
-                                </form:select>
+                                </select>
                             </div>
                             <div class="col-sm-4" >
 
@@ -121,7 +122,7 @@
                         </p>
 
 
-                        <table class="table" style="width: 100%;" id="mytable">
+                        <table class="table" style="width: 100%;" id="table">
                             <thead class="thead-dark">
                                 <tr>
                                     <th style="text-align: center;">Descripción</th>
@@ -138,19 +139,17 @@
                         <hr style="border: solid gray 1px;">
 
                         <center>
-                            <input type="submit" class="btn btn-dark"value="Guardar"/>
+                            <input type="button" class="btn btn-dark"value="Guardar" onclick="Enviar()"/>
                             <a class="btn btn-dark" href="menu.htm" role="button">Regresar al Menú</a> 
                         </center>
 
                     </div>
-                </form:form>
+                </form>
 
 
             </div>
 
         </div>
-
-
 
         <br>
         <br>
@@ -162,7 +161,7 @@
                 var _nom = document.getElementById("descripcion").value;
                 var _ape = document.getElementById("cantidad").value;
                 var i = 1;
-                var fila = '<tr id="row" ' + i + '><td style="text-align: center;">' + _nom + '</td><td style="text-align: center;">' + _ape + '</td><td><button type="button" id="' + i + '" class="btn btn-danger btn_remove" onclick="remove(this)" >Quitar</button></td></tr>';
+                var fila = '<tr id="row" ' + i + '><td style="text-align: center;">' + _nom + '</td><td style="text-align: center;">' + _ape + '</td><td style="text-align:center;"><button type="button" id="' + i + '" class="btn btn-danger btn_remove" onclick="remove(this)" >Quitar</button></td></tr>';
 
                 i = i + 1;
                 var btn = document.createElement("TR");
@@ -182,6 +181,44 @@
                 table.removeChild(tr);
             }
 
+            function Enviar() {
+                var detalles = obtenerDetalle();
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'generarorden.htm',
+                    data: {
+                        'fechaEmision': $("#txtfechaactual").val(),
+                        'detalles': detalles,
+                                'imp': $("#imp").val(),
+                                'igv': $("#igv").val(),
+                                'tota'imp': $("#imp").val(),
+                                'igv': $("#igv")l': $("#total").val(),
+                                'observacion': $("#observacion").val()
+                    },
+                    success: function (data) {
+                        window.location.href = 'listapedidostrabajador.htm';
+                    }
+                });
+            }
+            
+             function obtenerDetalles() {
+                var cadena = '';
+                // Recorrer las filas TR de la tabla
+                $("#table tbody tr").each(function (i) {
+                    // ID FICHA
+                    cadena += $(this).find('td:eq(0)').text() + ",";
+                    // ESTADO
+                    cadena += $(this).find('td:eq(3)').find("option:selected").val() + ",";
+                    // SUBTOTAL
+                    if ($(this).find('td:eq(3)').find("option:selected").val() === '2') {
+                        cadena += '0;';
+                    } else {
+                        cadena += $(this).find("input").val() + ";";
+                    }
+                });
+                return cadena.substring(0, cadena.length - 1);
+            }
 
 
 

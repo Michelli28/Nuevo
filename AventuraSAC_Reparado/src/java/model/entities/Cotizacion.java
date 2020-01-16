@@ -6,6 +6,8 @@
 package model.entities;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -66,10 +68,12 @@ public class Cotizacion implements Serializable {
     private Pedido idPedido;
 
     public Cotizacion() {
+        fechaEmision = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
     }
 
     public Cotizacion(Integer idCotizacion) {
         this.idCotizacion = idCotizacion;
+        fechaEmision = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
     }
 
     public Cotizacion(Integer idCotizacion, String fechaEmision, double importe, double igv, double total) {

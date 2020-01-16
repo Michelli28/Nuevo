@@ -109,7 +109,7 @@ public class PedidoController {
 
         ModelAndView mv = new ModelAndView();
         
-        request.getSession().setAttribute("pedidos", pedidos);
+        //request.getSession().setAttribute("pedidos", pedidos);
 
         mv.addObject("pedidos", pedidos);
 

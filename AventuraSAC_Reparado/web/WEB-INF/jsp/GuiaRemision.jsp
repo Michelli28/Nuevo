@@ -14,6 +14,8 @@
         <link href="<c:url value="webapp/resources/theme1/css/bootstrap.min.css" />" rel="stylesheet">
         <link href="<c:url value="webapp/resources/theme1/css/estilosguia.css" />" rel="stylesheet">
         <link href="<c:url value="webapp/resources/theme1/css/main.css" />" rel="stylesheet" />
+        <script src="<c:url value="webapp/resources/theme1/js/jquery.min.js" />"></script>
+        <script type="text/javascript" src="<c:url value="webapp/resources/theme1/js/jquery.validate.min.js"/>"></script>
 
 
     </head>
@@ -30,7 +32,7 @@
 
             <div class="card" id="carta">
 
-                <form:form method="post" modelAttribute="guiaremision">
+                <form:form method="post" modelAttribute="guiaremision" id="formulario">
 
                     <div class="card-header" id="cardheader">
                         <br>
@@ -120,34 +122,74 @@
                     <hr style="border: 1px solid gray ">
 
                     <form:form method="post" modelAttribute="guiaremisionDetalle">          
-                        <fieldset id="fieldset1" style="border: 1px solid gray">
-                            <legend><strong>Detalles</strong></legend>
-                            <div class="row" id="fila1">
+                        <fieldset style="border: 1px solid gray; width: 60%; margin: 0% 20%; padding: 2% 0% 0% 4%;">
+                            <div class="row">
                                 <div class="col-sm-4">
                                     <label for="cantidad">Cantidad:</label>
-                                    <input type=""  />
+                                    <input type="text" style="background: #F0E9FF;" id="cantidad" placeholder="Ingrese cantidad" />
                                 </div>
-                            </div>
-                            <div class="row" id="fila2">
-                                <div class="col-sm-2">	
+                                <div class="col-sm-7">	
                                     <label for="descripcion">Descripcion:</label>
-                                    <input type="text" name="descripcion"  cssClass="form-control" />
+                                    <textarea type="text" name="descripcion" id="descripcion" style="height: 45%;background: #F0E9FF;" placeholder="Ingresar descripción" cssClass="form-control"></textarea>
                                 </div>	
                             </div>
                         </fieldset>
                     </form:form>
 
 
+                    <hr style="border: solid gray 1px;">
 
-                    <fieldset id="fieldset4" style="border: 1px solid gray">
-                        <legend>¿Qué acción desea realizar?</legend>
-                        <div class="row" id="fila8">
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-outline-secondary">Enviar</button>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-outline-secondary">Cancelar</button>
-                        </div>
-                    </fieldset>
-                </div>
+                    <center>
+                        <input type="button" class="btn btn-dark"value="Guardar" onclick="Enviar()"/>
+                        <a class="btn btn-dark" href="menu.htm" style="text-decoration: none;" role="button">Regresar al Menú</a> 
+                    </center>
             </div>
         </div>
-    </body>
+    </div>
+
+    <script>
+        $(function () {
+            $("#btn").on("click", function () {
+                $("#formulario").validate({
+                    rules:
+                            {
+                                puntoLlegada: {required: true, maxlentgh: 50},
+                                destinatario: {required: true, minlength: 10, maxlentgh: 60},
+                                rUCtransporte: {required: true, minlength: 11, maxlength: 11, numbersonly: true},
+                                nombreTransportista: {required: true, minlength: 5, maxlentgh: 50, lettersonly: true},
+                                marcayPlaca: {required: true, maxlength: 30},
+                                licencia: {required: true, maxlength: 20},
+                                cantidad: {required: true, numbersonly: true},
+                                descripcion: {required: true, minlength: 5, maxlentgh: 60}
+                            },
+                    messages:
+                            {
+                                puntoLlegada: {required: 'El campo es requerido', maxlength: 'El máximo permitido son 50 caracteres'},
+                                destinatario: {required: 'El campo es requerido', minlength: 'El minimo permitido son 10 caracteres', maxlength: 'El máximo permitido son 60 caracteres'},
+                                rUCtransporte: {required: 'El campo es requerido', minlength: 'El minimo permitido son 11 caracteres', maxlength: 'El máximo permitido son 11 caracteres', numbersonly: 'Porfavor, solo ingrese números'},
+                                nombreTransportista: {required: 'El campo es requerido', minlength: 'El minimo permitido son 5 caracteres', maxlength: 'El máximo permitido son 50 caracteres', lettersonly: 'Porfavor, solo letras'},
+                                marcayPlaca: {required: 'El campo es requerido', maxlength: 'El máximo permitido son 60 caracteres'},
+                                licencia: {required: 'El campo es requerido', maxlength: 'El máximo permitido son 60 caracteres'},
+                                descripcion: {required: 'El campo es requerido', minlength: 'El mínimo permitido son 5 caracteres',
+                                    maxlength: 'El máximo permitido son 30 caracteres'},
+                                cantidad: {required: 'El campo es requerido', numbersonly: 'Por favor, solo ingrese números'},
+
+                            }
+                });
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {      //DOM manipulation code  
+            jQuery.validator.addMethod("lettersonly", function (value, element) {
+                return this.optional(element) || /^[a-z]+$/i.test(value);
+            }, "Por favor, solo letras");
+            jQuery.validator.addMethod("numbersonly", function (value, element) {
+                return this.optional(element) || /^[0-9]+$/i.test(value);
+            }, "Por favor, solo números");
+        });
+    </script>
+
+</body>
 </html>

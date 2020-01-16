@@ -135,7 +135,7 @@
                             <div class="col-sm-5" style="right: 15%;">
                                 <div class="d-flex flex-row">
                                     <div  class="p-6">
-                                        <div class="card" id="carta2" style="left: 55%;">
+                                        <div class="card" id="carta2" >
                                             <div class="card-body" id="body2">
                                                 <h5 class="card-title">Combinación de colores:</h5>
                                                 <h6 class="card-subtitle mb-2 text-muted">Seleccionar..</h6>
@@ -188,15 +188,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-3" style="left: 20%; margin: 3% 0%;">
-                                <div>
-                                    <label for="idEstado" >Estado:</label>
-                                    <form:select path="idEstado.idEstado" id="fentregaI">
+                            <div>
+                             
+                                    <form:select path="idEstado.idEstado" id="fentregaI" >
                                         <c:forEach items="${estado}" var="x">
                                             <option value="${x.idEstado}">${x.nombre}</option>
                                         </c:forEach>
                                     </form:select>
-                                </div>
+                           
                             </div>
                         </div>
                         <hr style="border: 1px solid gray">

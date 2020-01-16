@@ -16,6 +16,7 @@
         <meta name="keywords" content="" />
         <link href="<c:url value="webapp/resources/theme1/css/bootstrap.min.css" />" rel="stylesheet">
         <link href="<c:url value="webapp/resources/theme1/css/main.css"/>" rel="stylesheet">
+        <link href="<c:url value="webapp/resources/theme1/fonts/font.awesome.css" />" rel="stylesheet">
         <link href="../../webapp/resources/theme1/css/estilolistapedido.css" rel="stylesheet" type="text/css"/>
         <title>JSP Page</title>
     </head>
@@ -49,9 +50,8 @@
                                 <th style="text-align: center;">Fecha Registro</th>
                                 <th style="text-align: center;">Fecha Entrega</th>
                                 <th style="text-align: center;">Estado</th>
-                                  
-                                    <th style="text-align: center;">Acciones</th>
-                                 
+                                <th style="text-align: center;">Acciones</th>
+
                             </tr>
                         </thead>
 
@@ -59,15 +59,17 @@
                             <c:forEach var="item" items="${pedidos}">
                                 <tr> 
                                     <th scope="row" style="text-align: center;">${item.idPedido}</th>
-
                                     <td style="text-align: center;">${item.fechaRegistro}</td>
                                     <td style="text-align: center;">${item.fechaEntrega}</td>
                                     <td style="text-align: center;">${item.idEstado.nombre}</td>
-                                    <c:forEach var="x" items="${cotiz}">
-                                        <c:if test="${x.idPedido == pedidos.idPedido.idPedido}">
-                                            <td style="text-align: center;"><a class="btn btn-info" role="button" href="Cotizacion.htm?idPedido=${item.idPedido}" >Ver Cotización <i class="fas fa-edit"></i></a></td>
-                                        </c:if>
-                                    </c:forEach>
+
+                                    <c:if test="${item.cotizacionList.size() != 0}">
+                                        <td style="text-align: center;"><a class="btn btn-info" role="button" href="Cotizacion.htm?idPedido=${item.idPedido}" style="text-decoration: none;">Ver Cotización <i class="fas fa-edit"></i></a></td>
+                                            </c:if>
+                                        <c:if test="${item.cotizacionList.size() == 0}">
+                                            <td><label></label></td>
+                                            </c:if>
+
                                 </tr>
                             </c:forEach>
 

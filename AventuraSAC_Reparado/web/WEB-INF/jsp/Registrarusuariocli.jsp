@@ -12,6 +12,8 @@
         <link href="<c:url value="webapp/resources/theme1/css/bootstrap.min.css" />" rel="stylesheet">
         <link href="<c:url value="webapp/resources/theme1/css/registrarusuario.css" />" rel="stylesheet">
         <link href="<c:url value="webapp/resources/theme1/css/main.css" />" rel="stylesheet">
+        <script src="<c:url value="webapp/resources/theme1/js/jquery.min.js" />"></script>
+        <script type="text/javascript" src="<c:url value="webapp/resources/theme1/js/jquery.validate.min.js"/>"></script>
     </head>
     <body id="bodys">
 
@@ -50,17 +52,17 @@
 
                 <div class="card-body">
 
-                    <form:form method="post" modelAttribute="cliente">
+                    <form:form method="post" modelAttribute="cliente" id="formulario">
 
                         <div class="d-flex flex-row">
                             <div class="form-group" class="p-3" id="razon1">
                                 <label for="razonSocial">Razón Social:</label>
-                                <form:input path="razonSocial" placeholder="Ingresar razón social" id="razon" cssClass="form-control" type="text" minlength="3" maxlength="25" required="required"/>
+                                <form:input path="razonSocial" placeholder="Ingresar razón social" id="razon" cssClass="form-control" />
                             </div>
 
                             <div class="form-group" class="p-3" id="ruc2">
                                 <label for="ruc">RUC:</label>
-                                <form:input path="ruc" type="number" id="ruc" placeholder="Ingresar ruc" cssClass="form-control" min="10000000000" maxlength="99999999999" required="required"/>
+                                <form:input path="ruc"  id="ruc" placeholder="Ingresar ruc" cssClass="form-control" />
                             </div>
 
 
@@ -78,7 +80,7 @@
                             <div class="form-group" class="p-3" id="dir1">
                                 <div class="form-group">
                                     <label for="direccion">Dirección:</label>
-                                    <form:input path="direccion" cssClass="form-control" placeholder="Ingresar dirección" maxlength="30" required="required"/>
+                                    <form:input path="direccion" cssClass="form-control" placeholder="Ingresar dirección" />
                                 </div>
                             </div>
                         </div>
@@ -86,32 +88,33 @@
 
                             <div class="form-group" class="p-3" id="tel">
                                 <label for="telefono">Teléfono:</label>
-                                <form:input path="telefono" cssClass="form-control" id="tel1" placeholder="Ingresar N° de teléfono" type="number" min="0000000" maxlength="999999999" required="required"/>
+                                <form:input path="telefono" cssClass="form-control" id="tel1" placeholder="Ingresar N° de teléfono" />
                             </div>
                             <div class="form-group" class="p-3" id="brok1">
                                 <label for="broker">Broker:</label>
-                                <form:input path="broker" cssClass="form-control" maxlength="30" placeholder="Ingresar broker" required="required" />
+                                <form:input path="broker" cssClass="form-control" placeholder="Ingresar broker" />
                             </div>
                             <div class="form-group" class="p-3" id="corr1">
                                 <label for="correo">Correo:</label>
-                                <form:input path="correo" cssClass="form-control" maxlength="30" required="required" placeholder="Ingresar correo" type="email"/>
+                                <form:input path="correo" cssClass="form-control"  placeholder="Ingresar correo" />
                             </div>
                             <div class="form-group" class="p-3" id="usu">
+
                                 <label for="usuario">Usuario:</label>
-                                <form:input path="usuario"  cssClass="form-control" maxlength="20" required="required" placeholder="Ingresar nombre de usuario"/>
+                                <form:input path="usuario"  cssClass="form-control" placeholder="Ingresar nombre de usuario"/>
                             </div>
                         </div>
                         <div class="d-flex flex-row">
                             <div class="form-group" class="p-3" id="clav1">
                                 <label for="clave">Clave:</label>
-                                <form:password path="clave" cssClass="form-control" maxlength="15" required="required" placeholder="*********" />
+                                <form:password path="clave" cssClass="form-control"  placeholder="*********" />
                             </div>
                         </div>
                         <center>
                             <div id="botones">
                                 <fieldset id="fiel">
                                     <legend>¿Qué acción desea realizar?</legend>
-                                    <input type="submit" class="btn btn-primary"  value="Registrar">
+                                    <input type="submit" class="btn btn-primary"  value="Registrar" id="btn">
                                     <a class="btn btn-secondary" href="login.htm" role="button">Regresar</a>
                                 </fieldset>
                             </div>
@@ -121,8 +124,57 @@
                     </form:form>
 
                 </div>
-
             </div>
         </div>
+
+
+        <script>
+            $(function () {
+                $("#btn").on("click", function () {
+                    $("#formulario").validate({
+                        rules:
+                                {
+                                    razon: {required: true, minlength: 3, maxlength: 20, lettersonly: true},
+                                    direccion: {required: true, maxlength: 30},
+                                    telefono: {required: true, minlength: 7, maxlength: 9, numbersonly: true},
+                                    broker: {required: true, minlength: 15, maxlength: 30, lettersonly: true},
+                                    correo: {required: true, email: true, minlength: 15, maxlength: 30},
+                                    usuario: {required: true, minlength: 5, maxlength: 20},
+                                    clave: {required: true, minlength: 7, maxlength: 9, numbersonly: true}
+
+                                },
+                        messages:
+                                
+                      
+                                {
+                                    razon: {required: 'El campo es requerido', minlength: 'El mínimo permitido son 3 caracteres',
+                                        maxlength: 'El máximo permitido son 20 caracteres'},
+                                    direccion: {required: 'El campo es requerido', maxlength: 'El máximo permitido son 30 caracteres'},
+                                    telefono: {required: 'El campo es requerido', minlength: 'El mínimo permitido son 7 caracteres para teléfono',
+                                        maxlength: 'El máximo permitido son 9 caracteres para celular',
+                                        numbersonly: 'Por favor, solo ingrese números'},
+                                    broker: {required: 'El campo es requerido', minlength: 'El mínimo permitido son 15 caracteres',
+                                        maxlength: 'El máximo permitido son 30 caracteres'},
+                                    correo: {required: 'El campo es requerido', email: 'El caracter "@" es requerido', minlength: 'El mínimo permitido son 15 caracteres', maxlength: 'El máximo permitido son 30 caracteres'},
+                                    usuario: {required: 'El campo es requerido', minlength: 'El mínimo permitido son 20 caracteres',
+                                        maxlength: 'El máximo permitido son 5 caracteres'},
+                                    clave: {required: 'El campo es requerido', minlength: 'El mínimo permitido son 7 caracteres', maxlength: 'El máximo permitido son 20 caracteres',
+                                        numbersonly: 'Por favor, solo ingrese números'}
+                                }
+                    });
+                });
+            });
+        </script>
+
+        <script>
+            $(document).ready(function () {      //DOM manipulation code  
+                jQuery.validator.addMethod("lettersonly", function (value, element) {
+                    return this.optional(element) || /^[a-z]+$/i.test(value);
+                }, "Por favor, solo letras");
+                jQuery.validator.addMethod("numbersonly", function (value, element) {
+                    return this.optional(element) || /^[0-9]+$/i.test(value);
+                }, "Por favor, solo números");
+            });
+        </script>
     </body>
 </html>

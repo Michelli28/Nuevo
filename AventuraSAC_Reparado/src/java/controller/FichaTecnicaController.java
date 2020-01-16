@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
 import model.controllers.EstadoJpaController;
 import model.controllers.FichatecnicaJpaController;
 import model.controllers.TallaJpaController;
@@ -107,7 +108,7 @@ public class FichaTecnicaController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        
         Cliente c = (Cliente) request.getSession().getAttribute("usuario");
 
         f.setIdCliente(c);
