@@ -87,7 +87,7 @@ public class FichaTecnicaController {
 
         model.addAttribute("fichatecnica", new Fichatecnica());
 
-        mv.setViewName("Ficha");
+        mv.setViewName("Ficha1");
 
         return mv;
     }

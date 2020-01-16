@@ -187,6 +187,21 @@ public class CotizacionDetalleJpaController implements Serializable {
         }
         return lista;
     }
+    
+    public List<CotizacionDetalle> listadoxdetallecot(int idCotizacion) {
+        EntityManager em = getEntityManager();
+        List<CotizacionDetalle> lista = new ArrayList();
+        try {
+            Query q = em.createQuery("SELECT c FROM CotizacionDetalle c WHERE c.idCotizacion.idCotizacion = :idCotizacion").setParameter("idCotizacion",idCotizacion);
+            lista = (List<CotizacionDetalle>)q.getResultList();
+            System.out.println("Listado por cotizacion" + lista.size());
+
+        } 
+        finally {
+            em.close();
+        }
+        return lista;
+    }
 
 
     public CotizacionDetalle findCotizacionDetalle(Integer id) {

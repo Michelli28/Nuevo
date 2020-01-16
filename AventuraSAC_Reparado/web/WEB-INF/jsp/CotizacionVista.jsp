@@ -28,8 +28,6 @@
 
         <div class="container md-8">
 
-            <form method="post" action="generarcotizacion.htm" id="formulario">
-
                 <div class="card">
 
                     <div class="card-header">
@@ -68,13 +66,13 @@
 
                     <div class="card-body">
 
-                        <input type="hidden" name="idPedido" id="idPedido" value="${idPedido}">
+                        <input type="hidden" name="idPedido" id="idPedido" value="${cotizacion.idPedido}">
 
                         <center>
                             <div class="card-title"><h2><strong>Datos de la Cotización</strong></h2></div>
                         </center>
 
-                        <c:forEach var="item1" items="${clientes}">
+                        <c:forEach var="item1" items="${cliente}">
                             <fieldset id="fieldset1" style="border: 1px solid gray">
                                 <div class="row" id="fila1">
                                     <div class="col-sm-4">
@@ -87,7 +85,7 @@
                                     </div>
                                     <div class="col-sm-4">      
                                         <label for="fechaEmision">Fecha de Emision:</label>
-                                        <input type="text" id="fechaEmision" id="txtfechaactual" />
+                                        <input type="text" id="fechaEmision" id="txtfechaactual" value="${cotizacion.fechaEmision}"/>
                                     </div>
                                 </div>
 
@@ -125,28 +123,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach var="item" items="${detalle}">
+                                     <c:forEach var="item" items="${detalle}">
                                         <tr>
-                                            <td style="text-align: center;">${item.idDetallePedido}</td>
-                                            <td style="text-align: center;">${item.idFicha.descripcion}</td>
-                                            <td style="text-align: center;">${item.idFicha.cantidad}</td>
-                                            <td style="text-align: center;"><select name="idEstado" >
-                                                    <c:forEach items="${estado}" var="x">
-                                                        <c:if test="${item.idFicha.idEstado.idEstado == x.idEstado}">
-                                                            <option value="${x.idEstado}">${x.nombre}</option>
-                                                        </c:if>
-                                                        <c:if test="${item.idFicha.idEstado.idEstado != x.idEstado}">
-                                                            <option value="${x.idEstado}">${x.nombre}</option>
-                                                        </c:if>
-                                                    </c:forEach>
-                                                </select>
-
-                                            </td>
-                                            <td ><input type="text" name="subTotal"  id="subtotal" class="monto" style="text-align: center;" onkeyup="sumar()"/></td>
+                                            <td style="text-align: center;">${item.idDetallePedido.idDetallePedido}</td>
+                                            <td style="text-align: center;">${item.idDetallePedido.idFicha.descripcion}</td>
+                                            <td style="text-align: center;">${item.idDetallePedido.idFicha.cantidad}</td>
+                                            <td style="text-align: center;">${item.idDetallePedido.idFicha.idEstado.nombre}</td>
+                                            <td ><input type="text" name="subTotal"  id="subtotal" class="monto" style="text-align: center;" onkeyup="sumar()" value="${item.subTotal}"/></td>
 
                                         </tr>
                                     </c:forEach>
-
+                                   
                                 </tbody>
 
                             </table>
@@ -163,8 +150,7 @@
                                             <label for="importe" >Importe(S/):</label>
                                         </div>
                                         <div class="p-6">
-                                            <textarea id="imp" name="imp"></textarea> 
-
+                                            <label id="imp" name="imp" >${cotizacion.importe}</label> 
                                         </div>
                                     </div>
                                     <div class="d-flex flex-row" >
@@ -172,7 +158,7 @@
                                             <label for="igv" >IGV(%18):</label>
                                         </div>
                                         <div class="p-6">
-                                            <textarea id="igv" name="igv"></textarea>
+                                            <label id="igv" name="igv">${cotizacion.igv}</label>
                                         </div>	
                                     </div>
                                     <div class="d-flex flex-row" >
@@ -180,33 +166,36 @@
                                             <label for="total" >Total(S/):</label>
                                         </div>
                                         <div  class="p-6">
-                                            <textarea id="total" name="total"></textarea>
-
+                                            <label id="total" name="total">${cotizacion.total}</label>
                                         </div>	
                                     </div>
                                 </fieldset>
 
                             </div>
                         </div>
+                                        <br>
 
                         <div class="col">
                             <label for="observacion" >Observaciones:</label>
-                            <textarea name="observacion" id="observacion" ></textarea>
+                            <textarea name="observacion" id="observacion" style="width: 40%" >${cotizacion.observacion}</textarea>
 
                         </div>
 
                         <fieldset id="fieldset4" style="border: 1px solid gray">
                             <legend><p>¿Qué acción desea realizar?</p></legend>
                             <div class="row" id="fila8">
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="submit"  onclick="Enviar()" class="btn btn-success" value="Enviar" ></button>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-outline-secondary">Cancelar</button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a type="button" class="btn btn-success"  href="RegistrarPago.htm?idPedido=${cotizacion.idPedido}">Ir a pago por adelantado</a>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a type="button" class="btn btn-outline-secondary" href="listapedidos.htm">Cancelar</a>
                             </div>
                         </fieldset>
+                            
+                            <p>N° de Cuenta: 000909999099</p>
+                            <p>Se deberá de pagar por adelantado el 50% del total del pedido.</p>
 
                     </div>
 
                 </div>
-            </form>
+           
         </div>
 
         <script>

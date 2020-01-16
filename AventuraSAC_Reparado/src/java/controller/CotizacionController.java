@@ -131,6 +131,7 @@ public class CotizacionController {
         return mv;
     }
 
+    
     @RequestMapping(value = "generarcotizacion.htm", method = RequestMethod.POST)
 
     public ModelAndView GenerarCotizacion(HttpServletRequest request) throws Exception {
@@ -188,35 +189,49 @@ public class CotizacionController {
         
         repo3.create(c);
 
-//        double sub = Double.parseDouble(request.getParameter("subTotal"));
-//        for (PedidoDetalle pdt : pd) {
-//
-//            if (pdt.getIdPedido().getIdPedido() == id) {
-//                List<CotizacionDetalle> lista = new ArrayList<>(repo4.listadoxpedido(pdt.getIdDetallePedido()));
-//
-//                if (lista.size() == 0) {
-//
-//                    CotizacionDetalle detalleC = new CotizacionDetalle();
-//
-//                    detalleC.setIdCotizacion(c);
-//                    detalleC.setIdDetallePedido(pdt);
-//                    detalleC.setSubTotal(sub);
-//
-//                    c.getCotizacionDetalleList().add(detalleC);
-//
-//                }
-//            }
-//        }
-//        for (Pedido PD : p) {
-//            if (PD.getIdPedido() == id) {
-//                //List<Pedido> pedido = new ArrayList<>(repo2.listadoxpedidos(PD.getIdPedido()));
-//
-//            }
-//        }
-        //c.setIdPedido(pedido);
-        
 
         return new ModelAndView("redirect:/listapedidostrabajador.htm");
     }
+    
+    
+    @RequestMapping(value = "vercotizacion.htm", method = RequestMethod.GET)
+
+    public ModelAndView VerCotizacion(HttpServletRequest request) {
+
+        ModelAndView mv = new ModelAndView();
+        
+        int id = Integer.parseInt(request.getParameter("cotizacionList.get(0)"));
+        
+        Cotizacion obj = repo3.findCotizacion(id);
+        
+        List<CotizacionDetalle> detalle = repo4.findCotizacionDetalleEntities();
+        List<CotizacionDetalle> repo1 = new ArrayList();
+        List<Cliente> cliente = repo.findClienteEntities();
+        List<Cliente> repo = new ArrayList();
+        
+        for(Cliente c : cliente){
+            if(c.getIdCliente() == obj.getIdPedido().getIdCliente().getIdCliente()){
+                repo.add(c);
+            }
+        }
+        
+        for(CotizacionDetalle co : detalle){
+            if(co.getIdCotizacion().getIdCotizacion() == obj.getIdCotizacion()){
+                //List<CotizacionDetalle> detalles = repo4.listadoxpedido(id);
+                //if(detalles.size() == 0){
+                repo1.add(co);
+                //}
+            }
+        }
+        
+        
+        mv.addObject("detalle", repo1);
+        mv.addObject("cliente", repo);
+        mv.addObject("cotizacion", obj);
+        mv.setViewName("CotizacionVista");
+
+        return mv;
+    }
+
 
 }

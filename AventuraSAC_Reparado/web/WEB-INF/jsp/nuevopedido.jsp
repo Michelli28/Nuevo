@@ -84,15 +84,9 @@
                                 </c:forEach>
                             </tbody>
                         </table>
+                       
                         
-                        <div>
-                            <label for="idEstado" >Estado:</label>
-                            <form:select path="idEstado.idEstado" id="fentregaI">
-                                <c:forEach items="${estado}" var="x">
-                                    <option value="${x.idEstado}">${x.nombre}</option>
-                                </c:forEach>
-                            </form:select>
-                        </div>
+                        <form:input path="idEstado.idEstado" id="fentregaI" type="hidden" value="1"/>
                         
                         <center>
                             <input type="submit" class="btn btn-dark"value="Enviar"/>

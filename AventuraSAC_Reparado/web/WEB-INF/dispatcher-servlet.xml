@@ -45,6 +45,7 @@
                 
                 <prop key="Cotizacion.htm">cotizacionController</prop>
                 <prop key="generarcotizacion.htm">cotizacionController</prop>
+                <prop key="vercotizacion.htm">cotizacionController</prop>
 
                 
                 <prop key="login.htm">loginController</prop>

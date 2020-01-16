@@ -76,11 +76,13 @@
                         </div>
                     </div>
 
-                    <div class="card-body" style="top: 5%;">
+                    <div class="card-body">
 
                         <center><h2><strong>Ingresar datos de la Prenda</strong></h2></center>
                         <br>
 
+                        <form:input path="idEstado.idEstado" id="fentregaI" type="hidden" value="1"/>
+                        
                         <div class="row" style="text-align: left;">
                             <div class="col-sm-4">
                                 <label for="descripcion">Descripción:</label>
@@ -128,7 +130,7 @@
                                 <input type="file" name="filename"/>
                             </div>
                         </div>
-
+                            
                         <hr style="border: 1px solid gray">
 
                         <div class="row">
@@ -188,15 +190,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div>
-                             
-                                    <form:select path="idEstado.idEstado" id="fentregaI" >
-                                        <c:forEach items="${estado}" var="x">
-                                            <option value="${x.idEstado}">${x.nombre}</option>
-                                        </c:forEach>
-                                    </form:select>
-                           
-                            </div>
+                         
                         </div>
                         <hr style="border: 1px solid gray">
                         <center>
