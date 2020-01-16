@@ -36,28 +36,37 @@
             <div class="card" id="carta">
                 <form:form method="post" modelAttribute="pedido" >
                     <div class="card-header" id="cardheader">
-                        <div class="d-flex flex-row">
 
-                            <div class="p-4" class="form-group">
-                                <br>
-                                <h3>Agregar Pedido</h3>
-                            </div>
-                            <form:hidden path="idPedido" id="idPedido"/>
-                            <div class="p-4" class="form-group" id="femision">
 
-                                <label for="fechaRegistro">Fecha Emisión: </label>
-                                <form:input path="fechaRegistro" style="background: #F0E9FF;" cssClass="form-control" id="femisionI"/>
-                            </div>
-                            <div class="p-4" class="form-group" id="fentrega">
-                                <label for="fechaRegistro">Fecha Entrega: </label>
-                                <form:input path="fechaEntrega" style="background: #F0E9FF;" cssClass="form-control" id="fentregaI"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body" >
-                            
-                        <a class="btn btn-info" style="text-decoration: none;" href="FichaTecnica.htm" role="button" id="nuevo">Agregar Ficha</a>
                         <br>
+                        <h2 style="font-family: Segou IU;"><center>Agregar Pedido</center></h2>
+
+                        <form:hidden path="idPedido" id="idPedido"/>
+
+                        <form:input path="fechaEntrega" style="background: #F0E9FF;" cssClass="form-control" id="fentregaI" type="hidden"/>
+
+                    </div>
+
+                    <div class="card-body" >
+                        <div class="d-flex flex-row">
+                            <div class="p-6" class="form-group">
+
+                                <a class="btn btn-info" style="text-decoration: none; width: 200px; height: 45px; padding: 10px" href="FichaTecnica.htm" role="button" id="nuevo">Agregar Ficha</a>
+                            </div>
+
+                            <div class="p-6"id="femision" class="form-group">
+                                <div class="d-flex flex-row">
+                                    <div class="p-6" class="form-group" style="width: 120px;">
+                                        <label for="fechaRegistro">Fecha Emisión: </label>
+                                    </div>
+                                    <div class="p-6" class="form-group">
+                                        <form:input path="fechaRegistro" style="background: #F0E9FF;" cssClass="form-control" id="femisionI"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        
                         <br>
                         <table class="table">
                             <thead class="thead-dark">
@@ -84,26 +93,27 @@
                                 </c:forEach>
                             </tbody>
                         </table>
-                       
-                        
+
+
                         <form:input path="idEstado.idEstado" id="fentregaI" type="hidden" value="1"/>
-                        
+                        <br>
                         <center>
-                            <input type="submit" class="btn btn-dark"value="Enviar"/>
-                            <a class="btn btn-dark" style="text-decoration: none;" href="menucliente.htm" role="button">Regresar al Menú</a> 
+                            <input type="submit" class="btn btn-info" value="Enviar" style="width: 200px; height: 50px;"/>
+                            <a class="btn btn-dark" style="text-decoration: none; width: 200px; height: 50px; padding: 13px; margin: 0px 10px" href="menucliente.htm" role="button">Regresar al Menú</a> 
                         </center>
                     </div>
                 </form:form>
-            </div>
+            </div>  
         </div>
-         <script type="text/javascript">
-            function eliminar(id) {
-                if (confirm("¿Desea eliminar la ficha técnica?")) {
-                    window.location.href = "eliminarficha.htm?id=" + id;
-                    return true;
-                }
-                return false;
+    </div>
+    <script type="text/javascript">
+        function eliminar(id) {
+            if (confirm("¿Desea eliminar la ficha técnica?")) {
+                window.location.href = "eliminarficha.htm?id=" + id;
+                return true;
             }
-        </script>
-    </body>
+            return false;
+        }
+    </script>
+</body>
 </html>

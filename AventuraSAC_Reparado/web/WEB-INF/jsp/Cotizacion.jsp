@@ -163,7 +163,7 @@
                                             <label for="importe" >Importe(S/):</label>
                                         </div>
                                         <div class="p-6">
-                                            <textarea id="imp" name="imp"></textarea> 
+                                            <label id="imp" name="imp"></label> 
 
                                         </div>
                                     </div>
@@ -172,7 +172,7 @@
                                             <label for="igv" >IGV(%18):</label>
                                         </div>
                                         <div class="p-6">
-                                            <textarea id="igv" name="igv"></textarea>
+                                            <label id="igv" name="igv"></label>
                                         </div>	
                                     </div>
                                     <div class="d-flex flex-row" >
@@ -180,7 +180,7 @@
                                             <label for="total" >Total(S/):</label>
                                         </div>
                                         <div  class="p-6">
-                                            <textarea id="total" name="total"></textarea>
+                                            <label id="total" name="total"></label>
 
                                         </div>	
                                     </div>
@@ -198,7 +198,7 @@
                         <fieldset id="fieldset4" style="border: 1px solid gray">
                             <legend><p>¿Qué acción desea realizar?</p></legend>
                             <div class="row" id="fila8">
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="submit"  onclick="Enviar()" class="btn btn-success" value="Enviar" ></button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button"  onclick="Enviar()" class="btn btn-success"  >Enviar</button>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-outline-secondary">Cancelar</button>
                             </div>
                         </fieldset>

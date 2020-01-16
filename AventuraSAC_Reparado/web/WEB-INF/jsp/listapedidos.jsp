@@ -36,10 +36,10 @@
                 <div class="card-header" style="background: #C1FCEC ;"> 
                     <br>
 
-                    <h2><center>Lista de Pedidos</center></h2>
+                    <h2 style="font-family: Segou IU;"><center>Lista de Pedidos</center></h2>
 
                 </div>
-                <br>
+                
                 <div class="card-body">
 
                     <table class="table" style="width: 100%; height: 100%;">
@@ -77,7 +77,7 @@
                     </table>
 
                     <center>
-                        <a class="btn btn-dark" href="menucliente.htm" role="button">Regresar al Menú</a> 
+                        <a class="btn btn-dark" href="menucliente.htm" role="button" style="text-decoration: none; width: 200px; height: 50px; padding: 13px; margin: 0px 10px">Regresar al Menú</a> 
 
                     </center>
 
@@ -85,6 +85,7 @@
 
             </div>
         </div>
+        <br>
     </body>
 
 </html>
