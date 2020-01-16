@@ -34,7 +34,7 @@
 
             <div class="card" id="carta">     
 
-                <form:form method="post" modelAttribute="fichatecnica" id="formulario">
+                <form:form method="post" modelAttribute="fichatecnica" id="formulario" enctype="multipart/form-data">
 
                     <div class="card-header" id="cardheader">
                         <br>
@@ -122,6 +122,12 @@
                                 <form:input path="cantidad"  style="background: #F0E9FF;" cssClass="form-control" placeholder="Ingresar cantidad"/>
                             </div>
                         </div>
+                        <div class="row" style="text-align: left;">  
+                            <div class="col-sm-4"> 
+                                <label for="filename"><strong>Imagen:</strong></label>
+                                <input type="file" name="filename"/>
+                            </div>
+                        </div>
 
                         <hr style="border: 1px solid gray">
 
@@ -193,50 +199,50 @@
                                 </div>
                             </div>
                         </div>
-                            <hr style="border: 1px solid gray">
-                            <center>
-                                <input type="submit" class="btn btn-dark"  value="Registrar" id="btn">
-                                <a class="btn btn-dark" style="text-decoration: none;" href="pedidos.htm">Regresar</a>
-                            </center>
-                        </div>
-                    </form:form>
-                </div>
+                        <hr style="border: 1px solid gray">
+                        <center>
+                            <input type="submit" class="btn btn-dark"  value="Registrar" id="btn">
+                            <a class="btn btn-dark" style="text-decoration: none;" href="pedidos.htm">Regresar</a>
+                        </center>
+                    </div>
+                </form:form>
             </div>
+        </div>
 
-            <script>
-                $(function () {
-                    $("#btn").on("click", function () {
-                        $("#formulario").validate({
-                            rules:
-                                    {
-                                        descripcion: {required: true, minlength: 5, maxlength: 50, lettersonly: true},
-                                        cantidad: {required: true, numbersonly: true},
-                                        etiqueta: {required: true, minlength: 3, maxlength: 10}
+        <script>
+            $(function () {
+                $("#btn").on("click", function () {
+                    $("#formulario").validate({
+                        rules:
+                                {
+                                    descripcion: {required: true, minlength: 5, maxlength: 50, lettersonly: true},
+                                    cantidad: {required: true, numbersonly: true},
+                                    etiqueta: {required: true, minlength: 3, maxlength: 10}
 
-                                    },
-                            messages:
-                                    {
-                                        descripcion: {required: 'El campo es requerido', minlength: 'El mínimo permitido son 5 caracteres',
-                                            maxlength: 'El máximo permitido son 50 caracteres', lettersonly: 'Porfavor, solo letras'},
-                                        cantidad: {required: 'El campo es requerido', numbersonly: 'Por favor, solo ingrese números'},
-                                        etiqueta: {required: 'El campo es requerido', minlength: 'El mínimo permitido son 3 caracteres',
-                                            maxlength: 'El máximo permitido son 10 caracteres', lettersonly: 'Porfavor, solo letras'}
-                                    }
-                        });
+                                },
+                        messages:
+                                {
+                                    descripcion: {required: 'El campo es requerido', minlength: 'El mínimo permitido son 5 caracteres',
+                                        maxlength: 'El máximo permitido son 50 caracteres', lettersonly: 'Porfavor, solo letras'},
+                                    cantidad: {required: 'El campo es requerido', numbersonly: 'Por favor, solo ingrese números'},
+                                    etiqueta: {required: 'El campo es requerido', minlength: 'El mínimo permitido son 3 caracteres',
+                                        maxlength: 'El máximo permitido son 10 caracteres', lettersonly: 'Porfavor, solo letras'}
+                                }
                     });
                 });
-            </script>
+            });
+        </script>
 
-            <script>
-                $(document).ready(function () {      //DOM manipulation code  
-                    jQuery.validator.addMethod("lettersonly", function (value, element) {
-                        return this.optional(element) || /^[a-z]+$/i.test(value);
-                    }, "Por favor, solo letras");
-                    jQuery.validator.addMethod("numbersonly", function (value, element) {
-                        return this.optional(element) || /^[0-9]+$/i.test(value);
-                    }, "Por favor, solo números");
-                });
-            </script>
+        <script>
+            $(document).ready(function () {      //DOM manipulation code  
+                jQuery.validator.addMethod("lettersonly", function (value, element) {
+                    return this.optional(element) || /^[a-z]+$/i.test(value);
+                }, "Por favor, solo letras");
+                jQuery.validator.addMethod("numbersonly", function (value, element) {
+                    return this.optional(element) || /^[0-9]+$/i.test(value);
+                }, "Por favor, solo números");
+            });
+        </script>
 
     </body>
 </html>

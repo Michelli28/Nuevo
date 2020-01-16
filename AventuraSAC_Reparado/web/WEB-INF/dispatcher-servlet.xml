@@ -80,6 +80,7 @@
     <mvc:resources mapping="/resources/**" location="/resources/theme1" cache-period="10000"/>
     <mvc:annotation-driven />
     
+    
     <!--
     The index controller.
     -->
@@ -87,8 +88,8 @@
           class="org.springframework.web.servlet.mvc.ParameterizableViewController"
           p:viewName="index" />
     
-     <bean name="clienteController"
-          class="controller.ClienteController" />
+    <bean name="clienteController"
+           class="controller.ClienteController" />
     
     <bean name="empleadoController"
           class="controller.EmpleadoController" />
@@ -114,4 +115,8 @@
     <bean name="pedidoController"
           class="controller.PedidoController" />
 
+    
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="268435456"/>
+    </bean>
 </beans>
