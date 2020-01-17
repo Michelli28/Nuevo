@@ -78,11 +78,10 @@ public class OrdenCompraController  {
         
         Empleado e = (Empleado) request.getSession().getAttribute("usuario");
 
-        int id = Integer.parseInt(request.getParameter("idEmpleado"));
 
         //repo.create(o);
         
-        return new ModelAndView("redirect:/menu.htm");
+        return new ModelAndView("redirect:/menulogistica.htm");
     }
     
 }

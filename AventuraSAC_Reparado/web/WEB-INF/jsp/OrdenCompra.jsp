@@ -31,7 +31,6 @@
 
             <div class="card" id="carta">
 
-                <form method="post" action="generarorden.htm">
 
                     <div class="card-header" id="cardheader">
                         <br>
@@ -75,7 +74,7 @@
                     </div>
 
                     <div class="card-body">
-                        <input type="hidden" name="idEmpleado" value="${usuario.idEmpleado}"/>
+                        <input type="hidden" name="idEmpleado" id="idEmpleado" value="${usuario.idEmpleado}"/>
                         <div class="row">
                             <div class="col-sm-4" >
                                 <label for="fechaEmision"><strong>Fecha:</strong></label>
@@ -83,7 +82,7 @@
                             </div>
                             <div class="col-sm-4" >
                                 <label for="idProveedor"><strong>Proveedor:</strong></label>
-                                <select path="idProveedor.idProveedor" id="idProveedor">
+                                <select name="idProveedor" id="idProveedor">
                                     <c:forEach items="${proveedor}" var="x">
                                         <option value="${x.idProveedor}">${x.razonSocial}</option>
                                     </c:forEach>
@@ -136,12 +135,12 @@
                         <hr style="border: solid gray 1px;">
 
                         <center>
-                            <input type="button" class="btn btn-dark"value="Guardar" onclick="Enviar()"/>
+                            <button type="button" class="btn btn-dark" onclick="Enviar()">Guardar</button>
                             <a class="btn btn-dark" href="menu.htm" role="button">Regresar al Menú</a> 
                         </center>
 
                     </div>
-                </form>
+          
 
 
             </div>
@@ -179,25 +178,24 @@
             }
 
 
-        </script>
-        <script>
+
              function Enviar() {
-                var detalles = obtenerDetalle();
+                var detalles = obtenerDetalles();
+                
+                alert( $("#idEmpleado").val());
 
                 $.ajax({
                     type: 'POST',
                     url: 'generarorden.htm',
                     data: {
-                        'fechaEmision': $("#txtfechaactual").val(),
-                        'detalles': detalles,
-                                'imp': $("#imp").val(),
-                                'igv': $("#igv").val(),
-                                'tota'imp': $("#imp").val(),
-                                'igv': $("#igv")l': $("#total").val(),
-                                'observacion': $("#observacion").val()
+                        'idEmpleado': $("#idEmpleado").val(),
+                        'txtfechaactual': $("#txtfechaactual").val(),
+                        'idEstado' : $("#idEstado").val(),
+                        'detalles': detalles
+                                
                     },
                     success: function (data) {
-                        window.location.href = 'listapedidostrabajador.htm';
+                        window.location.href = 'menulogistica.htm';
                     }
                 });
             }
@@ -209,13 +207,13 @@
                     // ID FICHA
                     cadena += $(this).find('td:eq(0)').text() + ",";
                     // ESTADO
-                    cadena += $(this).find('td:eq(3)').find("option:selected").val() + ",";
+                    cadena += $(this).find('td:eq(1)').text() + ";";
                     // SUBTOTAL
-                    if ($(this).find('td:eq(3)').find("option:selected").val() === '2') {
+                   /* if ($(this).find('td:eq(3)').find("option:selected").val() === '2') {
                         cadena += '0;';
                     } else {
                         cadena += $(this).find("input").val() + ";";
-                    }
+                    }*/
                 });
                 return cadena.substring(0, cadena.length - 1);
             }
