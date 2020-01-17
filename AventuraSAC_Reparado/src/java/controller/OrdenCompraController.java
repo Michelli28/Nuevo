@@ -1,16 +1,20 @@
 package controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.servlet.http.HttpServletRequest;
+import model.controllers.EmpleadoJpaController;
 import model.controllers.OrdencompraDetalleJpaController;
 import model.controllers.OrdencompraJpaController;
 import model.controllers.ProveedorJpaController;
+import model.entities.Cotizacion;
 import model.entities.Empleado;
 import model.entities.Ordencompra;
+import model.entities.OrdencompraDetalle;
 import model.entities.Proveedor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +37,7 @@ public class OrdenCompraController  {
     private OrdencompraJpaController repo;
     private OrdencompraDetalleJpaController repo1;
     private ProveedorJpaController repo2;
+    private EmpleadoJpaController repo3;
 
     
     public OrdenCompraController() {
@@ -40,6 +45,7 @@ public class OrdenCompraController  {
         repo = new OrdencompraJpaController(emf);
         repo1 = new OrdencompraDetalleJpaController(emf);
         repo2 = new ProveedorJpaController(emf);
+        repo3 = new EmpleadoJpaController(emf);
     }
 
     private EntityManager getEntityManager() {
@@ -74,12 +80,19 @@ public class OrdenCompraController  {
     
     public ModelAndView NuevaFichaTecnica(Model model, HttpServletRequest request) throws Exception{
         
-        
-        
         Empleado e = (Empleado) request.getSession().getAttribute("usuario");
 
+        int id = Integer.parseInt(request.getParameter("idEmpleado"));
+        String fecha = request.getParameter("fechaEmision");
+        String detalles = request.getParameter("detalles");
+        double idproveedor = Double.parseDouble(request.getParameter("idProveedor"));
 
-        //repo.create(o);
+        Ordencompra o = new Ordencompra();
+        o.setOrdencompraDetalleList(new ArrayList<OrdencompraDetalle>());
+        
+        o.setIdEmpleado(repo3.findEmpleado(id));
+        o.setIdProveedor(repo2.findProveedor(idproveedor));
+        o.setFechaEmision(fecha);
         
         return new ModelAndView("redirect:/menulogistica.htm");
     }

@@ -182,15 +182,15 @@
              function Enviar() {
                 var detalles = obtenerDetalles();
                 
-                alert( $("#idEmpleado").val());
+                //alert($("#idProveedor").val());
 
                 $.ajax({
                     type: 'POST',
                     url: 'generarorden.htm',
                     data: {
                         'idEmpleado': $("#idEmpleado").val(),
-                        'txtfechaactual': $("#txtfechaactual").val(),
-                        'idEstado' : $("#idEstado").val(),
+                        'fechaEmision': $("#txtfechaactual").val(),
+                        'idProveedor' : $("#idProveedor").val(),
                         'detalles': detalles
                                 
                     },
