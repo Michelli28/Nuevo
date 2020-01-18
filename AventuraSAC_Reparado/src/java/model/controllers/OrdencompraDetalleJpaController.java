@@ -17,7 +17,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import model.controllers.exceptions.NonexistentEntityException;
-import model.controllers.exceptions.PreexistingEntityException;
 import model.entities.OrdencompraDetalle;
 
 /**
@@ -35,7 +34,7 @@ public class OrdencompraDetalleJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(OrdencompraDetalle ordencompraDetalle) throws PreexistingEntityException, Exception {
+    public void create(OrdencompraDetalle ordencompraDetalle) {
         if (ordencompraDetalle.getMovimientoalmacenList() == null) {
             ordencompraDetalle.setMovimientoalmacenList(new ArrayList<Movimientoalmacen>());
         }
@@ -69,11 +68,6 @@ public class OrdencompraDetalleJpaController implements Serializable {
                 }
             }
             em.getTransaction().commit();
-        } catch (Exception ex) {
-            if (findOrdencompraDetalle(ordencompraDetalle.getItem()) != null) {
-                throw new PreexistingEntityException("OrdencompraDetalle " + ordencompraDetalle + " already exists.", ex);
-            }
-            throw ex;
         } finally {
             if (em != null) {
                 em.close();

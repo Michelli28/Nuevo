@@ -10,6 +10,8 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -36,6 +38,7 @@ public class OrdencompraDetalle implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "Item")
     private Integer item;
@@ -45,11 +48,11 @@ public class OrdencompraDetalle implements Serializable {
     @Basic(optional = false)
     @Column(name = "Cantidad")
     private int cantidad;
-    @OneToMany(mappedBy = "item")
-    private List<Movimientoalmacen> movimientoalmacenList;
     @JoinColumn(name = "idOrdenCompra", referencedColumnName = "idOrdenCompra")
     @ManyToOne
     private Ordencompra idOrdenCompra;
+    @OneToMany(mappedBy = "item")
+    private List<Movimientoalmacen> movimientoalmacenList;
 
     public OrdencompraDetalle() {
     }
@@ -88,6 +91,14 @@ public class OrdencompraDetalle implements Serializable {
         this.cantidad = cantidad;
     }
 
+    public Ordencompra getIdOrdenCompra() {
+        return idOrdenCompra;
+    }
+
+    public void setIdOrdenCompra(Ordencompra idOrdenCompra) {
+        this.idOrdenCompra = idOrdenCompra;
+    }
+
     @XmlTransient
     public List<Movimientoalmacen> getMovimientoalmacenList() {
         return movimientoalmacenList;
@@ -95,14 +106,6 @@ public class OrdencompraDetalle implements Serializable {
 
     public void setMovimientoalmacenList(List<Movimientoalmacen> movimientoalmacenList) {
         this.movimientoalmacenList = movimientoalmacenList;
-    }
-
-    public Ordencompra getIdOrdenCompra() {
-        return idOrdenCompra;
-    }
-
-    public void setIdOrdenCompra(Ordencompra idOrdenCompra) {
-        this.idOrdenCompra = idOrdenCompra;
     }
 
     @Override
