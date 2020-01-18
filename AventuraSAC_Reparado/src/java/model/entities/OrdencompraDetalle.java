@@ -38,7 +38,7 @@ public class OrdencompraDetalle implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "Item")
-    private String item;
+    private Integer item;
     @Basic(optional = false)
     @Column(name = "descripcion")
     private String descripcion;
@@ -54,21 +54,21 @@ public class OrdencompraDetalle implements Serializable {
     public OrdencompraDetalle() {
     }
 
-    public OrdencompraDetalle(String item) {
+    public OrdencompraDetalle(Integer item) {
         this.item = item;
     }
 
-    public OrdencompraDetalle(String item, String descripcion, int cantidad) {
+    public OrdencompraDetalle(Integer item, String descripcion, int cantidad) {
         this.item = item;
         this.descripcion = descripcion;
         this.cantidad = cantidad;
     }
 
-    public String getItem() {
+    public Integer getItem() {
         return item;
     }
 
-    public void setItem(String item) {
+    public void setItem(Integer item) {
         this.item = item;
     }
 

@@ -3,6 +3,7 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -83,9 +84,10 @@ public class OrdenCompraController  {
         Empleado e = (Empleado) request.getSession().getAttribute("usuario");
 
         int id = Integer.parseInt(request.getParameter("idEmpleado"));
+        int idproveedor = Integer.parseInt(request.getParameter("idProveedor"));
         String fecha = request.getParameter("fechaEmision");
+        String fechae = request.getParameter("fechaEntrega");
         String detalles = request.getParameter("detalles");
-        double idproveedor = Double.parseDouble(request.getParameter("idProveedor"));
 
         Ordencompra o = new Ordencompra();
         o.setOrdencompraDetalleList(new ArrayList<OrdencompraDetalle>());
@@ -93,6 +95,34 @@ public class OrdenCompraController  {
         o.setIdEmpleado(repo3.findEmpleado(id));
         o.setIdProveedor(repo2.findProveedor(idproveedor));
         o.setFechaEmision(fecha);
+        o.setFechaEntrega(fechae);
+          
+        StringTokenizer stD = new StringTokenizer(detalles, ";");
+        int detalles0 = stD.countTokens();
+        //int idDetalleCompra =0;
+        String descripcion = "";
+        int cantidad = 0;
+
+        for (int i = 0; i < detalles0; i++) {
+            // Obtenemos los datos de cada pedido
+            String linea = stD.nextToken();
+            StringTokenizer stDatos = new StringTokenizer(linea, ",");
+            descripcion = stDatos.nextToken();
+            cantidad = Integer.parseInt(stDatos.nextToken());
+
+            //OrdencompraDetalle pedidoDet = repo1.findOrdencompraDetalle(idDetalleCompra);
+
+            OrdencompraDetalle detalleO = new OrdencompraDetalle();
+            detalleO.setItem(0);
+            detalleO.setIdOrdenCompra(o);
+            detalleO.setDescripcion(descripcion);
+            detalleO.setCantidad(cantidad);
+            o.getOrdencompraDetalleList().add(detalleO);
+
+        }
+
+        repo.create(o);
+
         
         return new ModelAndView("redirect:/menulogistica.htm");
     }

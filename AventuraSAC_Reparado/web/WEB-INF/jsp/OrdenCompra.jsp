@@ -90,8 +90,8 @@
                             </div>
                             <div class="col-sm-4" >
 
-                                <label><strong>R.U.C:</strong></label>
-                                <input type="text" name="ruc" value="${x.ruc}">
+                                <label><strong>FechaEntrega:</strong></label>
+                                <input type="text" name="fechaEntrega" id="fechaentrega">
 
                             </div>
 
@@ -182,15 +182,16 @@
              function Enviar() {
                 var detalles = obtenerDetalles();
                 
-                //alert($("#idProveedor").val());
+               // alert($("#idProveedor").val());
 
                 $.ajax({
                     type: 'POST',
                     url: 'generarorden.htm',
                     data: {
                         'idEmpleado': $("#idEmpleado").val(),
-                        'fechaEmision': $("#txtfechaactual").val(),
                         'idProveedor' : $("#idProveedor").val(),
+                        'fechaEmision': $("#txtfechaactual").val(),
+                        'fechaEntrega': $("#fechaentrega").val(),
                         'detalles': detalles
                                 
                     },

@@ -132,7 +132,7 @@ public class OrdencompraDetalleJpaController implements Serializable {
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                String id = ordencompraDetalle.getItem();
+                Integer id = ordencompraDetalle.getItem();
                 if (findOrdencompraDetalle(id) == null) {
                     throw new NonexistentEntityException("The ordencompraDetalle with id " + id + " no longer exists.");
                 }
@@ -145,7 +145,7 @@ public class OrdencompraDetalleJpaController implements Serializable {
         }
     }
 
-    public void destroy(String id) throws NonexistentEntityException {
+    public void destroy(Integer id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -200,7 +200,7 @@ public class OrdencompraDetalleJpaController implements Serializable {
         }
     }
 
-    public OrdencompraDetalle findOrdencompraDetalle(String id) {
+    public OrdencompraDetalle findOrdencompraDetalle(Integer id) {
         EntityManager em = getEntityManager();
         try {
             return em.find(OrdencompraDetalle.class, id);

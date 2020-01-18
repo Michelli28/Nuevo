@@ -72,6 +72,9 @@
                 <prop key="listapedidostrabajador.htm">pedidoController</prop>
                 
                 <prop key="RegistrarPago.htm">pagoController</prop>
+                
+                <prop key="Factura.htm">facturaController</prop>
+                
             </props>
         </property>
     </bean>
@@ -121,6 +124,9 @@
     
     <bean name="pagoController"
           class="controller.PagoController" />
+    
+    <bean name="facturaController"
+          class="controller.FacturaController" />
 
     
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
