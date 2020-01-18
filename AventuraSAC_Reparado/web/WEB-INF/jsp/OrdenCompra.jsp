@@ -77,25 +77,43 @@
                         <input type="hidden" name="idEmpleado" id="idEmpleado" value="${usuario.idEmpleado}"/>
                         <div class="row">
                             <div class="col-sm-4" >
-                                <label for="fechaEmision"><strong>Fecha:</strong></label>
-                                <input type="text" name="fechaEmision" id="txtfechaactual" />
-                            </div>
-                            <div class="col-sm-4" >
                                 <label for="idProveedor"><strong>Proveedor:</strong></label>
                                 <select name="idProveedor" id="idProveedor">
                                     <c:forEach items="${proveedor}" var="x">
-                                        <option value="${x.idProveedor}">${x.razonSocial}</option>
+                                        <option value="${x.idProveedor}" >${x.razonSocial}</option>
                                     </c:forEach>
                                 </select>
                             </div>
                             <div class="col-sm-4" >
-
+                                <label for="fechaEmision"><strong>Fecha:</strong></label>
+                                <input type="text" name="fechaEmision" id="txtfechaactual" />
+                            </div>
+                            <div class="col-sm-4" >
                                 <label><strong>FechaEntrega:</strong></label>
                                 <input type="text" name="fechaEntrega" id="fechaentrega">
-
                             </div>
-
                         </div>
+                         <c:forEach var="item1" items="${datos}">
+                            <fieldset id="fieldset1" style="border: 1px solid gray">
+                                <div class="row" id="fila1">
+                                    <div class="col-sm-4">      
+                                        <label for="">RUC:</label>
+                                        <input type="text" id="ruc" style="background: #F0E9FF;" value="${item1.ruc}"/>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label for="direccion">Dirección:</label>
+                                        <input type="text" style="background: #F0E9FF;" id="direccion" value="${item1.direccion}"/>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label for="">Teléfono:</label>
+                                        <input type="text" style="background: #F0E9FF;" id="telefono" value="${item1.telefono}"/>
+                                    </div>
+                                </div>
+
+
+                            </fieldset>
+                        </c:forEach>
+
                         <br>
                         <hr style="border: solid gray 1px;">
 

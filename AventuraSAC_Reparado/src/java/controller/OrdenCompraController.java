@@ -60,18 +60,28 @@ public class OrdenCompraController  {
     
     public ModelAndView NuevaOrdenCompra(Model model, HttpServletRequest request) {
         
-        Empleado e = (Empleado) request.getSession().getAttribute("usuario");
         
+        int idproveedor = Integer.parseInt(request.getParameter("id"));
+        
+        Empleado e = (Empleado) request.getSession().getAttribute("usuario");
         request.setAttribute("usuario", e);
         
         ModelAndView mv = new ModelAndView();
         
         List<Proveedor> proveedor = repo2.findProveedorEntities();
+        List<Proveedor> prov = new ArrayList();
         
-        mv.addObject("proveedor" , proveedor);
+        mv.addObject("proveedor" , proveedor); 
+        /*
+        for(Proveedor p : proveedor){
+            if(p.getIdProveedor() == idproveedor){
+                prov.add(p);
+            }
+        }
         
+        
+        mv.addObject("datos" , prov); */
         model.addAttribute("ordencompra", new Ordencompra());/*Guiaremision es la clase osea la entidad*/
-        
         mv.setViewName("OrdenCompra");
         
         return mv;

@@ -13,12 +13,14 @@ import model.controllers.ClienteJpaController;
 import model.controllers.DistritoJpaController;
 import model.controllers.EmpleadoJpaController;
 import model.controllers.PedidoJpaController;
+import model.controllers.ProveedorJpaController;
 import model.controllers.exceptions.NonexistentEntityException;
 import model.entities.Cargo;
 import model.entities.Cliente;
 import model.entities.Distrito;
 import model.entities.Empleado;
 import model.entities.Pedido;
+import model.entities.Proveedor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -37,6 +39,7 @@ public class LoginController {
     private DistritoJpaController repo2;
     private CargoJpaController repo3;
     private PedidoJpaController repo4;
+    private ProveedorJpaController repo5;
 
     public LoginController() {
         em = getEntityManager();
@@ -45,6 +48,7 @@ public class LoginController {
         repo2 = new DistritoJpaController(emf);
         repo3 = new CargoJpaController(emf);
         repo4 = new PedidoJpaController(emf);
+        repo5 = new ProveedorJpaController(emf);
     }
 
     private EntityManager getEntityManager() {
@@ -134,6 +138,7 @@ public class LoginController {
         List<Empleado> lista = repo1.findEmpleadoEntities();
         List<Cliente> lista1 = repo.findClienteEntities();
         List<Cargo> lista3 = repo3.findCargoEntities();
+        List<Proveedor> proveedor = repo5.findProveedorEntities();
 
         boolean encontrado = false;
 
@@ -147,34 +152,34 @@ public class LoginController {
                 System.out.println("US: " + e.getIdCargo().getDetalle());
 
                 //for (Cargo x : lista3) {
-                    
-                    if (e.getIdCargo().getIdCargo().equals(4)) {
-                        //mv.addObject("cargo", x);
-                        mv.setViewName("MenuAlmacen");
-                         break;
-                    }
-                    
-                     if (e.getIdCargo().getIdCargo().equals(3)) {
-                        //mv.addObject("cargo", x);
-                        mv.setViewName("MenuTrabajador");
-                         break;
-                    }
-                    
-                    if (e.getIdCargo().getIdCargo().equals(1)) {
-                        //mv.addObject("cargo", x);
-                        mv.setViewName("MenuVentas");
-                         break;
+                if (e.getIdCargo().getIdCargo().equals(4)) {
+                    //mv.addObject("cargo", x);
+                    mv.setViewName("MenuAlmacen");
+                    break;
+                }
 
-                    }
-                    
-                    if (e.getIdCargo().getIdCargo().equals(2)) {
-                        //mv.addObject("cargo", x);
-                        mv.setViewName("MenuLogistica");
-                         break;
-                    }
-                    
+                if (e.getIdCargo().getIdCargo().equals(3)) {
+                    //mv.addObject("cargo", x);
+                    mv.setViewName("MenuTrabajador");
+                    break;
+                }
+
+                if (e.getIdCargo().getIdCargo().equals(1)) {
+                    //mv.addObject("cargo", x);
+                    mv.setViewName("MenuVentas");
+                    break;
+
+                }
+
+                if (e.getIdCargo().getIdCargo().equals(2)) {
+                    //mv.addObject("cargo", x);
+
+                    mv.addObject("proveedor", proveedor);
+                    mv.setViewName("MenuLogistica");
+                    break;
+                }
+
                 //}
-
             }
 
         }
@@ -194,7 +199,7 @@ public class LoginController {
         if (encontrado == false) {
             request.setAttribute("mensaje", "No se encuentran los datos");
             mv.setViewName("login");
-        } 
+        }
         return mv;
 
     }
