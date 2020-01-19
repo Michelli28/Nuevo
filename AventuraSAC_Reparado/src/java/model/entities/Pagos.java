@@ -44,6 +44,9 @@ public class Pagos implements Serializable {
     private double monto;
     @Column(name = "Banco")
     private String banco;
+    @JoinColumn(name = "idEstadoPago", referencedColumnName = "idEstadoPago")
+    @ManyToOne
+    private Estadopago idEstadoPago;
     @JoinColumn(name = "idPedido", referencedColumnName = "idPedido")
     @ManyToOne
     private Pedido idPedido;
@@ -90,6 +93,14 @@ public class Pagos implements Serializable {
 
     public void setBanco(String banco) {
         this.banco = banco;
+    }
+
+    public Estadopago getIdEstadoPago() {
+        return idEstadoPago;
+    }
+
+    public void setIdEstadoPago(Estadopago idEstadoPago) {
+        this.idEstadoPago = idEstadoPago;
     }
 
     public Pedido getIdPedido() {

@@ -39,7 +39,7 @@
                     <h2 style="font-family: Segou IU;"><center>Lista de Pedidos</center></h2>
 
                 </div>
-                
+
                 <div class="card-body">
 
                     <table class="table" style="width: 100%; height: 100%;">
@@ -63,12 +63,19 @@
                                     <td style="text-align: center;">${item.fechaEntrega}</td>
                                     <td style="text-align: center;">${item.idEstado.nombre}</td>
 
-                                    <c:if test="${item.cotizacionList.size() != 0}">
+                                    <c:if test="${item.cotizacionList.size() != 0 && item.idEstado.idEstado == 2}">
                                         <td style="text-align: center;"><a class="btn btn-info" role="button" href="vercotizacion.htm?cotizacionList.get(0)=${item.cotizacionList.get(0).idCotizacion}" style="text-decoration: none;">Ver Cotización <i class="fas fa-edit"></i></a></td>
                                             </c:if>
-                                        <c:if test="${item.cotizacionList.size() == 0}">
-                                            <td></td>
+                                            <c:if test="${item.cotizacionList.size() == 0}">
+                                        <td></td>
+                                    </c:if>
+                                    <c:if test="${item.cotizacionList.size() != 0 && item.idEstado.idEstado == 3}">
+                                        <td style="text-align: center;"><a class="btn btn-info" role="button" href="RegistrarPago.htm?idPedido=${item.idPedido}" style="text-decoration: none;">Ir a pago<i class="fas fa-edit"></i></a></td>
                                             </c:if>
+                                            <c:if test="${item.cotizacionList.size() != 0 && item.idEstado.idEstado == 1}">
+                                        <td style="text-align: center;"><a class="btn btn-info" role="button" href="vercotizacion.htm?cotizacionList.get(0)=${item.cotizacionList.get(0).idCotizacion}" style="text-decoration: none;">Ver Cotización <i class="fas fa-edit"></i></a></td>
+                                    </c:if>
+                                        
 
                                 </tr>
                             </c:forEach>

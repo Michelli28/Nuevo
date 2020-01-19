@@ -19,6 +19,7 @@
         <link href="<c:url value="webapp/resources/theme1/css/bootstrap.min.css" />" rel="stylesheet">
         <link href="<c:url value="webapp/resources/theme1/css/EstilosRegistrarPago.css" />" rel="stylesheet">
         <link href="<c:url value="webapp/resources/theme1/css/main.css" />" rel="stylesheet" />
+        <script src="<c:url value="webapp/resources/theme1/js/jquery.min.js" />"></script>
 
     </head>
     <body id="body">
@@ -42,7 +43,7 @@
 
                     <div class="card-body">
                         
-                        <form:form method="post" modelAttribute="pago" >
+                        <form:form method="POST" modelAttribute="pago"> 
                             
                   <p style="text-align: left;">Ingresar los datos del comprobante de su deposito</p>    
                   
@@ -52,7 +53,17 @@
                                     <label for="numeroOperacion">N° de Operación:</label>
                                 </div>
                                 <div class="col-sm-6" style="left:7%; width: 100%;" >
-                                    <form:input path="numeroOperacion" style="width:100%;" cssClass="form-control"  placeholder="Ingrese numero"/>
+                                    <form:input path="numeroOperacion" id="numeroOperacion" cssClass="form-control"  placeholder="Ingrese numero"/>
+                                </div>
+                            </div>
+                            
+                            <input type="hidden" name="idPedido"  id="idPedido" value="${idPedido}"/>
+                            <div class="form-group row">
+                                <div class="col-sm-5" style="left:15%;">
+                                    <label>Fecha:</label>
+                                </div>
+                                <div class="col-sm-6" style="left:7%;">
+                                     <form:input path="fecha" id="fecha" cssClass="form-control" placeholder="Ingrese fecha"/>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -60,7 +71,7 @@
                                     <label>Monto:</label>
                                 </div>
                                 <div class="col-sm-6" style="left:7%;">
-                                    <form:input path="monto" cssClass="form-control"  placeholder="Ingrese monto"/>
+                                     <form:input path="monto" id="monto" cssClass="form-control" placeholder="Ingrese monto"/>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -68,30 +79,23 @@
                                     <label>Entidad Bancaria:</label>
                                 </div>
                                 <div class="col-sm-6" style="left:7%;">
-                                    <form:input path="banco" cssClass="form-control"  placeholder="Ingrese banco"/>
+                                    <form:input path="banco" id="banco" cssClass="form-control" placeholder="Ingrese banco"/>
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <div class="col-sm-5" style="left:15%;">
-                                    <label>Fecha:</label>
-                                </div>
-                                <div class="col-sm-6" style="left:7%;">
-                                    <form:input path="fecha" cssClass="form-control"  placeholder="Ingrese fecha"/>
-                                </div>
-                            </div>
+                            
                         </fieldset>
+                            
+                                    <form:input type="hidden" path="idEstadoPago.idEstadoPago" id="idEstadoPago" value="1"/>
 
                         <hr style="border: solid gray 1px;">
 
                         <center>
-                            <input type="submit" class="btn btn-dark"value="Enviar"/>
+                            <input type="submit" class="btn btn-dark" value="Enviar" />
                             <a class="btn btn-dark" id="a" href="menucliente.htm" style="text-decoration: none;" role="button">Regresar al Menú</a> 
                         </center>
-                        </form:form>
+                   
+                            </form:form> 
                     </div>
-                
-
-
             </div>
 
         </div>
@@ -99,5 +103,35 @@
         <br>
         <br>
 
+        <script>
+            
+            function Enviar() {
+                
+
+                //alert(fichas);
+                $.ajax({
+                    type: 'POST',
+                    url: 'Registrar.htm?idEstado=${idEstadoPago}',
+                    data: {
+
+                        'numeroOperacion': $("#numeroOperacion").val(),
+                        'idPedido': $("#idPedido").val(),
+                        'fecha': $("#fecha").val(),
+                        'monto': $("#monto").val(),
+                        'banco': $("#banco").val(),
+                        'idEstadoPago': $("#idEstadoPago").val()
+                        
+                    },
+                    success: function (data) {
+                        window.location.href = 'listapedidos.htm';
+                    }
+                });
+            }
+
+            
+
+
+
+        </script>
     </body>
 </html>

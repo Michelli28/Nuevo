@@ -180,6 +180,7 @@ public class CotizacionController {
         List<CotizacionDetalle> repo1 = new ArrayList();
         List<Cliente> cliente = repo.findClienteEntities();
         List<Cliente> repo = new ArrayList();
+        List<Estado> es = repo6.findEstadoEntities();
 
         for (Cliente c : cliente) {
             if (c.getIdCliente() == obj.getIdPedido().getIdCliente().getIdCliente()) {
@@ -202,6 +203,32 @@ public class CotizacionController {
         mv.setViewName("CotizacionVista");
 
         return mv;
+    }
+    
+    @RequestMapping(value = "aceptar.htm", method = RequestMethod.GET)
+
+    public ModelAndView AceptarCotizacion(HttpServletRequest request) throws Exception {
+
+            int id = Integer.parseInt(request.getParameter("idPedido"));
+           int idt =3;
+            Pedido pedido = repo2.findPedido(id);
+            pedido.setIdEstado(repo6.findEstado(3));
+            repo2.edit(pedido);
+        
+        return new ModelAndView("redirect:/listapedidos.htm");
+    }
+
+        @RequestMapping(value = "rechazar.htm", method = RequestMethod.GET)
+
+    public ModelAndView RechazarCotizacion(HttpServletRequest request) throws Exception {
+
+            int id = Integer.parseInt(request.getParameter("idPedido"));
+   
+            Pedido pedido = repo2.findPedido(id);
+            pedido.setIdEstado(repo6.findEstado(2));
+            repo2.edit(pedido);
+        
+        return new ModelAndView("redirect:/listapedidos.htm");
     }
 
 }

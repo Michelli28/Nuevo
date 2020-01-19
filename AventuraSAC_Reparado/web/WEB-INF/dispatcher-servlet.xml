@@ -46,7 +46,8 @@
                 <prop key="Cotizacion.htm">cotizacionController</prop>
                 <prop key="generarcotizacion.htm">cotizacionController</prop>
                 <prop key="vercotizacion.htm">cotizacionController</prop>
-
+                <prop key="aceptar.htm">cotizacionController</prop>
+                <prop key="rechazar.htm">cotizacionController</prop>
                 
                 <prop key="login.htm">loginController</prop>
                 <prop key="validar.htm">loginController</prop>
@@ -72,6 +73,7 @@
                 <prop key="listapedidostrabajador.htm">pedidoController</prop>
                 
                 <prop key="RegistrarPago.htm">pagoController</prop>
+                <prop key="Registrar.htm">pagoController</prop>
                 
                 <prop key="Factura.htm">facturaController</prop>
                 

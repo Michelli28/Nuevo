@@ -15,6 +15,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import model.controllers.exceptions.NonexistentEntityException;
 import model.controllers.exceptions.PreexistingEntityException;
+import model.entities.Estadopago;
 import model.entities.Pagos;
 import model.entities.Pedido;
 
@@ -38,12 +39,21 @@ public class PagosJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
+            Estadopago idEstadoPago = pagos.getIdEstadoPago();
+            if (idEstadoPago != null) {
+                idEstadoPago = em.getReference(idEstadoPago.getClass(), idEstadoPago.getIdEstadoPago());
+                pagos.setIdEstadoPago(idEstadoPago);
+            }
             Pedido idPedido = pagos.getIdPedido();
             if (idPedido != null) {
                 idPedido = em.getReference(idPedido.getClass(), idPedido.getIdPedido());
                 pagos.setIdPedido(idPedido);
             }
             em.persist(pagos);
+            if (idEstadoPago != null) {
+                idEstadoPago.getPagosList().add(pagos);
+                idEstadoPago = em.merge(idEstadoPago);
+            }
             if (idPedido != null) {
                 idPedido.getPagosList().add(pagos);
                 idPedido = em.merge(idPedido);
@@ -67,13 +77,27 @@ public class PagosJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Pagos persistentPagos = em.find(Pagos.class, pagos.getNumeroOperacion());
+            Estadopago idEstadoPagoOld = persistentPagos.getIdEstadoPago();
+            Estadopago idEstadoPagoNew = pagos.getIdEstadoPago();
             Pedido idPedidoOld = persistentPagos.getIdPedido();
             Pedido idPedidoNew = pagos.getIdPedido();
+            if (idEstadoPagoNew != null) {
+                idEstadoPagoNew = em.getReference(idEstadoPagoNew.getClass(), idEstadoPagoNew.getIdEstadoPago());
+                pagos.setIdEstadoPago(idEstadoPagoNew);
+            }
             if (idPedidoNew != null) {
                 idPedidoNew = em.getReference(idPedidoNew.getClass(), idPedidoNew.getIdPedido());
                 pagos.setIdPedido(idPedidoNew);
             }
             pagos = em.merge(pagos);
+            if (idEstadoPagoOld != null && !idEstadoPagoOld.equals(idEstadoPagoNew)) {
+                idEstadoPagoOld.getPagosList().remove(pagos);
+                idEstadoPagoOld = em.merge(idEstadoPagoOld);
+            }
+            if (idEstadoPagoNew != null && !idEstadoPagoNew.equals(idEstadoPagoOld)) {
+                idEstadoPagoNew.getPagosList().add(pagos);
+                idEstadoPagoNew = em.merge(idEstadoPagoNew);
+            }
             if (idPedidoOld != null && !idPedidoOld.equals(idPedidoNew)) {
                 idPedidoOld.getPagosList().remove(pagos);
                 idPedidoOld = em.merge(idPedidoOld);
@@ -110,6 +134,11 @@ public class PagosJpaController implements Serializable {
                 pagos.getNumeroOperacion();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The pagos with id " + id + " no longer exists.", enfe);
+            }
+            Estadopago idEstadoPago = pagos.getIdEstadoPago();
+            if (idEstadoPago != null) {
+                idEstadoPago.getPagosList().remove(pagos);
+                idEstadoPago = em.merge(idEstadoPago);
             }
             Pedido idPedido = pagos.getIdPedido();
             if (idPedido != null) {
