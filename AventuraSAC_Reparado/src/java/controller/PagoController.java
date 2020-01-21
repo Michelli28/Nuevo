@@ -84,16 +84,17 @@ public class PagoController {
          
         repo.create(p);
         
-        double adelanto = 0;
+        double adelanto = p.getMonto();
         
             for(Pagos pa : pagos){
 
-                adelanto = adelanto + pa.getMonto();
+                adelanto =  adelanto + pa.getMonto();
+                pedido.setAcumulado(adelanto);
+                repo1.edit(pedido);
             }
         
             if(adelanto >= (pedido.getSaldo()/2)){
-                pedido.setAcumulado(adelanto);
-                repo1.edit(pedido);
+                
             }
    
         
