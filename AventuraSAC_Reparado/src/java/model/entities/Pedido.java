@@ -50,25 +50,29 @@ public class Pedido implements Serializable {
     @Basic(optional = false)
     @Column(name = "FechaEntrega")
     private String fechaEntrega;
+    @Column(name = "saldo")
+    private Double saldo;
+    @Column(name = "acumulado")
+    private Double acumulado;
+    @OneToMany(mappedBy = "idPedido")
+    private List<PedidoDetalle> pedidoDetalleList;
+    @OneToMany(mappedBy = "idPedido")
+    private List<Factura> facturaList;
+    @JoinColumn(name = "idEstado", referencedColumnName = "idEstado")
+    @ManyToOne(optional = false)
+    private Estadopedido idEstado;
+    @JoinColumn(name = "idCliente", referencedColumnName = "idCliente")
+    @ManyToOne
+    private Cliente idCliente;
     @OneToMany(mappedBy = "idPedido")
     private List<GuiaremisionDetalle> guiaremisionDetalleList;
     @OneToMany(mappedBy = "idPedido")
     private List<Pagos> pagosList;
     @OneToMany(mappedBy = "idPedido")
-    private List<PedidoDetalle> pedidoDetalleList;
-    @OneToMany(mappedBy = "idPedido")
     private List<Cotizacion> cotizacionList;
-    @OneToMany(mappedBy = "idPedido")
-    private List<Factura> facturaList;
-    @JoinColumn(name = "idEstado", referencedColumnName = "idEstado")
-    @ManyToOne(optional = false)
-    private Estado idEstado;
-    @JoinColumn(name = "idCliente", referencedColumnName = "idCliente")
-    @ManyToOne
-    private Cliente idCliente;
-
+    
     public Pedido() {
-        fechaRegistro = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+            fechaRegistro = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
     }
 
     public Pedido(Integer idPedido) {
@@ -105,6 +109,56 @@ public class Pedido implements Serializable {
     public void setFechaEntrega(String fechaEntrega) {
         this.fechaEntrega = fechaEntrega;
     }
+    
+    public Double getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(Double saldo) {
+        this.saldo = saldo;
+    }
+    
+    public Double getAcumulado() {
+        return acumulado;
+    }
+
+    public void setAcumulado(Double acumulado) {
+        this.acumulado = acumulado;
+    }
+
+    @XmlTransient
+    public List<PedidoDetalle> getPedidoDetalleList() {
+        return pedidoDetalleList;
+    }
+
+    public void setPedidoDetalleList(List<PedidoDetalle> pedidoDetalleList) {
+        this.pedidoDetalleList = pedidoDetalleList;
+    }
+
+    @XmlTransient
+    public List<Factura> getFacturaList() {
+        return facturaList;
+    }
+
+    public void setFacturaList(List<Factura> facturaList) {
+        this.facturaList = facturaList;
+    }
+
+    public Estadopedido getIdEstado() {
+        return idEstado;
+    }
+
+    public void setIdEstado(Estadopedido idEstado) {
+        this.idEstado = idEstado;
+    }
+
+    public Cliente getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(Cliente idCliente) {
+        this.idCliente = idCliente;
+    }
 
     @XmlTransient
     public List<GuiaremisionDetalle> getGuiaremisionDetalleList() {
@@ -125,15 +179,6 @@ public class Pedido implements Serializable {
     }
 
     @XmlTransient
-    public List<PedidoDetalle> getPedidoDetalleList() {
-        return pedidoDetalleList;
-    }
-
-    public void setPedidoDetalleList(List<PedidoDetalle> pedidoDetalleList) {
-        this.pedidoDetalleList = pedidoDetalleList;
-    }
-
-    @XmlTransient
     public List<Cotizacion> getCotizacionList() {
         return cotizacionList;
     }
@@ -142,30 +187,6 @@ public class Pedido implements Serializable {
         this.cotizacionList = cotizacionList;
     }
 
-    @XmlTransient
-    public List<Factura> getFacturaList() {
-        return facturaList;
-    }
-
-    public void setFacturaList(List<Factura> facturaList) {
-        this.facturaList = facturaList;
-    }
-
-    public Estado getIdEstado() {
-        return idEstado;
-    }
-
-    public void setIdEstado(Estado idEstado) {
-        this.idEstado = idEstado;
-    }
-
-    public Cliente getIdCliente() {
-        return idCliente;
-    }
-
-    public void setIdCliente(Cliente idCliente) {
-        this.idCliente = idCliente;
-    }
 
     @Override
     public int hashCode() {
@@ -191,5 +212,5 @@ public class Pedido implements Serializable {
     public String toString() {
         return "model.entities.Pedido[ idPedido=" + idPedido + " ]";
     }
-
+    
 }

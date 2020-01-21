@@ -11,10 +11,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.servlet.http.HttpServletRequest;
-import model.controllers.EstadopagoJpaController;
 import model.controllers.PagosJpaController;
 import model.controllers.PedidoJpaController;
-import model.entities.Estadopago;
+import model.entities.Pedido;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -29,14 +28,12 @@ public class PagoController {
     private EntityManagerFactory emf;
     private PagosJpaController repo;
     private PedidoJpaController repo1;
-    private EstadopagoJpaController repo2;
    
     
     public PagoController() {
         em = getEntityManager();
         repo = new PagosJpaController(emf);
         repo1 = new PedidoJpaController(emf);
-        repo2 = new EstadopagoJpaController(emf);
     }
 
     private EntityManager getEntityManager() {
@@ -56,37 +53,49 @@ public class PagoController {
         int id = Integer.parseInt(request.getParameter("idPedido"));
         request.setAttribute("idPedido", id);
         
-        List<Estadopago> estaPago = repo2.findEstadopagoEntities();
-       
-        mv.addObject("estadopago", estaPago);
-        mv.addObject("pago", new Pagos());
         
+        mv.addObject("pago", new Pagos());
         mv.setViewName("RegistrarPago");
         return mv;
     }
     
-    @RequestMapping(value = "RegistrarPago.htm",method = RequestMethod.POST)
-    public ModelAndView NuevoPago(@ModelAttribute("pago") Pagos p, HttpServletRequest request) throws Exception{
+    @RequestMapping(value = "Registrar.htm",method = RequestMethod.POST)
+    
+    public ModelAndView NuevoPago(HttpServletRequest request) throws Exception{
           
-        //String num = request.getParameter("numeroOperacion");
-        
+        String num = request.getParameter("numeroOperacion");
         int id = Integer.parseInt(request.getParameter("idPedido"));
-        /*double mon = Double.parseDouble(request.getParameter("monto"));
         String fecha = request.getParameter("fecha");
+        double mon = Double.parseDouble(request.getParameter("monto")); 
         String banco = request.getParameter("banco");
-        int estado = Integer.parseInt(request.getParameter("idEstadoPago"));
         
+        
+        Pedido pedido = repo1.findPedido(id);
         Pagos p = new Pagos();
+        List<Pagos> pagos = repo1.listadoxidPedidot(id);
+        //double sal = pedido.getSaldo() - p.acumular(mon);
         
         p.setNumeroOperacion(num);
         p.setIdPedido(repo1.findPedido(id));
         p.setFecha(fecha);
         p.setMonto(mon);
         p.setBanco(banco);
-        p.setIdEstadoPago(repo2.findEstadopago(estado));*/
         
-        p.setIdPedido(repo1.findPedido(id));
+         
         repo.create(p);
+        
+        double adelanto = 0;
+        
+            for(Pagos pa : pagos){
+
+                adelanto = adelanto + pa.getMonto();
+            }
+        
+            if(adelanto >= (pedido.getSaldo()/2)){
+                pedido.setAcumulado(adelanto);
+                repo1.edit(pedido);
+            }
+   
         
         return new ModelAndView("redirect:/listapedidos.htm");
     }

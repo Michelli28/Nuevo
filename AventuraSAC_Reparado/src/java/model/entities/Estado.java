@@ -44,8 +44,6 @@ public class Estado implements Serializable {
     @Column(name = "nombre")
     private String nombre;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstado")
-    private List<Pedido> pedidoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstado")
     private List<Fichatecnica> fichatecnicaList;
 
     public Estado() {
@@ -74,15 +72,6 @@ public class Estado implements Serializable {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    @XmlTransient
-    public List<Pedido> getPedidoList() {
-        return pedidoList;
-    }
-
-    public void setPedidoList(List<Pedido> pedidoList) {
-        this.pedidoList = pedidoList;
     }
 
     @XmlTransient

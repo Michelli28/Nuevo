@@ -11,12 +11,14 @@ import model.controllers.ClienteJpaController;
 import model.controllers.CotizacionJpaController;
 import model.controllers.EstadoJpaController;
 import model.controllers.FichatecnicaJpaController;
+import model.controllers.PagosJpaController;
 import model.controllers.PedidoDetalleJpaController;
 import model.controllers.PedidoJpaController;
 import model.entities.Cliente;
 import model.entities.Cotizacion;
 import model.entities.Estado;
 import model.entities.Fichatecnica;
+import model.entities.Pagos;
 import model.entities.Pedido;
 import model.entities.PedidoDetalle;
 import org.eclipse.persistence.sessions.Session;
@@ -38,6 +40,7 @@ public class PedidoController {
     private PedidoDetalleJpaController repo3;
     private EstadoJpaController repo4;
     private CotizacionJpaController repo5;
+    private PagosJpaController repo6;
 
     public PedidoController() {
         em = getEntityManager();
@@ -47,6 +50,7 @@ public class PedidoController {
         repo3 = new PedidoDetalleJpaController(emf);
         repo4 = new EstadoJpaController(emf);
         repo5 = new CotizacionJpaController(emf);
+        repo6 = new PagosJpaController(emf);
     }
 
     private EntityManager getEntityManager() {
@@ -127,28 +131,23 @@ public class PedidoController {
         Cliente c = (Cliente) request.getSession().getAttribute("usuario");
         //repo2 = new FichatecnicaJpaController(emf);
         List<Fichatecnica> ficha = repo2.findFichatecnicaEntities();
-        
         List<Fichatecnica> fichatemporal = new ArrayList();
-        
         List<Estado> estado = repo4.findEstadoEntities();
 
         for(Fichatecnica x : ficha) {
             
             if(x.getIdCliente().getIdCliente() == c.getIdCliente()) {
-                
                 List<PedidoDetalle> lista = repo3.listadoxficha(x.getIdFicha());
-                
                 if(lista.size() == 0){
-
                 fichatemporal.add(x); 
                 
                 }
             }    
         }
+        
+        
         mv.addObject("estado", estado);
-        
         mv.addObject("ficha", fichatemporal);
-        
         model.addAttribute("pedido", new Pedido());
 
         mv.setViewName("nuevopedido");
@@ -163,6 +162,7 @@ public class PedidoController {
         Cliente c = (Cliente) request.getSession().getAttribute("usuario");
         
         List<Fichatecnica> ficha = new ArrayList<>(repo2.findFichatecnicaEntities());
+        
                 
         p.setPedidoDetalleList(new ArrayList<PedidoDetalle>());
 
@@ -186,13 +186,36 @@ public class PedidoController {
             }    
           
     }
+         
+   
     
     p.setIdCliente (c);
 
     repo.create (p);
 
+   
     return new ModelAndView("redirect:/listapedidos.htm");
     }
 
-    
+    public ModelAndView validarPago(HttpServletRequest request){
+        
+        int id = Integer.parseInt(request.getParameter("idPedido"));
+        Pedido pedido = repo.findPedido(id);
+        
+        List<Pagos> pagos = repo.listadoxidPedidot(id);
+        
+        double adelanto = 0;
+        
+        for(Pagos p : pagos){
+            
+            adelanto = adelanto + p.getMonto();
+        }
+        
+            if(adelanto >= (pedido.getSaldo()/2)){
+                
+            }
+   
+        return new ModelAndView("redirect:/listapedidos.htm");
+        
+    }
 }

@@ -1,5 +1,6 @@
 package controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -14,6 +15,7 @@ import model.controllers.ClienteJpaController;
 import model.controllers.CotizacionDetalleJpaController;
 import model.controllers.CotizacionJpaController;
 import model.controllers.EstadoJpaController;
+import model.controllers.EstadopedidoJpaController;
 import model.controllers.FichatecnicaJpaController;
 import model.controllers.PedidoJpaController;
 import model.controllers.PedidoDetalleJpaController;
@@ -42,6 +44,7 @@ public class CotizacionController {
     private CotizacionDetalleJpaController repo4;
     private PedidoDetalleJpaController repo5;
     private EstadoJpaController repo6;
+    private EstadopedidoJpaController repo8;
     private FichatecnicaJpaController repo7;
 
     public CotizacionController() {
@@ -52,6 +55,7 @@ public class CotizacionController {
         repo4 = new CotizacionDetalleJpaController(emf);
         repo5 = new PedidoDetalleJpaController(emf);
         repo6 = new EstadoJpaController(emf);
+        repo8 = new EstadopedidoJpaController(emf);
         repo7 = new FichatecnicaJpaController(emf);
     }
 
@@ -78,6 +82,9 @@ public class CotizacionController {
 
         int id = Integer.parseInt(request.getParameter("idPedido"));
         request.setAttribute("idPedido", id);
+        
+        String fechaEmision = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+        request.setAttribute("fecha", fechaEmision);
 
         boolean en = false;
 
@@ -111,12 +118,15 @@ public class CotizacionController {
         return mv;
     }
 
+    
     @RequestMapping(value = "generarcotizacion.htm", method = RequestMethod.POST)
 
     public ModelAndView GenerarCotizacion(HttpServletRequest request) throws Exception {
 
         int id = Integer.parseInt(request.getParameter("idPedido"));
         String fecha = request.getParameter("fechaEmision");
+        //String fechaEmision = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+        String fechae = request.getParameter("fechae");
         String fichas = request.getParameter("fichas");
         double impo = Double.parseDouble(request.getParameter("imp"));
         double igvv = Double.parseDouble(request.getParameter("igv"));
@@ -159,6 +169,10 @@ public class CotizacionController {
             Fichatecnica ft = pedidoDet.getIdFicha();
             ft.setIdEstado(repo6.findEstado(idEstado));
             repo7.edit(ft);
+            
+            Pedido pedido = repo2.findPedido(id);
+            pedido.setFechaEntrega(fechae);
+            repo2.edit(pedido); 
         }
 
         repo3.create(c);
@@ -180,15 +194,16 @@ public class CotizacionController {
         List<CotizacionDetalle> repo1 = new ArrayList();
         List<Cliente> cliente = repo.findClienteEntities();
         List<Cliente> repo = new ArrayList();
-        List<Estado> es = repo6.findEstadoEntities();
 
         for (Cliente c : cliente) {
+            
             if (c.getIdCliente() == obj.getIdPedido().getIdCliente().getIdCliente()) {
                 repo.add(c);
             }
+            
         }
 
-        for (CotizacionDetalle co : detalle) {
+        for (CotizacionDetalle co : detalle){
             if (co.getIdCotizacion().getIdCotizacion() == obj.getIdCotizacion()) {
                 //List<CotizacionDetalle> detalles = repo4.listadoxpedido(id);
                 //if(detalles.size() == 0){
@@ -208,11 +223,15 @@ public class CotizacionController {
     @RequestMapping(value = "aceptar.htm", method = RequestMethod.GET)
 
     public ModelAndView AceptarCotizacion(HttpServletRequest request) throws Exception {
-
+        
             int id = Integer.parseInt(request.getParameter("idPedido"));
-           int idt =3;
-            Pedido pedido = repo2.findPedido(id);
-            pedido.setIdEstado(repo6.findEstado(3));
+            
+            Cotizacion obj = repo3.findCotizacion(id);
+            Pedido pedido = repo2.findPedido(id);     
+            
+            pedido.setSaldo(obj.getTotal());
+            pedido.setIdEstado(repo8.findEstadopedido(3));
+            
             repo2.edit(pedido);
         
         return new ModelAndView("redirect:/listapedidos.htm");
@@ -225,7 +244,7 @@ public class CotizacionController {
             int id = Integer.parseInt(request.getParameter("idPedido"));
    
             Pedido pedido = repo2.findPedido(id);
-            pedido.setIdEstado(repo6.findEstado(2));
+            pedido.setIdEstado(repo8.findEstadopedido(2));
             repo2.edit(pedido);
         
         return new ModelAndView("redirect:/listapedidos.htm");

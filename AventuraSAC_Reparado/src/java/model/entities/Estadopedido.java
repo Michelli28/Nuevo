@@ -8,6 +8,7 @@ package model.entities;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,44 +26,44 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author CHELLI BONITA
  */
 @Entity
-@Table(name = "estadopago")
+@Table(name = "estadopedido")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Estadopago.findAll", query = "SELECT e FROM Estadopago e")
-    , @NamedQuery(name = "Estadopago.findByIdEstadoPago", query = "SELECT e FROM Estadopago e WHERE e.idEstadoPago = :idEstadoPago")
-    , @NamedQuery(name = "Estadopago.findByNombre", query = "SELECT e FROM Estadopago e WHERE e.nombre = :nombre")})
-public class Estadopago implements Serializable {
+    @NamedQuery(name = "Estadopedido.findAll", query = "SELECT e FROM Estadopedido e")
+    , @NamedQuery(name = "Estadopedido.findByIdEstado", query = "SELECT e FROM Estadopedido e WHERE e.idEstado = :idEstado")
+    , @NamedQuery(name = "Estadopedido.findByNombre", query = "SELECT e FROM Estadopedido e WHERE e.nombre = :nombre")})
+public class Estadopedido implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idEstadoPago")
-    private Integer idEstadoPago;
+    @Column(name = "idEstado")
+    private Integer idEstado;
     @Basic(optional = false)
     @Column(name = "nombre")
     private String nombre;
-    @OneToMany(mappedBy = "idEstadoPago")
-    private List<Pagos> pagosList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstado")
+    private List<Pedido> pedidoList;
 
-    public Estadopago() {
+    public Estadopedido() {
     }
 
-    public Estadopago(Integer idEstadoPago) {
-        this.idEstadoPago = idEstadoPago;
+    public Estadopedido(Integer idEstado) {
+        this.idEstado = idEstado;
     }
 
-    public Estadopago(Integer idEstadoPago, String nombre) {
-        this.idEstadoPago = idEstadoPago;
+    public Estadopedido(Integer idEstado, String nombre) {
+        this.idEstado = idEstado;
         this.nombre = nombre;
     }
 
-    public Integer getIdEstadoPago() {
-        return idEstadoPago;
+    public Integer getIdEstado() {
+        return idEstado;
     }
 
-    public void setIdEstadoPago(Integer idEstadoPago) {
-        this.idEstadoPago = idEstadoPago;
+    public void setIdEstado(Integer idEstado) {
+        this.idEstado = idEstado;
     }
 
     public String getNombre() {
@@ -74,29 +75,29 @@ public class Estadopago implements Serializable {
     }
 
     @XmlTransient
-    public List<Pagos> getPagosList() {
-        return pagosList;
+    public List<Pedido> getPedidoList() {
+        return pedidoList;
     }
 
-    public void setPagosList(List<Pagos> pagosList) {
-        this.pagosList = pagosList;
+    public void setPedidoList(List<Pedido> pedidoList) {
+        this.pedidoList = pedidoList;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idEstadoPago != null ? idEstadoPago.hashCode() : 0);
+        hash += (idEstado != null ? idEstado.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Estadopago)) {
+        if (!(object instanceof Estadopedido)) {
             return false;
         }
-        Estadopago other = (Estadopago) object;
-        if ((this.idEstadoPago == null && other.idEstadoPago != null) || (this.idEstadoPago != null && !this.idEstadoPago.equals(other.idEstadoPago))) {
+        Estadopedido other = (Estadopedido) object;
+        if ((this.idEstado == null && other.idEstado != null) || (this.idEstado != null && !this.idEstado.equals(other.idEstado))) {
             return false;
         }
         return true;
@@ -104,7 +105,7 @@ public class Estadopago implements Serializable {
 
     @Override
     public String toString() {
-        return "model.entities.Estadopago[ idEstadoPago=" + idEstadoPago + " ]";
+        return "model.entities.Estadopedido[ idEstado=" + idEstado + " ]";
     }
     
 }

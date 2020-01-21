@@ -163,7 +163,7 @@
                                         <td style="text-align: center;font-family: Arial;">${item.idDetallePedido.idFicha.descripcion}</td>
                                         <td style="text-align: center;font-family: Arial;">${item.idDetallePedido.idFicha.cantidad}</td>
                                         <td style="text-align: center;font-family: Arial;">${item.idDetallePedido.idFicha.idEstado.nombre}</td>
-                                        <td style="text-align: center; font-family: Arial;"><label>${item.subTotal}</label>
+                                        <td style="text-align: center; font-family: Arial;"><label id="sub">${item.subTotal}</label>
 
                                     </tr>
                                 </c:forEach>
@@ -184,7 +184,7 @@
                                         <label for="importe" >Importe(S/):</label>
                                     </div>
                                     <div class="p-6">
-                                        <label id="imp" name="imp" >${cotizacion.importe}</label> 
+                                        <input id="imp" name="imp" style="width: 80px; height: 35px" type="text" readonly="readonly" value="${cotizacion.importe}"> 
                                     </div>
                                 </div>
                                 <div class="d-flex flex-row" >
@@ -192,7 +192,7 @@
                                         <label for="igv" >IGV(%18):</label>
                                     </div>
                                     <div class="p-6">
-                                        <label id="igv" name="igv">${cotizacion.igv}</label>
+                                        <input id="igv" name="igv" style="width: 80px; height: 35px" type="text" readonly="readonly" value="${cotizacion.igv}">
                                     </div>	
                                 </div>
                                 <div class="d-flex flex-row" >
@@ -200,7 +200,7 @@
                                         <label for="total" >Total(S/):</label>
                                     </div>
                                     <div  class="p-6">
-                                        <label id="total" name="total">${cotizacion.total}</label>
+                                        <input id="total" name="total" style="width: 80px; height: 35px" type="text" readonly="readonly" value="${cotizacion.total}">
                                     </div>	
                                 </div>
                             </fieldset>
@@ -218,7 +218,7 @@
                     <fieldset id="fieldset4" style="border: 1px solid gray">
                         <legend><p>¿Qué acción desea realizar?</p></legend>
                         <div class="row" id="fila8">
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a type="button" class="btn btn-success" href="aceptar.htm?idPedido=${cotizacion.idPedido.idPedido}">Aceptar</a>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a type="button" class="btn btn-success" href="aceptar.htm?idPedido=${cotizacion.idPedido.idPedido}" >Aceptar</a>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a type="button" class="btn btn-success"  href="rechazar.htm?idPedido=${cotizacion.idPedido.idPedido}">Rechazar</a>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a type="button" class="btn btn-outline-secondary" href="listapedidos.htm">Retornar</a>
                         </div>
@@ -240,6 +240,6 @@
 
         </div>
         <br>
-                   
+      
     </body>
 </html>

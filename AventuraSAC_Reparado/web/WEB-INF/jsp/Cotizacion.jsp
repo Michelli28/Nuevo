@@ -29,181 +29,192 @@
         <div class="container md-8">
 
             <div class="card" id="carta">
-               
-                    <div class="card-header">
 
-                        <div class="d-flex flex-row">
+                <div class="card-header">
 
-                            <div  class="p-4" id="img">
+                    <div class="d-flex flex-row">
 
-                                <img src="webapp/resources/theme1/images/logo.PNG" alt="Card image cap">
+                        <div  class="p-4" id="img">
 
-                            </div>
+                            <img src="webapp/resources/theme1/images/logo.PNG" alt="Card image cap">
 
-                            <div class="p-4"  id="escritos">
-                                <p>Cal. Mercaderes Nro. 164 Dpto. 203 </p>
-                                <p>Urb. Las Gardenias (Alt. Cuadra 50 de la Avenida Benavides)</p>
-
-                            </div>
-
-                            <div class="p-4" id="fieldset">
-
-                                <fieldset style="border:1px solid black" id="fld" >
-
-                                    <h3> R.U.C. N° 20111807958 </h3>
-                                    <h3><strong>Cotización</strong></h3>
-                                    <div class="row" id="ngui">
-                                        N° &nbsp;&nbsp;&nbsp;<input type="text"style="background: #F0E9FF;"  id="idCotizacion">&nbsp;-&nbsp;0000041
-                                    </div>
-
-                                </fieldset>
-                            </div>
                         </div>
 
-                    </div>
+                        <div class="p-4"  id="escritos">
+                            <p>Cal. Mercaderes Nro. 164 Dpto. 203 </p>
+                            <p>Urb. Las Gardenias (Alt. Cuadra 50 de la Avenida Benavides)</p>
 
-                    <br>
+                        </div>
 
-                    <div class="card-body">
+                        <div class="p-4" id="fieldset">
 
-                        <input type="hidden" name="idPedido" id="idPedido" value="${idPedido}">
+                            <fieldset style="border:1px solid black" id="fld" >
 
-                        <center>
-                            <div class="card-title"><h2><strong>Datos de la Cotización</strong></h2></div>
-                        </center>
-
-                        <c:forEach var="item1" items="${clientes}">
-                            <fieldset id="fieldset1" style="border: 1px solid gray">
-                                <div class="row" id="fila1">
-                                    <div class="col-sm-4">
-                                        <label for="">Razón Social:</label>
-                                        <input type="text"  style="background: #F0E9FF;" id="razonSocial" value="${item1.razonSocial}"> 
-                                    </div>
-                                    <div class="col-sm-4">      
-                                        <label for="">RUC:</label>
-                                        <input type="text" id="ruc" style="background: #F0E9FF;" value="${item1.ruc}"/>
-                                    </div>
-                                    <div class="col-sm-4">      
-                                        <label for="fechaEmision">Fecha de Emision:</label>
-                                        <input type="text" style="background: #F0E9FF;" id="txtfechaactual" name="fechaEmision"/>
-                                    </div>
-                                </div>
-
-                                <div class="row" id="fila2">
-                                    <div class="col-sm-4">
-                                        <label for="direccion">Dirección:</label>
-                                        <input type="text" style="background: #F0E9FF;" id="direccion" value="${item1.direccion}"/>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <label for="">Teléfono:</label>
-                                        <input type="text" style="background: #F0E9FF;" id="telefono" value="${item1.telefono}"/>
-                                    </div>
-                                    <div class="col-sm-4">      
-                                        <label for="">Correo:</label>
-                                        <input type="text" style="background: #F0E9FF;" id="correo" value="${item1.correo}"/>
-                                    </div>
+                                <h3> R.U.C. N° 20111807958 </h3>
+                                <h3><strong>Cotización</strong></h3>
+                                <div class="row" id="ngui">
+                                    N° &nbsp;&nbsp;&nbsp;<input type="text"style="background: #F0E9FF;"  id="idCotizacion">&nbsp;-&nbsp;0000041
                                 </div>
 
                             </fieldset>
-                        </c:forEach>
-
-                        <br>
-
-                        <center><h3><strong>Descripción</strong></h3></center>
-
-                        <center>
-                            <table class="table" id="table">
-                                <thead class="thead-dark">
-                                    <tr class="encabezado">
-                                        <th style="text-align: center;">IdPedido</th>
-                                        <th style="text-align: center;">IdFicha</th>
-                                        <th style="text-align: center;">Descripcion</th>
-                                        <th style="text-align: center;">Estado</th>
-                                        <th style="text-align: center;">Subtotal</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <c:forEach var="item" items="${detalle}">
-                                        <tr>
-                                            <td style="text-align: center;">${item.idDetallePedido}</td>
-                                            <td style="text-align: center;">${item.idFicha.idFicha}</td>
-                                            <td style="text-align: center;">${item.idFicha.descripcion}</td>
-                                            <td style="text-align: center;">
-                                                <select name="idEstado" id="idEstado">
-                                                    <c:forEach items="${estado}" var="x">
-                                                        <c:if test="${item.idFicha.idEstado.idEstado == x.idEstado}">
-                                                            <option value="${x.idEstado}" selected="selected">${x.nombre}</option>
-                                                        </c:if>
-                                                        <c:if test="${item.idFicha.idEstado.idEstado != x.idEstado}">
-                                                            <option value="${x.idEstado}">${x.nombre}</option>
-                                                        </c:if>
-                                                    </c:forEach>
-                                                </select>
-
-                                            </td>
-                                            <td ><input type="text" name="subTotal" style="background: #F0E9FF;" id="subtotal" class="monto" style="text-align: center;" onkeyup="sumar()"/></td>
-
-                                        </tr>
-                                    </c:forEach>
-
-                                </tbody>
-
-                            </table>
-                        </center>
-
-                        <div class="row">
-
-                            <div class="col-sm-3" id="col2">
-                                <fieldset id="fieldset3" style="border: 1px solid gray; background: white;">
-
-                                    <div class="d-flex flex-row" >
-                                        <div class="p-6">
-
-                                            <label for="importe" >Importe(S/):</label>
-                                        </div>
-                                        <div class="p-6">
-                                            <textarea style="background: #F0E9FF;" id="imp" name="imp"></textarea> 
-
-                                        </div>
-                                    </div>
-                                    <div class="d-flex flex-row" >
-                                        <div class="p-6">
-                                            <label for="igv" >IGV(%18):</label>
-                                        </div>
-                                        <div class="p-6">
-                                            <textarea style="background: #F0E9FF;" id="igv" name="igv"></textarea>
-                                        </div>	
-                                    </div>
-                                    <div class="d-flex flex-row" >
-                                        <div  class="p-6">
-                                            <label for="total" >Total(S/):</label>
-                                        </div>
-                                        <div  class="p-6">
-                                            <textarea style="background: #F0E9FF;" id="total" name="total"></textarea>
-
-                                        </div>	
-                                    </div>
-                                </fieldset>
-
-                            </div>
                         </div>
+                    </div>
 
-                        <div class="col">
-                            <label for="observacion" >Observaciones:</label>
-                            <textarea name="observacion" style="background: #F0E9FF;" id="observacion" ></textarea>
+                </div>
 
-                        </div>
+                <br>
 
-                        <fieldset id="fieldset4" style="border: 1px solid gray">
-                            <legend><p>¿Qué acción desea realizar?</p></legend>
-                            <div class="row" id="fila8">
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" onclick="Enviar()" class="btn btn-success" >Enviar</button>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-outline-secondary">Cancelar</button>
+                <div class="card-body">
+
+                    <input type="hidden" name="idPedido" id="idPedido" value="${idPedido}">
+
+                    <center>
+                        <div class="card-title"><h2><strong>Datos de la Cotización</strong></h2></div>
+                    </center>
+
+                    <c:forEach var="item1" items="${clientes}">
+                        <fieldset id="fieldset1" style="border: 1px solid gray">
+                            <div class="row" id="fila1">
+                                <div class="col-sm-4">
+                                    <label for="">Razón Social:</label>
+                                    <input type="text"  style="background: #F0E9FF;" id="razonSocial" value="${item1.razonSocial}"> 
+                                </div>
+                                <div class="col-sm-4">      
+                                    <label for="">RUC:</label>
+                                    <input type="text" id="ruc" style="background: #F0E9FF;" value="${item1.ruc}"/>
+                                </div>
+                                <div class="col-sm-4">      
+                                    <label for="fechaEmision">Fecha de Emision:</label>
+                                    <input type="text" style="background: #F0E9FF;" id="txtfechaactual" name="fechaEmision" value="${fecha}"/>
+                                </div>
                             </div>
+
+                            <div class="row" id="fila2">
+                                <div class="col-sm-4">
+                                    <label for="direccion">Dirección:</label>
+                                    <input type="text" style="background: #F0E9FF;" id="direccion" value="${item1.direccion}"/>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label for="">Teléfono:</label>
+                                    <input type="text" style="background: #F0E9FF;" id="telefono" value="${item1.telefono}"/>
+                                </div>
+                                <div class="col-sm-4">      
+                                    <label for="">Correo:</label>
+                                    <input type="text" style="background: #F0E9FF;" id="correo" value="${item1.correo}"/>
+                                </div>
+                            </div>
+
                         </fieldset>
+                    </c:forEach>
+
+                    <br>
+
+                    <center><h3><strong>Descripción</strong></h3></center>
+
+
+                    <div class="d-flex flex-row">
+                        <div class="p-3">
+                            Fecha Entrega:
+                        </div>
+                        <div class="p-3">
+                            <input type="date" name="fechae" id="fechae" style="">
+                        </div>
+                    </div>
+                    <br>
+
+                    <center>
+                        <table class="table" id="table">
+                            <thead class="thead-dark">
+                                <tr class="encabezado">
+                                    <th style="text-align: center;">IdPedido</th>
+                                    <th style="text-align: center;">IdFicha</th>
+                                    <th style="text-align: center;">Descripcion</th>
+                                    <th style="text-align: center;">Estado</th>
+                                    <th style="text-align: center;">Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach var="item" items="${detalle}">
+                                    <tr>
+                                        <td style="text-align: center;">${item.idDetallePedido}</td>
+                                        <td style="text-align: center;">${item.idFicha.idFicha}</td>
+                                        <td style="text-align: center;">${item.idFicha.descripcion}</td>
+                                        <td style="text-align: center;">
+                                            <select name="idEstado" id="idEstado">
+                                                <c:forEach items="${estado}" var="x">
+                                                    <c:if test="${item.idFicha.idEstado.idEstado == x.idEstado}">
+                                                        <option value="${x.idEstado}" selected="selected">${x.nombre}</option>
+                                                    </c:if>
+                                                    <c:if test="${item.idFicha.idEstado.idEstado != x.idEstado}">
+                                                        <option value="${x.idEstado}">${x.nombre}</option>
+                                                    </c:if>
+                                                </c:forEach>
+                                            </select>
+
+                                        </td>
+                                        <td ><input type="text" name="subTotal" style="background: #F0E9FF;" id="subtotal" class="monto" style="text-align: center;" onkeyup="sumar()"/></td>
+
+                                    </tr>
+                                </c:forEach>
+
+                            </tbody>
+
+                        </table>
+                    </center>
+
+                    <div class="row">
+
+                        <div class="col-sm-3" id="col2">
+                            <fieldset id="fieldset3" style="border: 1px solid gray; background: white;">
+
+                                <div class="d-flex flex-row" >
+                                    <div class="p-6">
+
+                                        <label for="importe" >Importe(S/):</label>
+                                    </div>
+                                    <div class="p-6">
+                                        <textarea style="background: #F0E9FF;" id="imp" name="imp"></textarea> 
+
+                                    </div>
+                                </div>
+                                <div class="d-flex flex-row" >
+                                    <div class="p-6">
+                                        <label for="igv" >IGV(%18):</label>
+                                    </div>
+                                    <div class="p-6">
+                                        <textarea style="background: #F0E9FF;" id="igv" name="igv"></textarea>
+                                    </div>	
+                                </div>
+                                <div class="d-flex flex-row" >
+                                    <div  class="p-6">
+                                        <label for="total" >Total(S/):</label>
+                                    </div>
+                                    <div  class="p-6">
+                                        <textarea style="background: #F0E9FF;" id="total" name="total"></textarea>
+
+                                    </div>	
+                                </div>
+                            </fieldset>
+
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <label for="observacion" >Observaciones:</label>
+                        <textarea name="observacion" style="background: #F0E9FF;" id="observacion" ></textarea>
 
                     </div>
-          
+
+                    <fieldset id="fieldset4" style="border: 1px solid gray">
+                        <legend><p>¿Qué acción desea realizar?</p></legend>
+                        <div class="row" id="fila8">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" onclick="Enviar()" class="btn btn-success" >Enviar</button>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-outline-secondary">Cancelar</button>
+                        </div>
+                    </fieldset>
+
+                </div>
+
             </div>
 
         </div>
@@ -240,16 +251,18 @@
             }
 
             function Enviar() {
-                
-                var fichas = obtenerFichas();
 
-                //alert(fichas);
+                var fichas = obtenerFichas();
+                var fechae = formato($("#fechae").val());
+
+    //alert(formato($("#fechaentrega").val()));
                 $.ajax({
                     type: 'POST',
                     url: 'generarcotizacion.htm',
                     data: {
                         'idPedido': $("#idPedido").val(),
                         'fechaEmision': $("#txtfechaactual").val(),
+                        'fechae': fechae,
                         'fichas': fichas,
                         'imp': $("#imp").val(),
                         'igv': $("#igv").val(),
@@ -262,6 +275,7 @@
                 });
             }
 
+         
             function obtenerFichas() {
                 var cadena = '';
                 // Recorrer las filas TR de la tabla
@@ -283,6 +297,12 @@
 
 
 
+
+        </script>
+        <script>
+             function formato(texto) {
+                return texto.replace(/^(\d{4})-(\d{2})-(\d{2})$/g, '$3/$2/$1');
+            }
 
         </script>
 

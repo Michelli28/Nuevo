@@ -76,6 +76,7 @@
                                         <td style="text-align: center;"><a class="btn btn-info" role="button" href="vercotizacion.htm?cotizacionList.get(0)=${item.cotizacionList.get(0).idCotizacion}" style="text-decoration: none;">Ver Cotización <i class="fas fa-edit"></i></a></td>
                                     </c:if>
                                         
+                                        
 
                                 </tr>
                             </c:forEach>
