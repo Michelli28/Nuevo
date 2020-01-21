@@ -33,7 +33,7 @@
             </nav>
         </header>
         <div class="container m-8" >
-            <div class="card" style="margin: 6% auto;" id="carta">
+            <div class="card" style="margin: 3% auto;" id="carta">
                 <form:form method="post" modelAttribute="fichatecnica" id="formulario" enctype="multipart/form-data">
                     <div class="card-header" id="cardheader">
                         <br>

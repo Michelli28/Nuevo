@@ -74,11 +74,11 @@
                                             </c:if>
                                             <c:if test="${item.cotizacionList.size() != 0 && item.idEstado.idEstado == 1}">
                                         <td style="text-align: center;"><a class="btn btn-info" role="button" href="vercotizacion.htm?cotizacionList.get(0)=${item.cotizacionList.get(0).idCotizacion}" style="text-decoration: none;">Ver Cotización <i class="fas fa-edit"></i></a></td>
+                                            </c:if>
+                                            <c:if test="${item.idEstado.idEstado == 4}">
+                                        <td style="text-align: center;"><a class="btn btn-info" role="button" href="verPedido.htm?idPedido=${item.idPedido}" style="text-decoration: none;">Ver Pedido<i class="fas fa-edit"></i></a></td>
                                     </c:if>
-                                        <c:if test="${item.idEstado.idEstado == 4}">
-                                        <td></td>
-                                    </c:if>
-      
+
                                 </tr>
                             </c:forEach>
 

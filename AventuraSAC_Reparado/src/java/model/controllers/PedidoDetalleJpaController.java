@@ -241,6 +241,7 @@ public class PedidoDetalleJpaController implements Serializable {
         return lista;
     }
 
+     
     
     public PedidoDetalle findPedidoDetalle(Integer id) {
         EntityManager em = getEntityManager();

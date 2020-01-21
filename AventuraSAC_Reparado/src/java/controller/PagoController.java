@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.servlet.http.HttpServletRequest;
+import model.controllers.EstadopedidoJpaController;
 import model.controllers.PagosJpaController;
 import model.controllers.PedidoJpaController;
 import model.entities.Pedido;
@@ -28,12 +29,14 @@ public class PagoController {
     private EntityManagerFactory emf;
     private PagosJpaController repo;
     private PedidoJpaController repo1;
+    private EstadopedidoJpaController repo2;
    
     
     public PagoController() {
         em = getEntityManager();
         repo = new PagosJpaController(emf);
         repo1 = new PedidoJpaController(emf);
+        repo2 = new EstadopedidoJpaController(emf);
     }
 
     private EntityManager getEntityManager() {
@@ -68,11 +71,10 @@ public class PagoController {
         String fecha = request.getParameter("fecha");
         double mon = Double.parseDouble(request.getParameter("monto")); 
         String banco = request.getParameter("banco");
-        
-        
-        Pedido pedido = repo1.findPedido(id);
+        int idEstado = Integer.parseInt(request.getParameter("idEstado"));
+
         Pagos p = new Pagos();
-        List<Pagos> pagos = repo1.listadoxidPedidot(id);
+        
         //double sal = pedido.getSaldo() - p.acumular(mon);
         
         p.setNumeroOperacion(num);
@@ -84,7 +86,9 @@ public class PagoController {
          
         repo.create(p);
         
-        double adelanto = p.getMonto();
+        Pedido pedido = repo1.findPedido(id);
+        List<Pagos> pagos = repo1.listadoxidPedido(id);
+        double adelanto = 0;
         
             for(Pagos pa : pagos){
 
@@ -92,11 +96,12 @@ public class PagoController {
                 pedido.setAcumulado(adelanto);
                 repo1.edit(pedido);
             }
-        
-            if(adelanto >= (pedido.getSaldo()/2)){
-                
+            int Estado = 4;
+            if(pedido.getAcumulado() >= (pedido.getSaldo()/2)){
+                pedido.setIdEstado(repo2.findEstadopedido(Estado));
+                repo1.edit(pedido);
             }
-   
+
         
         return new ModelAndView("redirect:/listapedidos.htm");
     }

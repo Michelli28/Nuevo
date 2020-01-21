@@ -410,7 +410,7 @@ public class PedidoJpaController implements Serializable {
         }
     }
     
-       public List<Pagos> listadoxidPedidot(int idPedido) {
+       public List<Pagos> listadoxidPedido(int idPedido) {
         EntityManager em = getEntityManager();
         List<Pagos> lista = new ArrayList();
         try {
@@ -418,6 +418,24 @@ public class PedidoJpaController implements Serializable {
             lista = (List<Pagos>)q.getResultList();
             System.out.println("Listado por pedido" + lista.size());
 
+        } 
+        finally {
+            em.close();
+        }
+        return lista;
+    }
+       
+       public List<PedidoDetalle> listadoxpedidodetalle(int idPedido) {
+        EntityManager em = getEntityManager();
+        List<PedidoDetalle> lista = new ArrayList();
+        try {
+            Query q = em.createQuery("SELECT p FROM PedidoDetalle p WHERE p.idPedido.idPedido = :idPedido").setParameter("idPedido",idPedido);
+            lista = (List<PedidoDetalle>)q.getResultList();
+            System.out.println("Listado por PedidoDetalle" + lista.size());
+            
+        //}catch(Exception e){
+            
+          //  System.out.println(e.getMessage());
         } 
         finally {
             em.close();

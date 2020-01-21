@@ -36,7 +36,7 @@
             <div class="inner">
                 <h1>BIENVENIDO ${usuario.apellidoPaterno}</h1>
                 <p>Estas en Aventura S.A.C. una de las empresas lideres en confección<br />
-                    a nivel nacional, con la garantia de materiales y acabados de calidad.</p>
+                    a nivel nacional, con la garantía de materiales y acabados de calidad.</p>
             </div>
             <video autoplay loop muted playsinline src="webapp/resources/theme1/images/banner.mp4"></video>
         </section>
@@ -45,17 +45,17 @@
         <section class="wrapper">
             <div class="inner">
                 <header class="special">
-                    <h1>AREA DE LOGISTICA</color></h1>
+                    <h1>ÁREA DE LOGÍSTICA</color></h1>
                     <p> </p>
                 </header>
                 <div class="highlights">
                     <section>
                         <div class="content">
                             <header>
-                                <a href="#" class="icon fa-list"><span class="label">Icon</span></a>
+                                <a href="listapedidoslogistica.htm" class="icon fa-list"><span class="label">Icon</span></a>
                                 <h2>PEDIDOS</h2>
                             </header>
-                            <p>Lista los pedidos con toda la informacion , adicionalmente podras generar su respectiva cotizacion con esta herramienta.</p>								
+                            <p>Lista los pedidos con toda la información, adicionalmente podras generar su respectiva cotización con esta herramienta.</p>								
                         </div>
                     </section>
                     <section>

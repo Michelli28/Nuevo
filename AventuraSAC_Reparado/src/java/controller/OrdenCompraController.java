@@ -1,7 +1,9 @@
 package controller;
 
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 import javax.persistence.EntityManager;
@@ -68,6 +70,9 @@ public class OrdenCompraController  {
         
         ModelAndView mv = new ModelAndView();
         
+        String fechaEmision = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+        request.setAttribute("fecha", fechaEmision);
+        
         List<Proveedor> proveedor = repo2.findProveedorEntities();
         List<Proveedor> prov = new ArrayList();
         
@@ -96,7 +101,6 @@ public class OrdenCompraController  {
         int id = Integer.parseInt(request.getParameter("idEmpleado"));
         int idproveedor = Integer.parseInt(request.getParameter("idProveedor"));
         String fecha = request.getParameter("fechaEmision");
-        String fechae = request.getParameter("fechaEntrega");
         String detalles = request.getParameter("detalles");
 
         Ordencompra o = new Ordencompra();
@@ -105,7 +109,6 @@ public class OrdenCompraController  {
         o.setIdEmpleado(repo3.findEmpleado(id));
         o.setIdProveedor(repo2.findProveedor(idproveedor));
         o.setFechaEmision(fecha);
-        o.setFechaEntrega(fechae);
           
         StringTokenizer stD = new StringTokenizer(detalles, ";");
         int detalles0 = stD.countTokens();

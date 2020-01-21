@@ -102,6 +102,25 @@ public class PedidoController {
         return mv;
     }
     
+    @RequestMapping("listapedidoslogistica.htm")
+
+    public ModelAndView ListaPedidosLogistica(HttpServletRequest request) {
+        
+        List<Pedido> pedidos = new ArrayList();
+
+        pedidos = repo.findPedidoEntities();
+
+        ModelAndView mv = new ModelAndView();
+        
+        //request.getSession().setAttribute("pedidos", pedidos);
+
+        mv.addObject("pedidos", pedidos);
+
+        mv.setViewName("listapedidoslogistica");
+
+        return mv;
+    }
+    
         
     @RequestMapping("listapedidostrabajador.htm")
 
@@ -118,6 +137,44 @@ public class PedidoController {
         mv.addObject("pedidos", pedidos);
 
         mv.setViewName("listapedidostrabajador");
+
+        return mv;
+    }
+    
+    @RequestMapping(value = "verPedido.htm", method = RequestMethod.GET)
+    
+    public ModelAndView VerPedido(Model model, HttpServletRequest request) {
+
+        ModelAndView mv = new ModelAndView();
+
+        int id = Integer.parseInt(request.getParameter("idPedido"));
+
+        Pedido pedido = repo.findPedido(id);
+        
+        List<PedidoDetalle> detalle = repo3.findPedidoDetalleEntities();
+        List<PedidoDetalle> detalletemp = new ArrayList();
+        //List<Estado> estado = repo4.findEstadoEntities();
+
+        for(PedidoDetalle d : detalle) {
+            
+            if(d.getIdPedido().getIdPedido() == id) {
+                detalletemp.add(d); 
+            }    
+        }
+        
+        for(PedidoDetalle d : detalle) {
+            if(d.getIdPedido().getIdPedido() == id) {
+                //List<PedidoDetalle> lista = repo.listadoxpedidodetalle(d.getIdPedido().getIdPedido());
+                //if(lista.size() == 0){
+                detalletemp.add(d); 
+            }    
+        }
+        
+        //mv.addObject("estado", estado);
+        mv.addObject("ficha", detalletemp);
+        mv.addObject("pedido", pedido);
+
+        mv.setViewName("verPedido");
 
         return mv;
     }
@@ -162,7 +219,6 @@ public class PedidoController {
         Cliente c = (Cliente) request.getSession().getAttribute("usuario");
         
         List<Fichatecnica> ficha = new ArrayList<>(repo2.findFichatecnicaEntities());
-        
                 
         p.setPedidoDetalleList(new ArrayList<PedidoDetalle>());
 
@@ -197,25 +253,5 @@ public class PedidoController {
     return new ModelAndView("redirect:/listapedidos.htm");
     }
 
-    public ModelAndView validarPago(HttpServletRequest request){
-        
-        int id = Integer.parseInt(request.getParameter("idPedido"));
-        Pedido pedido = repo.findPedido(id);
-        
-        List<Pagos> pagos = repo.listadoxidPedidot(id);
-        
-        double adelanto = 0;
-        
-        for(Pagos p : pagos){
-            
-            adelanto = adelanto + p.getMonto();
-        }
-        
-            if(adelanto >= (pedido.getSaldo()/2)){
-                
-            }
-   
-        return new ModelAndView("redirect:/listapedidos.htm");
-        
-    }
+  
 }

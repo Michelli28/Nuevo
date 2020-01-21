@@ -76,7 +76,7 @@
                     <div class="card-body">
                         <input type="hidden" name="idEmpleado" id="idEmpleado" value="${usuario.idEmpleado}"/>
                         <div class="row">
-                            <div class="col-sm-4" >
+                            <div class="col-sm-6" >
                                 <label for="idProveedor"><strong>Proveedor:</strong></label>
                                 <select name="idProveedor" id="idProveedor">
                                     <c:forEach items="${proveedor}" var="x">
@@ -84,13 +84,9 @@
                                     </c:forEach>
                                 </select>
                             </div>
-                            <div class="col-sm-4" >
+                            <div class="col-sm-6" >
                                 <label for="fechaEmision"><strong>Fecha:</strong></label>
-                                <input type="text" name="fechaEmision" id="txtfechaactual" />
-                            </div>
-                            <div class="col-sm-4" >
-                                <label><strong>FechaEntrega:</strong></label>
-                                <input type="text" name="fechaEntrega" id="fechaentrega">
+                                <input type="text" name="fechaEmision" id="txtfechaactual" value="${fecha}"/>
                             </div>
                         </div>
                          <c:forEach var="item1" items="${datos}">
@@ -208,8 +204,7 @@
                     data: {
                         'idEmpleado': $("#idEmpleado").val(),
                         'idProveedor' : $("#idProveedor").val(),
-                        'fechaEmision': $("#txtfechaactual").val(),
-                        'fechaEntrega': $("#fechaentrega").val(),
+                        'fechaEmision': $("#txtfechaactual").val()
                         'detalles': detalles
                                 
                     },

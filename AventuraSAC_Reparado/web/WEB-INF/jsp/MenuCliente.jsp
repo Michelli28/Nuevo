@@ -57,7 +57,7 @@
                         <div class="content">
                             <header>
                                 <a href="nuevopedido.htm" class="icon fa-tasks"><span class="label">Icon</span></a>
-                                <h2>INGRESAR PEDIDO</h2>
+                                <h2>INGRESAR SOLICITUD DE PEDIDO</h2>
                             </header>
                             <p>En este campo podrá ingresar detalles sobre su pedido con el cual podremos enviarle una cotización con el tiempo estimado.</p>								
                         </div>
@@ -67,9 +67,9 @@
                         <div class="content">
                             <header>
                                 <a href="listapedidos.htm" class="icon fa-list-alt"><span class="label">Icon</span></a>
-                                <h2>MIS PEDIDOS</h2>
+                                <h2>MIS SOLICITUDES DE PEDIDOS</h2>
                             </header>
-                            <p>En este campo podra ver el estado de sus pedidos, la cotizacion respectiva y podra acceder a pagar por el pedido.</p>
+                            <p>En este campo podra ver el estado de sus pedidos, la cotización respectiva y podra acceder a pagar por el pedido.</p>
                         </div>
                     </section>
                     <section>
@@ -78,7 +78,7 @@
                                 <a href="#" class="icon fa-money"><span class="label">Icon</span></a>
                                 <h2>CONCRETAR PEDIDO</h2>
                             </header>
-                            <p>Indique los datos de su pago como el numero de operacion , para completar su proceso de pedido.</p>
+                            <p>Indique los datos de su pago como el numero de operación, para completar su proceso de pedido.</p>
                         </div>
                     </section>
 

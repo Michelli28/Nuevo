@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author CHELLI BONITA
+ * @author Administrador
  */
 @Entity
 @Table(name = "ordencompra")
@@ -32,8 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Ordencompra.findAll", query = "SELECT o FROM Ordencompra o")
     , @NamedQuery(name = "Ordencompra.findByIdOrdenCompra", query = "SELECT o FROM Ordencompra o WHERE o.idOrdenCompra = :idOrdenCompra")
-    , @NamedQuery(name = "Ordencompra.findByFechaEmision", query = "SELECT o FROM Ordencompra o WHERE o.fechaEmision = :fechaEmision")
-    , @NamedQuery(name = "Ordencompra.findByFechaEntrega", query = "SELECT o FROM Ordencompra o WHERE o.fechaEntrega = :fechaEntrega")})
+    , @NamedQuery(name = "Ordencompra.findByFechaEmision", query = "SELECT o FROM Ordencompra o WHERE o.fechaEmision = :fechaEmision")})
 public class Ordencompra implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,9 +44,6 @@ public class Ordencompra implements Serializable {
     @Basic(optional = false)
     @Column(name = "FechaEmision")
     private String fechaEmision;
-    @Basic(optional = false)
-    @Column(name = "FechaEntrega")
-    private String fechaEntrega;
     @OneToMany(mappedBy = "idOrdenCompra")
     private List<Movimientoalmacen> movimientoalmacenList;
     @JoinColumn(name = "idProveedor", referencedColumnName = "idProveedor")
@@ -66,10 +62,9 @@ public class Ordencompra implements Serializable {
         this.idOrdenCompra = idOrdenCompra;
     }
 
-    public Ordencompra(Integer idOrdenCompra, String fechaEmision, String fechaEntrega) {
+    public Ordencompra(Integer idOrdenCompra, String fechaEmision) {
         this.idOrdenCompra = idOrdenCompra;
         this.fechaEmision = fechaEmision;
-        this.fechaEntrega = fechaEntrega;
     }
 
     public Integer getIdOrdenCompra() {
@@ -86,14 +81,6 @@ public class Ordencompra implements Serializable {
 
     public void setFechaEmision(String fechaEmision) {
         this.fechaEmision = fechaEmision;
-    }
-
-    public String getFechaEntrega() {
-        return fechaEntrega;
-    }
-
-    public void setFechaEntrega(String fechaEntrega) {
-        this.fechaEntrega = fechaEntrega;
     }
 
     @XmlTransient

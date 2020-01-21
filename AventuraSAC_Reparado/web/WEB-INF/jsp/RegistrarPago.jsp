@@ -38,7 +38,7 @@
 
                     <div class="card-header" id="cardheader">
                         <br>
-                        <center><h1>Registrar Pago</h1></center>
+                        <center><h1>Registrar Voucher </h1></center>
                         <br>
                     </div>
 
@@ -91,7 +91,7 @@
                             <a class="btn btn-dark" id="a" href="menucliente.htm" style="text-decoration: none;" role="button">Regresar al Menú</a> 
                         </center>
 
-
+                        <input type="hidden" name="idEstado" id="idEstado" value="4">
                     </div>
                 </div>
  
@@ -116,7 +116,8 @@
                         'idPedido': $("#idPedido").val(),
                         'fecha': $("#fecha").val(),
                         'monto': $("#monto").val(),
-                        'banco': $("#banco").val()
+                        'banco': $("#banco").val(),
+                        'idEstado': $("#idEstado").val()
 
                     },
                     success: function (data) {
