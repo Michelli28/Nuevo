@@ -23,7 +23,7 @@ import model.entities.OrdencompraDetalle;
 
 /**
  *
- * @author CHELLI BONITA
+ * @author Administrador
  */
 public class OrdencompraJpaController implements Serializable {
 
@@ -63,13 +63,17 @@ public class OrdencompraJpaController implements Serializable {
                 attachedMovimientoalmacenList.add(movimientoalmacenListMovimientoalmacenToAttach);
             }
             ordencompra.setMovimientoalmacenList(attachedMovimientoalmacenList);
+            List<OrdencompraDetalle> attachedOrdencompraDetalleList = new ArrayList<OrdencompraDetalle>();
+            //if (ordencompra.getOrdencompraDetalleList() != null) {
+                for (OrdencompraDetalle ordencompraDetalleListOrdencompraDetalleToAttach : ordencompra.getOrdencompraDetalleList()) {
+                    if (ordencompraDetalleListOrdencompraDetalleToAttach.getItem() != null) {
+                        //ordencompraDetalleListOrdencompraDetalleToAttach = em.getReference(ordencompraDetalleListOrdencompraDetalleToAttach.getClass(), ordencompraDetalleListOrdencompraDetalleToAttach.getItem());
+                        attachedOrdencompraDetalleList.add(ordencompraDetalleListOrdencompraDetalleToAttach);
+                    }
+                }
 
-            /*List<OrdencompraDetalle> attachedOrdencompraDetalleList = new ArrayList<OrdencompraDetalle>();
-            for (OrdencompraDetalle ordencompraDetalleListOrdencompraDetalleToAttach : ordencompra.getOrdencompraDetalleList()) {
-                ordencompraDetalleListOrdencompraDetalleToAttach = em.getReference(ordencompraDetalleListOrdencompraDetalleToAttach.getClass(), ordencompraDetalleListOrdencompraDetalleToAttach.getItem());
-                attachedOrdencompraDetalleList.add(ordencompraDetalleListOrdencompraDetalleToAttach);
-            }
-            ordencompra.setOrdencompraDetalleList(attachedOrdencompraDetalleList);*/
+                ordencompra.setOrdencompraDetalleList(attachedOrdencompraDetalleList);
+           // }
             em.persist(ordencompra);
             if (idProveedor != null) {
                 idProveedor.getOrdencompraList().add(ordencompra);
@@ -90,14 +94,14 @@ public class OrdencompraJpaController implements Serializable {
             }
             if (ordencompra.getOrdencompraDetalleList() != null) {
                 for (OrdencompraDetalle ordencompraDetalleListOrdencompraDetalle : ordencompra.getOrdencompraDetalleList()) {
-                   // Ordencompra oldIdOrdenCompraOfOrdencompraDetalleListOrdencompraDetalle = ordencompraDetalleListOrdencompraDetalle.getIdOrdenCompra();
-                    //ordencompraDetalleListOrdencompraDetalle.setIdOrdenCompra(ordencompra);
-                    //ordencompraDetalleListOrdencompraDetalle = em.merge(ordencompraDetalleListOrdencompraDetalle);
-                    if(ordencompraDetalleListOrdencompraDetalle.getItem() == 0){
+                    /*Ordencompra oldIdOrdenCompraOfOrdencompraDetalleListOrdencompraDetalle = ordencompraDetalleListOrdencompraDetalle.getIdOrdenCompra();
+                    ordencompraDetalleListOrdencompraDetalle.setIdOrdenCompra(ordencompra);
+                    ordencompraDetalleListOrdencompraDetalle = em.merge(ordencompraDetalleListOrdencompraDetalle);*/
+                    if (ordencompraDetalleListOrdencompraDetalle.getItem() == 0) {
                         em.persist(ordencompraDetalleListOrdencompraDetalle);
-                    }
-                    else
+                    } else {
                         em.merge(ordencompraDetalleListOrdencompraDetalle);
+                    }
                     /*if (oldIdOrdenCompraOfOrdencompraDetalleListOrdencompraDetalle != null) {
                         oldIdOrdenCompraOfOrdencompraDetalleListOrdencompraDetalle.getOrdencompraDetalleList().remove(ordencompraDetalleListOrdencompraDetalle);
                         oldIdOrdenCompraOfOrdencompraDetalleListOrdencompraDetalle = em.merge(oldIdOrdenCompraOfOrdencompraDetalleListOrdencompraDetalle);
@@ -105,6 +109,8 @@ public class OrdencompraJpaController implements Serializable {
                 }
             }
             em.getTransaction().commit();
+        } catch (Exception e) {
+            System.out.println("Error " + e.getMessage());
         } finally {
             if (em != null) {
                 em.close();

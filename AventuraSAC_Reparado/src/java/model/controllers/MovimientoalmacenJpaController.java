@@ -20,7 +20,7 @@ import model.entities.Ordencompra;
 
 /**
  *
- * @author CHELLI BONITA
+ * @author Administrador
  */
 public class MovimientoalmacenJpaController implements Serializable {
 

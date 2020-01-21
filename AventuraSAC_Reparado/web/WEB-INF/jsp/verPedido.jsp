@@ -36,65 +36,126 @@
             <div class="card" id="carta">
 
                 <div class="card-header" id="cardheader">
-
-
-                    <br>
-                    <h2 style="font-family: Segou IU;"><center>Pedido</center></h2>
-
-
-
-
-
-                </div>
-
-                <div class="card-body" >
                     <div class="d-flex flex-row">
-                        
-
-                        <div class="p-6" class="form-group" >
-                            <div class="d-flex flex-row">
+                        <div class="p-4">
+                            <div class="d-flex flex-row" >
+                                <div class="p-6" style="width: 120px;">
+                                    <h4><strong>N° de Pedido:</strong></h4>
+                                </div>
+                                <div class="p-6">
+                                    <input style="width: 50px; height: 25px;" type="text" value="${pedido.idPedido}" readonly="readonly">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="d-flex flex-row" class="form-group" style="margin-left: 130px ">
                                 <div class="p-6" class="form-group" style="width: 120px;">
                                     <label for="fechaRegistro" >Fecha Emisión: </label>
                                 </div>
                                 <div class="p-6" class="form-group">
-                                    <input name="fechaRegistro" style="background: #F0E9FF;" id="femisionI" readonly="readonly"  value="${pedido.fechaRegistro}"/>
+                                    <label name="fechaRegistro" >${pedido.fechaRegistro}</label>
                                 </div>
                             </div>
                         </div>
-                                <div class="p-6" class="form-group" style="margin: 0% 34%;" >
-                            <div class="d-flex flex-row">
-                                <div class="p-6" class="form-group" style="width: 120px;">
+                        <div class="p-4">
+                            <div class="d-flex flex-row" style="margin-left: 130px ">
+                                <div class="p-6" class="form-group" style="width: 110px;">
                                     <label for="fechaRegistro">Fecha Entrega:</label>
                                 </div>
                                 <div class="p-6" class="form-group">
-                                    <input name="fechaEntrega" style="background: #F0E9FF;" readonly="readonly"  value="${pedido.fechaEntrega}"/>
+                                    <label name="fechaEntrega" >${pedido.fechaEntrega}</label>
                                 </div>
                             </div>
+
                         </div>
-
                     </div>
+                </div>
 
+                <div class="card-body" >
+                   
+                    <c:forEach var="item1" items="${cliente}">
+                        <legend><h3 style="font-family: Segeo UI; font-size: 20px; text-align: center;"><strong>Datos del Cliente</strong></h3></legend>
+                        <fieldset id="fieldset1" style="border: 1px solid gray" >
+
+                            <div class="row" id="fila1" style="margin-top: 15px;">
+                                <div class="col-sm-4" >
+                                    <div class="d-flex flex-row" style="margin: 0px 25px;">
+                                        <div class="p-6">
+                                            <label for="">Razón Social:</label>
+                                        </div>&nbsp;
+                                        <div class="p-6">
+                                            <label style="font-size: 14px; text-align: center;">${item1.razonSocial}</label> 
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">      
+                                    <div class="d-flex flex-row">
+                                        <div class="p-6">
+                                            <label for="">R.U.C.:</label>
+                                        </div>&nbsp;
+                                        <div class="p-6">
+                                            <label style="font-size: 14px;text-align: center;">${item1.ruc}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="d-flex flex-row">
+                                        <div class="p-6">
+                                            <label for="">Dirección:</label>
+                                        </div>&nbsp;
+                                        <div class="p-6">
+                                            <label style="font-size: 14px;text-align: center;">${item1.direccion}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" id="fila2">
+
+                                <div class="col-sm-4">
+                                    <div class="d-flex flex-row" style="margin: 0px 25px;">
+                                        <div class="p-6">
+                                            <label for="">Teléfono:</label>
+                                        </div>&nbsp;
+                                        <div class="p-6">
+                                            <label style="font-size: 14px;text-align: center;">${item1.telefono}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">      
+                                    <div class="d-flex flex-row">
+                                        <div class="p-6">
+                                            <label for="">Correo:</label>
+                                        </div>&nbsp;
+                                        <div class="p-6">
+                                            <label style="font-size: 14px;text-align: center;">${item1.correo}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </fieldset>
+                    </c:forEach>
                     <br>
                     <table class="table">
                         <thead class="thead-dark">
                             <tr>
-                                <th scope="col">IdFicha</th>
-                                <th scope="col">Descripcion</th>
-                                <th scope="col">Cantidad</th>
-                                <th scope="col">Estado</th>
-                                <th scope="col">Acciones</th>
+                                <th scope="col" style="text-align: center;">IdFicha</th>
+                                <th scope="col" style="text-align: center;">Descripcion</th>
+                                <th scope="col" style="text-align: center;">Cantidad</th>
+                                <th scope="col" style="text-align: center;">Estado</th>
+                                <th scope="col" style="text-align: center;">Acciones</th>
                             </tr>
                         </thead>
                         <tbody style="background: #F0E9FF;">
                             <c:forEach var="item" items="${ficha}">
                                 <tr>
-                                    <th scope="row">${item.idDetallePedido}</th>
-                                    <th>${item.idFicha.descripcion}</th>
-                                    <th>${item.idFicha.cantidad}</th>
-                                    <th>${item.idFicha.idEstado.nombre}</th>
-                                    <td scope="col-2">
-                                        <a class="btn btn-warning" role="button" style="height: 50%;" href="editarficha.htm?id=${item.idFicha}" ><i class="fas fa-edit"></i></a> 
-                                        <button  class="btn btn-danger" type="button" onclick="eliminar('${item.idFicha}')" ><i class="fas fa-trash-alt"></i></button>
+                                    <th scope="row" style="text-align: center;">${item.idDetallePedido}</th>
+                                    <th style="text-align: center;">${item.idFicha.descripcion}</th>
+                                    <th style="text-align: center;">${item.idFicha.cantidad}</th>
+                                    <th style="text-align: center;">${item.idFicha.idEstado.nombre}</th>
+                                    <td scope="col-2" style="text-align: center;">
+                                        <a class="btn btn-warning" role="button" style="height: 50%; text-decoration: none;" href="verficha.htm?id=${item.idFicha}" >Ver Ficha <i class="fas fa-edit"></i></a> 
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -105,8 +166,8 @@
                     <input name="idEstado.idEstado" id="fentregaI" type="hidden" value="1"/>
                     <br>
                     <center>
-                        <input type="submit" class="btn btn-info" value="Enviar" style="width: 200px; height: 50px;"/>
-                        <a class="btn btn-dark" style="text-decoration: none; width: 200px; height: 50px; padding: 13px; margin: 0px 10px" href="menucliente.htm" role="button">Regresar al Menú</a> 
+                      
+                        <a class="btn btn-dark" style="text-decoration: none; width: 200px; height: 50px; padding: 13px; margin: 0px 10px" href="menulogistica.htm" role="button">Regresar al Menú</a> 
                     </center>
                 </div>
 

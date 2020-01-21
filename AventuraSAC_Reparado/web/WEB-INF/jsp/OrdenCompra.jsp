@@ -172,6 +172,8 @@
                 var _ape = document.getElementById("cantidad").value;
                 var i = 1;
                 var fila = '<tr id="row" ' + i + '><td style="text-align: center;">' + _nom + '</td><td style="text-align: center;">' + _ape + '</td><td style="text-align:center;"><button type="button" id="' + i + '" class="btn btn-danger btn_remove" onclick="remove(this)" >Quitar</button></td></tr>';
+                
+                
 
                 i = i + 1;
                 var btn = document.createElement("TR");
@@ -193,7 +195,10 @@
 
 
 
-             function Enviar() {
+             
+        </script>
+        <script>
+            function Enviar() {
                 var detalles = obtenerDetalles();
                 
                // alert($("#idProveedor").val());
@@ -204,7 +209,7 @@
                     data: {
                         'idEmpleado': $("#idEmpleado").val(),
                         'idProveedor' : $("#idProveedor").val(),
-                        'fechaEmision': $("#txtfechaactual").val()
+                        'fechaEmision': $("#txtfechaactual").val(),
                         'detalles': detalles
                                 
                     },

@@ -74,7 +74,7 @@ public class OrdenCompraController  {
         request.setAttribute("fecha", fechaEmision);
         
         List<Proveedor> proveedor = repo2.findProveedorEntities();
-        List<Proveedor> prov = new ArrayList();
+       // List<Proveedor> prov = new ArrayList();
         
         mv.addObject("proveedor" , proveedor); 
         /*
@@ -122,7 +122,6 @@ public class OrdenCompraController  {
             StringTokenizer stDatos = new StringTokenizer(linea, ",");
             descripcion = stDatos.nextToken();
             cantidad = Integer.parseInt(stDatos.nextToken());
-
             //OrdencompraDetalle pedidoDet = repo1.findOrdencompraDetalle(idDetalleCompra);
 
             OrdencompraDetalle detalleO = new OrdencompraDetalle();

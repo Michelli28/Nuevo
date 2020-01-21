@@ -49,7 +49,7 @@
                             <fieldset style="border:1px solid black" id="fld" >
 
                                 <h3> R.U.C. N° 20111807958 </h3>
-                                <h3><strong>Cotización</strong></h3>
+                                <h3><strong>Factura</strong></h3>
                                 <div class="row" id="ngui">
                                     N° &nbsp;&nbsp;&nbsp;<input type="text"style="background: #F0E9FF;"  id="idCotizacion">&nbsp;-&nbsp;0000041
                                 </div>
@@ -69,7 +69,7 @@
                         <input type="hidden" name="idPedido" id="idPedido" value="${idPedido}">
 
                         <center>
-                            <div class="card-title"><h2><strong>Datos de la Cotización</strong></h2></div>
+                            <div class="card-title"><h2><strong>Datos del Cliente</strong></h2></div>
                         </center>
 
                         <fieldset id="fieldset1" style="border: 1px solid gray">
