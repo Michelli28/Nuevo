@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author CHELLI BONITA
+ * @author Administrador
  */
 @Entity
 @Table(name = "pagos")
@@ -28,8 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Pagos.findAll", query = "SELECT p FROM Pagos p")
     , @NamedQuery(name = "Pagos.findByNumeroOperacion", query = "SELECT p FROM Pagos p WHERE p.numeroOperacion = :numeroOperacion")
     , @NamedQuery(name = "Pagos.findByFecha", query = "SELECT p FROM Pagos p WHERE p.fecha = :fecha")
-    , @NamedQuery(name = "Pagos.findByMonto", query = "SELECT p FROM Pagos p WHERE p.monto = :monto")
-    , @NamedQuery(name = "Pagos.findByBanco", query = "SELECT p FROM Pagos p WHERE p.banco = :banco")})
+    , @NamedQuery(name = "Pagos.findByMonto", query = "SELECT p FROM Pagos p WHERE p.monto = :monto")})
 public class Pagos implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -42,8 +41,9 @@ public class Pagos implements Serializable {
     @Basic(optional = false)
     @Column(name = "Monto")
     private double monto;
-    @Column(name = "Banco")
-    private String banco;
+    @JoinColumn(name = "idBanco", referencedColumnName = "idBanco")
+    @ManyToOne
+    private Banco idBanco;
     @JoinColumn(name = "idPedido", referencedColumnName = "idPedido")
     @ManyToOne
     private Pedido idPedido;
@@ -84,12 +84,12 @@ public class Pagos implements Serializable {
         this.monto = monto;
     }
 
-    public String getBanco() {
-        return banco;
+    public Banco getIdBanco() {
+        return idBanco;
     }
 
-    public void setBanco(String banco) {
-        this.banco = banco;
+    public void setIdBanco(Banco idBanco) {
+        this.idBanco = idBanco;
     }
 
     public Pedido getIdPedido() {
@@ -100,11 +100,6 @@ public class Pagos implements Serializable {
         this.idPedido = idPedido;
     }
 
-    
-      //acumular saldo
-   
-  
-    
     @Override
     public int hashCode() {
         int hash = 0;

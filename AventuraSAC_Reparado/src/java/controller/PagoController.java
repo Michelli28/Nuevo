@@ -11,9 +11,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.servlet.http.HttpServletRequest;
+import model.controllers.BancoJpaController;
 import model.controllers.EstadopedidoJpaController;
 import model.controllers.PagosJpaController;
 import model.controllers.PedidoJpaController;
+import model.entities.Banco;
 import model.entities.Pedido;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,13 +32,14 @@ public class PagoController {
     private PagosJpaController repo;
     private PedidoJpaController repo1;
     private EstadopedidoJpaController repo2;
-   
+    private BancoJpaController repo3;
     
     public PagoController() {
         em = getEntityManager();
         repo = new PagosJpaController(emf);
         repo1 = new PedidoJpaController(emf);
         repo2 = new EstadopedidoJpaController(emf);
+        repo3 = new BancoJpaController(emf);
     }
 
     private EntityManager getEntityManager() {
@@ -56,7 +59,9 @@ public class PagoController {
         int id = Integer.parseInt(request.getParameter("idPedido"));
         request.setAttribute("idPedido", id);
         
+        List<Banco> banco = repo3.findBancoEntities();
         
+        mv.addObject("banco", banco);
         mv.addObject("pago", new Pagos());
         mv.setViewName("RegistrarPago");
         return mv;
@@ -70,7 +75,7 @@ public class PagoController {
         int id = Integer.parseInt(request.getParameter("idPedido"));
         String fecha = request.getParameter("fecha");
         double mon = Double.parseDouble(request.getParameter("monto")); 
-        String banco = request.getParameter("banco");
+        int banco = Integer.parseInt(request.getParameter("idBanco"));
         int idEstado = Integer.parseInt(request.getParameter("idEstado"));
 
         Pagos p = new Pagos();
@@ -81,7 +86,7 @@ public class PagoController {
         p.setIdPedido(repo1.findPedido(id));
         p.setFecha(fecha);
         p.setMonto(mon);
-        p.setBanco(banco);
+        p.setIdBanco(repo3.findBanco(banco));
         
          
         repo.create(p);

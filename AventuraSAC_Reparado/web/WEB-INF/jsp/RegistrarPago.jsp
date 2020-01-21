@@ -78,7 +78,11 @@
                                     <label>Entidad Bancaria:</label>
                                 </div>
                                 <div class="col-sm-6" style="left:7%;">
-                                    <input type="text" name="banco" id="banco" cssClass="form-control" placeholder="Ingrese banco">
+                                    <select name="idBanco" id="idBanco">
+                                    <c:forEach items="${banco}" var="x">
+                                        <option value="${x.idBanco}">${x.nombre}</option>
+                                    </c:forEach>
+                                </select>
                                 </div>
                             </div>
 
@@ -116,7 +120,7 @@
                         'idPedido': $("#idPedido").val(),
                         'fecha': $("#fecha").val(),
                         'monto': $("#monto").val(),
-                        'banco': $("#banco").val(),
+                        'idBanco': $("#idBanco").val(),
                         'idEstado': $("#idEstado").val()
 
                     },
