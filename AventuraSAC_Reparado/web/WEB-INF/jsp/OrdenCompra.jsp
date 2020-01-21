@@ -153,8 +153,8 @@
                         <hr style="border: solid gray 1px;">
 
                         <center>
-                            <button type="button" class="btn btn-dark" onclick="Enviar()">Guardar</button>
-                            <a class="btn btn-dark" href="menu.htm" role="button">Regresar al Menú</a> 
+                            <button type="button" class="btn btn-outline-dark" onclick="Enviar()">Guardar</button>
+                            <a class="btn btn-dark"  style="text-decoration: none;" href="menu.htm" role="button">Regresar al Menú</a> 
                         </center>
 
                     </div>

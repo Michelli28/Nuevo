@@ -208,8 +208,8 @@
                     <fieldset id="fieldset4" style="border: 1px solid gray">
                         <legend><p>¿Qué acción desea realizar?</p></legend>
                         <div class="row" id="fila8">
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" onclick="Enviar()" class="btn btn-success" >Enviar</button>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-outline-secondary">Cancelar</button>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" onclick="Enviar()" class="btn btn-outline-dark">Enviar</button>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-outline-dark">Cancelar</button>
                         </div>
                     </fieldset>
 

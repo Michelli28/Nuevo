@@ -61,7 +61,7 @@ public class OrdenCompraController  {
     public ModelAndView NuevaOrdenCompra(Model model, HttpServletRequest request) {
         
         
-        int idproveedor = Integer.parseInt(request.getParameter("id"));
+        /*int idproveedor = Integer.parseInt(request.getParameter("id"));*/
         
         Empleado e = (Empleado) request.getSession().getAttribute("usuario");
         request.setAttribute("usuario", e);

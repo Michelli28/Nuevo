@@ -102,8 +102,8 @@
 }
 
 #fld{
-    background-color: #ffcccc;
-    width: 110%;
+    background-color: white;
+    width: 105%;
 }
 
 #fieldset1 {
@@ -201,11 +201,10 @@ table,td  {
 
 
 #fieldset4 {
-    background-color: white;
-    margin: 0% 70%;
-    padding: 0% 5%;
-    height: 110px; /*Ancho*/
-    width: 28%;/*Largoo*/
+    margin: 0% 72%;
+    padding: 0% 2% 3% 5%;
+    height: 43%; /*Ancho*/
+    width: 27%;/*Largoo*/
     text-align: center;
     font-family: 'Libre Baskerville', serif;
 }
@@ -215,7 +214,6 @@ table,td  {
 }
 
 .filo8 button{
-    top:5%;
     text-align: center;
 }
 
