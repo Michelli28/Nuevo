@@ -9,7 +9,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
         <meta name="description" content="" />
         <meta name="keywords" content="" />
+        <link href="<c:url value="webapp/resources/theme1/css/bootstrap.min.css" />" rel="stylesheet">
         <link href="<c:url value="webapp/resources/theme1/css/main.css" />" rel="stylesheet">
+        <script src="<c:url value="webapp/resources/theme1/js/jquery.min.js" />"></script>
+
     </head>
     <body class="is-preload">
 
@@ -50,7 +53,7 @@
                     <section>
                         <div class="content">
                             <header>
-                                <a href="#" class="icon fa-laptop"><span class="label">Icon</span></a>
+                                <a href="nuevomovimiento.htm" class="icon fa-laptop"><span class="label">Icon</span></a>
                                 <h2>REGISTRAR ENTRADAS Y SALIDAS</h2>
                             </header>
                             <p>Añade al registro cada vez que ingresa o retiran materiales.</p>								
@@ -86,7 +89,7 @@
             <section>
                 <div class="content">
                     <blockquote>
-                       <p>"La creatividad solo es la inteligencia divirtiendose".</p>
+                        <p>"La creatividad solo es la inteligencia divirtiendose".</p>
                     </blockquote>
                     <div class="author">
                         <div class="image">
@@ -125,49 +128,49 @@
         </div>
 
 
-<!-- Footer -->
-<footer id="footer">
-    <div class="inner">
-        <div class="content">
-            <section>
-                <h3>¿Que hacemos?</h3>
-                <p>Confeccion de prendas.</p><br>
-                <p>Todo tipo de telas.</p><br>
-                <p>Materiales de calidad.</p><br>
-                <p>Puntualidad en las entregas.</p><br>
+        <!-- Footer -->
+        <footer id="footer">
+            <div class="inner">
+                <div class="content">
+                    <section>
+                        <h3>¿Que hacemos?</h3>
+                        <p>Confeccion de prendas.</p><br>
+                        <p>Todo tipo de telas.</p><br>
+                        <p>Materiales de calidad.</p><br>
+                        <p>Puntualidad en las entregas.</p><br>
 
-            </section>
+                    </section>
 
-            <section>
-                <style>
-                    #yo { 
-                        margin-left: -120px;
-                    }
-                </style>
-                <img id="yo" src="webapp/resources/theme1/images/logo.PNG">
-            </section>
-            <section>
-                <h4>Contáctanos:</h4>
-                <ul class="plain">
-                    <li><a href="#"><i class="icon fa-twitter">&nbsp;</i>Twitter</a></li>
-                    <li><a href="#"><i class="icon fa-facebook">&nbsp;</i>Facebook</a></li>
-                    <li><a href="#"><i class="icon fa-instagram">&nbsp;</i>Instagram</a></li>
-                  
-                </ul>
-            </section>
-        </div>
-        <div class="copyright">
-            Crea tu pagina web - Contactanos 970312126
-        </div>
-    </div>
-</footer>
+                    <section>
+                        <style>
+                            #yo { 
+                                margin-left: -120px;
+                            }
+                        </style>
+                        <img id="yo" src="webapp/resources/theme1/images/logo.PNG">
+                    </section>
+                    <section>
+                        <h4>Contáctanos:</h4>
+                        <ul class="plain">
+                            <li><a href="#"><i class="icon fa-twitter">&nbsp;</i>Twitter</a></li>
+                            <li><a href="#"><i class="icon fa-facebook">&nbsp;</i>Facebook</a></li>
+                            <li><a href="#"><i class="icon fa-instagram">&nbsp;</i>Instagram</a></li>
 
-<!-- Scripts -->
-<script src="<c:url value="webapp/resources/theme1/js/browser.min.js"/>"></script>
-<script src="<c:url value="webapp/resources/theme1/js/jquery.min.js" />"></script>
-<script src="<c:url value="webapp/resources/theme1/js/breakpoints.min.js" />"></script>
-<script src="<c:url value="webapp/resources/theme1/js/util.js" />"></script>
-<script src="<c:url value="webapp/resources/theme1/js/main.js" />"></script>
+                        </ul>
+                    </section>
+                </div>
+                <div class="copyright">
+                    Crea tu pagina web - Contactanos 970312126
+                </div>
+            </div>
+        </footer>
 
-</body>
+        <!-- Scripts -->
+        <script src="<c:url value="webapp/resources/theme1/js/browser.min.js"/>"></script>
+        <script src="<c:url value="webapp/resources/theme1/js/jquery.min.js" />"></script>
+        <script src="<c:url value="webapp/resources/theme1/js/breakpoints.min.js" />"></script>
+        <script src="<c:url value="webapp/resources/theme1/js/util.js" />"></script>
+        <script src="<c:url value="webapp/resources/theme1/js/main.js" />"></script>
+
+    </body>
 </html>

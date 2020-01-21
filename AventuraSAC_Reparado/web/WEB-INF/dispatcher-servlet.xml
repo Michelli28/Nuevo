@@ -79,6 +79,8 @@
                 
                 <prop key="Factura.htm">facturaController</prop>
                 
+                <prop key="nuevomovimiento.htm">movimientoController</prop>
+                
             </props>
         </property>
     </bean>
@@ -131,6 +133,9 @@
     
     <bean name="facturaController"
           class="controller.FacturaController" />
+    
+    <bean name="movimientoController"
+          class="controller.MovimientoController" />
 
     
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

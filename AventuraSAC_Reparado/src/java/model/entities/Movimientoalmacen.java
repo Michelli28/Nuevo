@@ -48,9 +48,6 @@ public class Movimientoalmacen implements Serializable {
     @Basic(optional = false)
     @Column(name = "fecha")
     private String fecha;
-    @JoinColumn(name = "Item", referencedColumnName = "Item")
-    @ManyToOne
-    private OrdencompraDetalle item;
     @JoinColumn(name = "idOrdenCompra", referencedColumnName = "idOrdenCompra")
     @ManyToOne
     private Ordencompra idOrdenCompra;
@@ -98,14 +95,6 @@ public class Movimientoalmacen implements Serializable {
 
     public void setFecha(String fecha) {
         this.fecha = fecha;
-    }
-
-    public OrdencompraDetalle getItem() {
-        return item;
-    }
-
-    public void setItem(OrdencompraDetalle item) {
-        this.item = item;
     }
 
     public Ordencompra getIdOrdenCompra() {
