@@ -86,7 +86,7 @@
                     </table>
 
                     <center>
-                        <a class="btn btn-dark" href="menucliente.htm" role="button" style="text-decoration: none; width: 200px; height: 50px; padding: 13px; margin: 0px 10px">Regresar al Menú</a> 
+                        <a class="btn btn-dark" href="menulogistica.htm" role="button" style="text-decoration: none; width: 200px; height: 50px; padding: 13px; margin: 0px 10px">Regresar al Menú</a> 
 
                     </center>
 

@@ -141,7 +141,7 @@
 
                     <center>
                         <input type="button" class="btn btn-dark"value="Guardar" onclick="Enviar()"/>
-                        <a class="btn btn-dark" href="menu.htm" style="text-decoration: none;" role="button">Regresar al Menú</a> 
+                        <a class="btn btn-dark" href="menualmacen.htm" style="text-decoration: none;" role="button">Regresar al Menú</a> 
                     </center>
             </div>
         </div>

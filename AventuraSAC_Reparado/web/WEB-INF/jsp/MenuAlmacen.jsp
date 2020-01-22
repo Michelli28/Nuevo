@@ -62,7 +62,7 @@
                     <section>
                         <div class="content">
                             <header>
-                                <a href="#" class="icon fa-list-alt"><span class="label">Icon</span></a>
+                                <a href="listamovimiento.htm" class="icon fa-list-alt"><span class="label">Icon</span></a>
                                 <h2>LISTA ALMACEN</h2>
                             </header>
                             <p>Lista de la materia prima, insumos y pedidos que ingresaron. </p>

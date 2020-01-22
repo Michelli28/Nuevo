@@ -2,10 +2,13 @@
 package controller;
 
 import com.google.gson.Gson;
+import java.text.SimpleDateFormat;
 import model.controllers.ClienteJpaController;
 import model.entities.Cliente;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.StringTokenizer;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -14,6 +17,8 @@ import model.controllers.DistritoJpaController;
 import model.controllers.MovimientoalmacenJpaController;
 import model.controllers.OrdencompraDetalleJpaController;
 import model.controllers.OrdencompraJpaController;
+import model.controllers.PedidoDetalleJpaController;
+import model.controllers.PedidoJpaController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -23,6 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 import model.controllers.exceptions.NonexistentEntityException;
 import model.entities.Distrito;
 import model.entities.Movimientoalmacen;
+import model.entities.Pedido;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -34,12 +40,16 @@ public class MovimientoController {
     private MovimientoalmacenJpaController repo;
     private OrdencompraJpaController repo1;
     private OrdencompraDetalleJpaController repo2;
+    private PedidoJpaController repo3;
+    private PedidoDetalleJpaController repo4;
     
     public MovimientoController() {
         em = getEntityManager();
         repo = new MovimientoalmacenJpaController(emf);
         repo1 = new OrdencompraJpaController(emf);
         repo2 = new OrdencompraDetalleJpaController(emf);
+        repo3 = new PedidoJpaController(emf);
+        repo4 = new PedidoDetalleJpaController(emf);
     }
 
     private EntityManager getEntityManager() {
@@ -58,60 +68,73 @@ public class MovimientoController {
         
         mv.addObject("movimiento", new Movimientoalmacen());
         
+        
+        String fechaEmision = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+        request.setAttribute("fecha", fechaEmision);
+        
         mv.setViewName("MovimientoAlmacen");
         
         return mv;
     }
     
-    /*@RequestMapping(value = "nuevocliente.htm", method = RequestMethod.GET)
+    @RequestMapping(value = "crearmovimiento.htm", method = RequestMethod.POST)
     
-    public ModelAndView NuevoCliente(Model model) {
+    public ModelAndView NuevoCliente(HttpServletRequest request) throws Exception{
         
-        ModelAndView mv = new ModelAndView();
+        String detalles = request.getParameter("detalles");
         
-        List<Distrito> distritos = repo1.findDistritoEntities();
+        StringTokenizer stD = new StringTokenizer(detalles, ";");
+        int detalles0 = stD.countTokens();
+        int idorden = 0;
+        String tipo = "";
+        String descripcion = "";
+        String fecha = "";
+        
+        
+        Movimientoalmacen m = new Movimientoalmacen();
 
-        mv.addObject("listaDistrito", distritos);
+        for (int i = 0; i < detalles0; i++) {
+            // Obtenemos los datos de cada pedido
+            String linea = stD.nextToken();
+            StringTokenizer stDatos = new StringTokenizer(linea, ",");
+            idorden = Integer.parseInt(stDatos.nextToken());
+            tipo = stDatos.nextToken();
+            descripcion = stDatos.nextToken();
+            fecha = stDatos.nextToken();
         
-        model.addAttribute("cliente", new Cliente());
+        m.setIdOrdenCompra(repo1.findOrdencompra(idorden));
+        m.setTipoMovimiento(tipo);
+        m.setDescripcion(descripcion);
+        m.setFecha(fecha);
+        }
         
-        mv.setViewName("nuevocliente");
+        repo.create(m);
         
-        return mv;
+       /* List<Pedido> pe = repo3.findPedidoEntities();
+        
+        
+        if(m.getDescripcion() == )*/
+        
+        return new ModelAndView("redirect:/listamovimiento.htm");
     }
     
-    @RequestMapping(value = "nuevocliente.htm", method = RequestMethod.POST)
+   
+    @RequestMapping("listamovimiento.htm")
     
-    public ModelAndView NuevoCliente(@ModelAttribute("cliente") Cliente c) throws Exception{
-        
-        repo.create(c);
-        
-        return new ModelAndView("redirect:/clientes.htm");
-    }
-    
-    
-    @RequestMapping(value = "editarcliente.htm", method = RequestMethod.GET)
-    
-    public ModelAndView EditarCliente(HttpServletRequest request) {
-        
-        int id = Integer.parseInt(request.getParameter("id"));
-        
-        Cliente obj = repo.findCliente(id);
+    public ModelAndView ListaMovimiento(Model model) {
         
         ModelAndView mv = new ModelAndView();
         
-        List<Distrito> distritos = repo1.findDistritoEntities();
+        List<Movimientoalmacen> movi = repo.findMovimientoalmacenEntities();
         
-        mv.addObject("listaDistrito", distritos);
+        model.addAttribute("movi", movi);
         
-        mv.addObject("cliente", obj);
-       
-        mv.setViewName("editarcliente");
+        mv.setViewName("listamovimiento");
         
         return mv;
         
     }
-    
+ /*   
     @RequestMapping(value = "editarcliente.htm", method = RequestMethod.POST)
     
     public ModelAndView EditarCliente(@ModelAttribute("cliente") Cliente c) throws Exception {
