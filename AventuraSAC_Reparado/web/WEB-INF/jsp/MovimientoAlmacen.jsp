@@ -58,7 +58,7 @@
                                         <label for="fecha">Fecha:</label> 
                                     </div>
                                     <div class="p-6">
-                                        <input name="fecha" id="fecha" cssClass="form-control" style="height:35px; margin-left: 15px;" value="${fecha}"/>
+                                        <input name="fecha" id="fecha" cssClass="form-control" style="height:35px; margin-left: 15px;" />
                                     </div>
                                 </div>
                             </div>
@@ -101,6 +101,7 @@
                                         <th style="text-align: center; width: 20%;">Orden de Compra</th>
                                         <th style="text-align: center; width: 20%;">Tipo movimiento</th>
                                         <th style="text-align: center; width: 20%;">Descripción</th>
+                                        <th style="text-align: center; width: 20%;">Tipo Item</th>
                                         <th style="text-align: center;">Fecha</th>
                                         <th style="text-align: center;">Acciones</th>
                                     </tr>
@@ -160,7 +161,7 @@
 
                 var detalles = obtenerDetalles();
 
-               // alert(detalles);
+            //  alert(detalles).val());
                 $.ajax({
                     type: 'POST',
                     url: 'crearmovimiento.htm',
@@ -185,7 +186,7 @@
                     // DESCRIPCION
                     cadena += $(this).find('td:eq(2)').text() + ",";
                     // FECHA
-                    cadena += $(this).find('td:eq(3)').text() + ";";
+                    cadena += $(this).find('td:eq(3)').text() + ",";
                     
                     cadena += $(this).find('td:eq(4)').text() + ";";
                 });

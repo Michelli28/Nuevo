@@ -14,6 +14,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.servlet.http.HttpServletRequest;
 import model.controllers.DistritoJpaController;
+import model.controllers.EstadopedidoJpaController;
 import model.controllers.MovimientoalmacenJpaController;
 import model.controllers.OrdencompraDetalleJpaController;
 import model.controllers.OrdencompraJpaController;
@@ -45,6 +46,7 @@ public class MovimientoController {
     private PedidoJpaController repo3;
     private PedidoDetalleJpaController repo4;
     private TipoitemJpaController repo5;
+    private EstadopedidoJpaController repo6;
     
     public MovimientoController() {
         em = getEntityManager();
@@ -54,6 +56,7 @@ public class MovimientoController {
         repo3 = new PedidoJpaController(emf);
         repo4 = new PedidoDetalleJpaController(emf);
         repo5 = new TipoitemJpaController(emf);
+        repo6 = new EstadopedidoJpaController(emf);
     }
 
     private EntityManager getEntityManager() {
@@ -74,8 +77,8 @@ public class MovimientoController {
         
         List<Tipoitem> tipoitem = repo5.findTipoitemEntities();
         
-        String fechaEmision = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
-        request.setAttribute("fecha", fechaEmision);
+       // String fechaEmision = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+        //request.setAttribute("fecha", fechaEmision);
         
         mv.addObject("tipoitem" , tipoitem);
         mv.setViewName("MovimientoAlmacen");
@@ -98,9 +101,7 @@ public class MovimientoController {
         int tipoitem = 0;
         String fecha = "";
         
-        
-        Movimientoalmacen m = new Movimientoalmacen();
-
+      Movimientoalmacen m = new Movimientoalmacen();
         for (int i = 0; i < detalles0; i++) {
             // Obtenemos los datos de cada pedido
             String linea = stD.nextToken();
@@ -110,17 +111,29 @@ public class MovimientoController {
             descripcion = stDatos.nextToken();
             tipoitem = Integer.parseInt(stDatos.nextToken());
             fecha = stDatos.nextToken();
-        
+            
         m.setIdOrdenCompra(repo1.findOrdencompra(idorden));
         m.setTipoMovimiento(tipo);
-        m.setDescripcion(descripcion);
         m.setIdTipoItem(repo5.findTipoitem(tipoitem));
+        m.setDescripcion(descripcion);
         m.setFecha(fecha);
         }
         
         repo.create(m);
         
-        //private OrdencompraJpaController repo1;
+        List<Pedido> pedido = repo3.findPedidoEntities();
+        
+        int d = 5;
+        
+        for(Pedido p : pedido){
+            if(m.getIdTipoItem().getIdTipoItem() == 2){
+            p.setIdEstado(repo6.findEstadopedido(d));
+            repo3.edit(p);
+        }
+            
+        }
+        
+        
         
         
         return new ModelAndView("redirect:/listamovimiento.htm");

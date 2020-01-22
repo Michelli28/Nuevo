@@ -61,8 +61,9 @@
                                     <th scope="row" style="text-align: center;">${item.idPedido}</th>
                                     <td style="text-align: center;">${item.fechaRegistro}</td>
                                     <td style="text-align: center;">${item.fechaEntrega}</td>
+                              
                                     <td style="text-align: center;">${item.idEstado.nombre}</td>
-
+                                
                                     <c:if test="${item.cotizacionList.size() != 0 && item.idEstado.idEstado == 2}">
                                         <td style="text-align: center;"><a class="btn btn-info" role="button" href="vercotizacion.htm?cotizacionList.get(0)=${item.cotizacionList.get(0).idCotizacion}" style="text-decoration: none;">Ver Cotización <i class="fas fa-edit"></i></a></td>
                                             </c:if>
@@ -77,6 +78,12 @@
                                     </c:if>
                                         <c:if test="${item.idEstado.idEstado == 4}">
                                         <td></td>
+                                    </c:if>
+                                        <c:if test="${item.idEstado.idEstado == 5}">
+                                        <td style="text-align: center;"><a class="btn btn-info" role="button" href="RegistrarPago1.htm?idPedido=${item.idPedido}" style="text-decoration: none;">Concluir Pago <i class="fas fa-edit"></i></a></td>
+                                    </c:if>
+                                        <c:if test="${item.idEstado.idEstado == 6}">
+                                        <td ></td>
                                     </c:if>
       
                                 </tr>
