@@ -171,12 +171,11 @@ public class PagoController {
                 repo1.edit(pedido);
             }
             */
-            if(pedido.getAcumulado() > (pedido.getSaldo()/2) && pedido.getAcumulado() > (pedido.getSaldo()/2)){
+            if(pedido.getAcumulado() > (pedido.getSaldo()/2) && pedido.getAcumulado() < (pedido.getSaldo() - pedido.getAcumulado())){
                 pedido.setIdEstado(repo2.findEstadopedido(Estado));
                 repo1.edit(pedido);
             }
-            
-            if(pedido.getAcumulado() == (pedido.getSaldo())){
+            if(pedido.getAcumulado() == pedido.getSaldo()){
                 pedido.setIdEstado(repo2.findEstadopedido(6));
                 repo1.edit(pedido);
             }
