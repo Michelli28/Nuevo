@@ -110,10 +110,8 @@ public class MovimientoController {
         
         repo.create(m);
         
-       /* List<Pedido> pe = repo3.findPedidoEntities();
+        //private OrdencompraJpaController repo1;
         
-        
-        if(m.getDescripcion() == )*/
         
         return new ModelAndView("redirect:/listamovimiento.htm");
     }

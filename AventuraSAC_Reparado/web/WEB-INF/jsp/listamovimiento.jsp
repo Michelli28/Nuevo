@@ -31,39 +31,41 @@
                     </div>
 
                     <div class="card-body">
-                        
-                            <br>
 
-                            <table class="table table-bordered" style="width: 100%;">
-                                <thead style="background-color: #D6D9D9;">
+                        <br>
+
+                        <table class="table table-bordered" style="width: 100%;">
+                            <thead style="background-color: #D6D9D9;">
+                                <tr>
+                                    <th style="text-align: center; width: 20%;">IdMovimiento</th>
+                                    <th style="text-align: center; width: 20%;">Orden de Compra</th>
+                                    <th style="text-align: center; width: 20%;">Tipo movimiento</th>
+                                    <th style="text-align: center;">Descripción</th>
+                                    <th style="text-align: center;">Fecha</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                <c:forEach var="item" items="${movi}">
                                     <tr>
-                                        <th style="text-align: center; width: 20%;">IdMovimiento</th>
-                                        <th style="text-align: center; width: 20%;">Orden de Compra</th>
-                                        <th style="text-align: center; width: 20%;">Tipo movimiento</th>
-                                        <th style="text-align: center;">Descripción</th>
-                                        <th style="text-align: center;">Fecha</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                    <c:forEach var="item" items="${movi}">
                                         <th scope="col" style="text-align: center;">${item.idMovimiento}</th>
                                         <td style="text-align: center;">${item.idOrdenCompra.idOrdenCompra}</td>
                                         <td style="text-align: center;">${item.tipoMovimiento}</td>
                                         <td style="text-align: center;">${item.descripcion}</td>
                                         <td style="text-align: center;">${item.fecha}</td>
-                                    </c:forEach>
                                     </tr>
-                                </tbody>
-                            </table>
+                                </c:forEach>
 
-                            <hr style="border: solid gray 1px;">
-                            <center>
+                            </tbody>
+                        </table>
 
-                                <a class="btn btn-dark" href="menualmacen.htm" role="button">Regresar al Menú</a> 
-                            </center>
+                        <hr style="border: solid gray 1px;">
+                        <center>
 
-                        </div>
+                            <a class="btn btn-dark" href="menualmacen.htm" role="button">Regresar al Menú</a> 
+                        </center>
+
+                    </div>
                 </form:form>
 
 

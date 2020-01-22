@@ -84,11 +84,11 @@
                             <table class="table table-bordered" style="width: 100%;" id="table">
                                 <thead style="background-color: #D6D9D9;">
                                     <tr>
-                                        <th style="text-align: center; width: 20%;">IdMovimiento</th>
                                         <th style="text-align: center; width: 20%;">Orden de Compra</th>
                                         <th style="text-align: center; width: 20%;">Tipo movimiento</th>
-                                        <th style="text-align: center;">Descripción</th>
+                                        <th style="text-align: center; width: 20%;">Descripción</th>
                                         <th style="text-align: center;">Fecha</th>
+                                        <th style="text-align: center;">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tablita">
