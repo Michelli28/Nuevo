@@ -71,10 +71,10 @@
                     <section>
                         <div class="content">
                             <header>
-                                <a href="#" class="icon fa-money"><span class="label">Icon</span></a>
-                                <h2>PAGOS</h2>
+                                <a href="listaordenes.htm" class="icon fa-list"><span class="label">Icon</span></a>
+                                <h2>LISTA DE ÓRDENES DE COMPRA</h2>
                             </header>
-                            <p>Visualiza los boucher de los clientes con sus respectivos pedidos. </p>
+                            <p>Visualiza la lista de las ordenes de compra. </p>
                         </div>
                     </section>
 

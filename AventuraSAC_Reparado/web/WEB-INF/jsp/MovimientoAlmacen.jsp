@@ -67,6 +67,20 @@
                             <div class="p-4">
                                 <div class="d-flex flex-row">
                                     <div class="p-6">
+                                        <label for="idTipoItem">Tipo Item:</label> 
+                                    </div>
+                                    <div class="p-6">
+                                        <select name="idTipoItem" id="idTipoItem" style="height:50px; margin-left: 15px; width: 300px;">
+                                            <c:forEach var="x" items="${tipoitem}">
+                                                <option value="${x.idTipoItem}">${x.nombre}</option>
+                                            </c:forEach>
+                                        </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            <div class="p-4">
+                                <div class="d-flex flex-row">
+                                    <div class="p-6">
                                         <label for="descripcion">Descripción:</label> 
                                     </div>
                                     <div class="p-6">
@@ -116,9 +130,10 @@
                 var tipoMovimiento = document.getElementById("tipoMovimiento").value;
                 
                 var descripcion = document.getElementById("descripcion").value;
+                var idtipo = document.getElementById("idTipoItem").value;
                 var fecha = document.getElementById("fecha").value;
                 var i = 1;
-                var fila = '<tr id="row" ' + i + '><td style="text-align: center;">'+ idOrden + '</td><td style="text-align: center;">' + tipoMovimiento + '</td><td style="text-align: center;">'+ descripcion + '</td><td style="text-align: center;">' + fecha + '</td><td style="text-align:center;"><button type="button" id="' + i + '" class="btn btn-danger btn_remove" onclick="remove(this)" >Quitar</button></td></tr>';
+                var fila = '<tr id="row" ' + i + '><td style="text-align: center;">'+ idOrden + '</td><td style="text-align: center;">' + tipoMovimiento + '</td><td style="text-align: center;">'+ descripcion + '</td><td style="text-align: center;">'+ idtipo + '</td><td style="text-align: center;">' + fecha + '</td><td style="text-align:center;"><button type="button" id="' + i + '" class="btn btn-danger btn_remove" onclick="remove(this)" >Quitar</button></td></tr>';
 
                 i = i + 1;
                 var btn = document.createElement("TR");
@@ -171,6 +186,8 @@
                     cadena += $(this).find('td:eq(2)').text() + ",";
                     // FECHA
                     cadena += $(this).find('td:eq(3)').text() + ";";
+                    
+                    cadena += $(this).find('td:eq(4)').text() + ";";
                 });
                 return cadena.substring(0, cadena.length - 1);
             }

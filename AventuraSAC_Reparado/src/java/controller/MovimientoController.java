@@ -19,6 +19,7 @@ import model.controllers.OrdencompraDetalleJpaController;
 import model.controllers.OrdencompraJpaController;
 import model.controllers.PedidoDetalleJpaController;
 import model.controllers.PedidoJpaController;
+import model.controllers.TipoitemJpaController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -29,6 +30,7 @@ import model.controllers.exceptions.NonexistentEntityException;
 import model.entities.Distrito;
 import model.entities.Movimientoalmacen;
 import model.entities.Pedido;
+import model.entities.Tipoitem;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -42,6 +44,7 @@ public class MovimientoController {
     private OrdencompraDetalleJpaController repo2;
     private PedidoJpaController repo3;
     private PedidoDetalleJpaController repo4;
+    private TipoitemJpaController repo5;
     
     public MovimientoController() {
         em = getEntityManager();
@@ -50,6 +53,7 @@ public class MovimientoController {
         repo2 = new OrdencompraDetalleJpaController(emf);
         repo3 = new PedidoJpaController(emf);
         repo4 = new PedidoDetalleJpaController(emf);
+        repo5 = new TipoitemJpaController(emf);
     }
 
     private EntityManager getEntityManager() {
@@ -68,10 +72,12 @@ public class MovimientoController {
         
         mv.addObject("movimiento", new Movimientoalmacen());
         
+        List<Tipoitem> tipoitem = repo5.findTipoitemEntities();
         
         String fechaEmision = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
         request.setAttribute("fecha", fechaEmision);
         
+        mv.addObject("tipoitem" , tipoitem);
         mv.setViewName("MovimientoAlmacen");
         
         return mv;
@@ -87,7 +93,9 @@ public class MovimientoController {
         int detalles0 = stD.countTokens();
         int idorden = 0;
         String tipo = "";
+        
         String descripcion = "";
+        int tipoitem = 0;
         String fecha = "";
         
         
@@ -100,11 +108,13 @@ public class MovimientoController {
             idorden = Integer.parseInt(stDatos.nextToken());
             tipo = stDatos.nextToken();
             descripcion = stDatos.nextToken();
+            tipoitem = Integer.parseInt(stDatos.nextToken());
             fecha = stDatos.nextToken();
         
         m.setIdOrdenCompra(repo1.findOrdencompra(idorden));
         m.setTipoMovimiento(tipo);
         m.setDescripcion(descripcion);
+        m.setIdTipoItem(repo5.findTipoitem(tipoitem));
         m.setFecha(fecha);
         }
         

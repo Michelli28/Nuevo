@@ -15,6 +15,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import model.controllers.exceptions.NonexistentEntityException;
 import model.entities.Movimientoalmacen;
+import model.entities.Tipoitem;
 import model.entities.Ordencompra;
 
 /**
@@ -37,12 +38,21 @@ public class MovimientoalmacenJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
+            Tipoitem idTipoItem = movimientoalmacen.getIdTipoItem();
+            if (idTipoItem != null) {
+                idTipoItem = em.getReference(idTipoItem.getClass(), idTipoItem.getIdTipoItem());
+                movimientoalmacen.setIdTipoItem(idTipoItem);
+            }
             Ordencompra idOrdenCompra = movimientoalmacen.getIdOrdenCompra();
             if (idOrdenCompra != null) {
                 idOrdenCompra = em.getReference(idOrdenCompra.getClass(), idOrdenCompra.getIdOrdenCompra());
                 movimientoalmacen.setIdOrdenCompra(idOrdenCompra);
             }
             em.persist(movimientoalmacen);
+            if (idTipoItem != null) {
+                idTipoItem.getMovimientoalmacenList().add(movimientoalmacen);
+                idTipoItem = em.merge(idTipoItem);
+            }
             if (idOrdenCompra != null) {
                 idOrdenCompra.getMovimientoalmacenList().add(movimientoalmacen);
                 idOrdenCompra = em.merge(idOrdenCompra);
@@ -61,13 +71,27 @@ public class MovimientoalmacenJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Movimientoalmacen persistentMovimientoalmacen = em.find(Movimientoalmacen.class, movimientoalmacen.getIdMovimiento());
+            Tipoitem idTipoItemOld = persistentMovimientoalmacen.getIdTipoItem();
+            Tipoitem idTipoItemNew = movimientoalmacen.getIdTipoItem();
             Ordencompra idOrdenCompraOld = persistentMovimientoalmacen.getIdOrdenCompra();
             Ordencompra idOrdenCompraNew = movimientoalmacen.getIdOrdenCompra();
+            if (idTipoItemNew != null) {
+                idTipoItemNew = em.getReference(idTipoItemNew.getClass(), idTipoItemNew.getIdTipoItem());
+                movimientoalmacen.setIdTipoItem(idTipoItemNew);
+            }
             if (idOrdenCompraNew != null) {
                 idOrdenCompraNew = em.getReference(idOrdenCompraNew.getClass(), idOrdenCompraNew.getIdOrdenCompra());
                 movimientoalmacen.setIdOrdenCompra(idOrdenCompraNew);
             }
             movimientoalmacen = em.merge(movimientoalmacen);
+            if (idTipoItemOld != null && !idTipoItemOld.equals(idTipoItemNew)) {
+                idTipoItemOld.getMovimientoalmacenList().remove(movimientoalmacen);
+                idTipoItemOld = em.merge(idTipoItemOld);
+            }
+            if (idTipoItemNew != null && !idTipoItemNew.equals(idTipoItemOld)) {
+                idTipoItemNew.getMovimientoalmacenList().add(movimientoalmacen);
+                idTipoItemNew = em.merge(idTipoItemNew);
+            }
             if (idOrdenCompraOld != null && !idOrdenCompraOld.equals(idOrdenCompraNew)) {
                 idOrdenCompraOld.getMovimientoalmacenList().remove(movimientoalmacen);
                 idOrdenCompraOld = em.merge(idOrdenCompraOld);
@@ -104,6 +128,11 @@ public class MovimientoalmacenJpaController implements Serializable {
                 movimientoalmacen.getIdMovimiento();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The movimientoalmacen with id " + id + " no longer exists.", enfe);
+            }
+            Tipoitem idTipoItem = movimientoalmacen.getIdTipoItem();
+            if (idTipoItem != null) {
+                idTipoItem.getMovimientoalmacenList().remove(movimientoalmacen);
+                idTipoItem = em.merge(idTipoItem);
             }
             Ordencompra idOrdenCompra = movimientoalmacen.getIdOrdenCompra();
             if (idOrdenCompra != null) {
