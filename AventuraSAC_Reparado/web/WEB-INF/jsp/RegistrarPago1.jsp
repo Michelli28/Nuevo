@@ -67,10 +67,10 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-5" style="left:15%;">
-                                    <label>Monto:</label>
+                                    <label>Monto restante:</label>
                                 </div>
                                 <div class="col-sm-6" style="left:7%;">
-                                    <input type="text" name="monto" id="monto" cssClass="form-control" placeholder="Ingrese monto" value="${p.acumulado}">
+                                    <input type="text" name="monto" id="monto" cssClass="form-control" placeholder="Ingrese monto" value="${p}">
                                 </div>
                             </div>
                             <div class="form-group row">

@@ -17,9 +17,11 @@
         <link href="<c:url value="webapp/resources/theme1/css/bootstrap.min.css" />" rel="stylesheet">
         <link href="<c:url value="webapp/resources/theme1/css/main.css" />" rel="stylesheet">
         <link href="<c:url value="webapp/resources/theme1/fonts/font.awesome.css" />" rel="stylesheet">
-        <script src="<c:url value="webapp/resources/theme1/js/jquery.min.js" />"></script>
+        <script src="<c:url value="webapp/resources/theme1/js/jquery.min.js" />" ></script>
         <script type="text/javascript" src="<c:url value="webapp/resources/theme1/js/jquery.modal.js"/>"></script>
-        <link type="text/css" rel="stylesheet" href="<c:url value="webapp/resources/theme1/css/jquery.modal.css"/>" />
+        <link type="text/css" rel="stylesheet" href="<c:url value="webapp/resources/theme1/css/jquery.modal.css"/>" >
+        <script type="text/javascript" src="<c:url value="webapp/resources/theme1/js/jquery.minicolors.js"/>" ></script>
+        <link type="text/css" rel="stylesheet" href="<c:url value="webapp/resources/theme1/css/jquery.minicolors.css"/>" />
 
     </head>
     <body id="body">
@@ -66,7 +68,7 @@
                             </div>
 
                         </div>
-                        
+
                         <br>
                         <table class="table">
                             <thead class="thead-dark">
