@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import model.controllers.EmpleadoJpaController;
 import model.controllers.OrdencompraDetalleJpaController;
 import model.controllers.OrdencompraJpaController;
+import model.controllers.PedidoJpaController;
 import model.controllers.ProveedorJpaController;
+import model.controllers.exceptions.NonexistentEntityException;
 import model.entities.Cotizacion;
 import model.entities.Empleado;
 import model.entities.Ordencompra;
@@ -41,6 +43,7 @@ public class OrdenCompraController  {
     private OrdencompraDetalleJpaController repo1;
     private ProveedorJpaController repo2;
     private EmpleadoJpaController repo3;
+    private PedidoJpaController repo4;
 
     
     public OrdenCompraController() {
@@ -49,6 +52,7 @@ public class OrdenCompraController  {
         repo1 = new OrdencompraDetalleJpaController(emf);
         repo2 = new ProveedorJpaController(emf);
         repo3 = new EmpleadoJpaController(emf);
+        repo4 = new PedidoJpaController(emf);
     }
 
     private EntityManager getEntityManager() {
@@ -62,8 +66,8 @@ public class OrdenCompraController  {
     
     public ModelAndView NuevaOrdenCompra(Model model, HttpServletRequest request) {
         
-        
-        /*int idproveedor = Integer.parseInt(request.getParameter("id"));*/
+        int idPedido = Integer.parseInt(request.getParameter("idPedido"));
+        request.setAttribute("idPedido", idPedido);
         
         Empleado e = (Empleado) request.getSession().getAttribute("usuario");
         request.setAttribute("usuario", e);
@@ -77,15 +81,7 @@ public class OrdenCompraController  {
        // List<Proveedor> prov = new ArrayList();
         
         mv.addObject("proveedor" , proveedor); 
-        /*
-        for(Proveedor p : proveedor){
-            if(p.getIdProveedor() == idproveedor){
-                prov.add(p);
-            }
-        }
         
-        
-        mv.addObject("datos" , prov); */
         model.addAttribute("ordencompra", new Ordencompra());/*Guiaremision es la clase osea la entidad*/
         mv.setViewName("OrdenCompra");
         
@@ -98,6 +94,7 @@ public class OrdenCompraController  {
         
         Empleado e = (Empleado) request.getSession().getAttribute("usuario");
 
+        int idPedido = Integer.parseInt(request.getParameter("idPedido"));
         int id = Integer.parseInt(request.getParameter("idEmpleado"));
         int idproveedor = Integer.parseInt(request.getParameter("idProveedor"));
         String fecha = request.getParameter("fechaEmision");
@@ -106,6 +103,7 @@ public class OrdenCompraController  {
         Ordencompra o = new Ordencompra();
         o.setOrdencompraDetalleList(new ArrayList<OrdencompraDetalle>());
         
+        o.setIdPedido(repo4.findPedido(idPedido));
         o.setIdEmpleado(repo3.findEmpleado(id));
         o.setIdProveedor(repo2.findProveedor(idproveedor));
         o.setFechaEmision(fecha);
@@ -136,7 +134,34 @@ public class OrdenCompraController  {
         repo.create(o);
 
         
-        return new ModelAndView("redirect:/menulogistica.htm");
+        return new ModelAndView("redirect:/listaordenes.htm");
+    }
+    
+    @RequestMapping("listaordenes.htm")
+    
+    public ModelAndView ListarOrdenes(Model model, HttpServletRequest request) {
+        
+        ModelAndView mv = new ModelAndView();
+        
+        List<Ordencompra> orden = repo.findOrdencompraEntities();
+        
+        mv.addObject("orden" , orden);
+        
+        mv.setViewName("listaorden");
+        
+        return mv;
+    }
+    
+     
+     @RequestMapping(value = "eliminarorden.htm")
+     
+    public ModelAndView EliminarOrden(HttpServletRequest request) throws NonexistentEntityException {
+        
+        int id = Integer.parseInt(request.getParameter("id"));
+        
+        repo.destroy(id);
+
+        return new ModelAndView("redirect:/listaordenes.htm");
     }
     
 }

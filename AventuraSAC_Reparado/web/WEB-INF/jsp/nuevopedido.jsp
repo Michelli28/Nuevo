@@ -76,6 +76,7 @@
                                     <th scope="col">IdFicha</th>
                                     <th scope="col">Descripcion</th>
                                     <th scope="col">Cantidad</th>
+                                    <th scope="col">Colores</th>
                                     <th scope="col">Estado</th>
                                     <th scope="col">Acciones</th>
                                 </tr>
@@ -86,6 +87,9 @@
                                         <th scope="row">${item.idFicha}</th>
                                         <th>${item.descripcion}</th>
                                         <th>${item.cantidad}</th>
+                                        <td><div style="width: 15px; height: 15px; background-color: ${item.color1}; display: online;">&nbsp;</div>
+                                        <div style="width: 15px; height: 15px; background-color: ${item.color2}; display: online;">&nbsp;</div>
+                                        <div style="width: 15px; height: 15px; background-color: ${item.color3}; display: online;">&nbsp;</div></td>
                                         <th>${item.idEstado.nombre}</th>
                                         <td scope="col-2">
                                             <a class="btn btn-warning" role="button" style="height: 50%;" href="editarficha.htm?id=${item.idFicha}" ><i class="fas fa-edit"></i></a> 

@@ -71,40 +71,40 @@
                         <center>
                             <div class="card-title"><h2><strong>Datos del Cliente</strong></h2></div>
                         </center>
+                        <c:forEach items="${cliente}" var="item1">
+                            <fieldset id="fieldset1" style="border: 1px solid gray">
+                                <div class="row" id="fila1">
+                                    <div class="col-sm-4">
+                                        <label for="">Razón Social:</label>
+                                        <input type="text"  style="background: #F0E9FF;" id="razonSocial" value="${item1.razonSocial}" readonly="readonly"> 
+                                    </div>
+                                    <div class="col-sm-4">      
+                                        <label for="">RUC:</label>
+                                        <input type="text" id="ruc" style="background: #F0E9FF;" value="${item1.ruc}" readonly="readonly"/>
+                                    </div>
+                                    <div class="col-sm-4">      
+                                        <label for="fechaEmision">Fecha de Emision:</label>
+                                        <input type="text" style="background: #F0E9FF;" id="txtfechaactual" value="${fecha}" name="fechaEmision" readonly="readonly"/>
+                                    </div>
+                                </div>
 
-                        <fieldset id="fieldset1" style="border: 1px solid gray">
-                            <div class="row" id="fila1">
-                                <div class="col-sm-4">
-                                    <label for="">Razón Social:</label>
-                                    <input type="text"  style="background: #F0E9FF;" id="razonSocial" value="${item1.razonSocial}"> 
+                                <div class="row" id="fila2">
+                                    <div class="col-sm-4">
+                                        <label for="direccion">Dirección:</label>
+                                        <input type="text" style="background: #F0E9FF;" id="direccion" value="${item1.direccion}" readonly="readonly"/>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label for="">Teléfono:</label>
+                                        <input type="text" style="background: #F0E9FF;" id="telefono" value="${item1.telefono}" readonly="readonly"/>
+                                    </div>
+                                    <div class="col-sm-4">      
+                                        <label for="">Correo:</label>
+                                        <input type="text" style="background: #F0E9FF;" id="correo" value="${item1.correo}" readonly="readonly"/>
+                                    </div>
                                 </div>
-                                <div class="col-sm-4">      
-                                    <label for="">RUC:</label>
-                                    <input type="text" id="ruc" style="background: #F0E9FF;" value="${item1.ruc}"/>
-                                </div>
-                                <div class="col-sm-4">      
-                                    <label for="fechaEmision">Fecha de Emision:</label>
-                                    <input type="text" style="background: #F0E9FF;" id="txtfechaactual" name="fechaEmision"/>
-                                </div>
-                            </div>
 
-                            <div class="row" id="fila2">
-                                <div class="col-sm-4">
-                                    <label for="direccion">Dirección:</label>
-                                    <input type="text" style="background: #F0E9FF;" id="direccion" value="${item1.direccion}"/>
-                                </div>
-                                <div class="col-sm-4">
-                                    <label for="">Teléfono:</label>
-                                    <input type="text" style="background: #F0E9FF;" id="telefono" value="${item1.telefono}"/>
-                                </div>
-                                <div class="col-sm-4">      
-                                    <label for="">Correo:</label>
-                                    <input type="text" style="background: #F0E9FF;" id="correo" value="${item1.correo}"/>
-                                </div>
-                            </div>
-
-                        </fieldset>
-
+                            </fieldset>
+                        </c:forEach>
                         <br>
 
                         <center><h3><strong>Descripción</strong></h3></center>
@@ -116,7 +116,7 @@
                                         <th style="text-align: center;">IdPedido</th>
                                         <th style="text-align: center;">IdFicha</th>
                                         <th style="text-align: center;">Descripcion</th>
-                                        <th style="text-align: center;">Estado</th>
+                                    
                                         <th style="text-align: center;">Subtotal</th>
                                     </tr>
                                 </thead>
@@ -126,20 +126,8 @@
                                             <td style="text-align: center;">${item.idDetallePedido}</td>
                                             <td style="text-align: center;">${item.idFicha.idFicha}</td>
                                             <td style="text-align: center;">${item.idFicha.descripcion}</td>
-                                            <td style="text-align: center;">
-                                                <select name="idEstado" id="idEstado">
-                                                    <c:forEach items="${estado}" var="x">
-                                                        <c:if test="${item.idFicha.idEstado.idEstado == x.idEstado}">
-                                                            <option value="${x.idEstado}" selected="selected">${x.nombre}</option>
-                                                        </c:if>
-                                                        <c:if test="${item.idFicha.idEstado.idEstado != x.idEstado}">
-                                                            <option value="${x.idEstado}">${x.nombre}</option>
-                                                        </c:if>
-                                                    </c:forEach>
-                                                </select>
-
-                                            </td>
-                                            <td ><input type="text" name="subTotal" style="background: #F0E9FF;" id="subtotal" class="monto" style="text-align: center;" onkeyup="sumar()"/></td>
+                                   
+                                            <td ><input type="text" name="subTotal"  value="${item.idDetallePedido.subTotal}" style="background: #F0E9FF;" id="subtotal" class="monto" style="text-align: center;" onkeyup="sumar()"/></td>
 
                                         </tr>
                                     </c:forEach>
@@ -215,13 +203,13 @@
                         rules:
                                 {
                                     razon: {required: true, minlength: 3, maxlength: 20, lettersonly: true},
-                                    txtfechaactual :{required: true, minlength: 10, maxlength: 10},
+                                    txtfechaactual: {required: true, minlength: 10, maxlength: 10},
                                     direccion: {required: true, maxlength: 30},
                                     telefono: {required: true, minlength: 7, maxlength: 9, numbersonly: true},
                                     correo: {required: true, email: true, minlength: 15, maxlength: 30},
 
                                 },
-                        messages: 
+                        messages:
                                 {
                                     razon: {required: 'El campo es requerido', minlength: 'El mínimo permitido son 3 caracteres',
                                         maxlength: 'El máximo permitido son 20 caracteres'},
@@ -230,9 +218,9 @@
                                     telefono: {required: 'El campo es requerido', minlength: 'El mínimo permitido son 7 caracteres para teléfono',
                                         maxlength: 'El máximo permitido son 9 caracteres para celular',
                                         numbersonly: 'Por favor, solo ingrese números'},
-                                    
+
                                     correo: {required: 'El campo es requerido', email: 'El caracter "@" es requerido', minlength: 'El mínimo permitido son 15 caracteres', maxlength: 'El máximo permitido son 30 caracteres'},
-                                    
+
                                 }
                     });
                 });

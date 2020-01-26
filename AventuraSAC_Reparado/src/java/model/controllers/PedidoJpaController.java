@@ -18,7 +18,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import model.controllers.exceptions.NonexistentEntityException;
-import model.entities.Factura;
+import model.entities.Ordencompra;
 import model.entities.GuiaremisionDetalle;
 import model.entities.Pagos;
 import model.entities.Cotizacion;
@@ -43,8 +43,8 @@ public class PedidoJpaController implements Serializable {
         if (pedido.getPedidoDetalleList() == null) {
             pedido.setPedidoDetalleList(new ArrayList<PedidoDetalle>());
         }
-        if (pedido.getFacturaList() == null) {
-            pedido.setFacturaList(new ArrayList<Factura>());
+        if (pedido.getOrdencompraList() == null) {
+            pedido.setOrdencompraList(new ArrayList<Ordencompra>());
         }
         if (pedido.getGuiaremisionDetalleList() == null) {
             pedido.setGuiaremisionDetalleList(new ArrayList<GuiaremisionDetalle>());
@@ -77,14 +77,15 @@ public class PedidoJpaController implements Serializable {
                 }
             }
             pedido.setPedidoDetalleList(attachedPedidoDetalleList);
-            List<Factura> attachedFacturaList = new ArrayList<Factura>();
-            for (Factura facturaListFacturaToAttach : pedido.getFacturaList()) {
-                if (facturaListFacturaToAttach.getIdFactura() != null) {
-                    //facturaListFacturaToAttach = em.getReference(facturaListFacturaToAttach.getClass(), facturaListFacturaToAttach.getIdFactura());
-                    attachedFacturaList.add(facturaListFacturaToAttach);
+            List<Ordencompra> attachedOrdencompraList = new ArrayList<Ordencompra>();
+            for (Ordencompra ordencompraListOrdencompraToAttach : pedido.getOrdencompraList()) {
+                if (ordencompraListOrdencompraToAttach.getIdOrdenCompra() != null) {
+                    //ordencompraListOrdencompraToAttach = em.getReference(ordencompraListOrdencompraToAttach.getClass(), ordencompraListOrdencompraToAttach.getIdOrdenCompra());
+
+                    attachedOrdencompraList.add(ordencompraListOrdencompraToAttach);
                 }
             }
-            pedido.setFacturaList(attachedFacturaList);
+            pedido.setOrdencompraList(attachedOrdencompraList);
             List<GuiaremisionDetalle> attachedGuiaremisionDetalleList = new ArrayList<GuiaremisionDetalle>();
             for (GuiaremisionDetalle guiaremisionDetalleListGuiaremisionDetalleToAttach : pedido.getGuiaremisionDetalleList()) {
                 if (guiaremisionDetalleListGuiaremisionDetalleToAttach.getIdDetalleGuiaRemision() != null) {
@@ -118,25 +119,23 @@ public class PedidoJpaController implements Serializable {
                 idCliente.getPedidoList().add(pedido);
                 idCliente = em.merge(idCliente);
             }
-
             if (pedido.getPedidoDetalleList() == null) {
-                for (PedidoDetalle pedidoDetalleListPedidoDetalle : pedido.getPedidoDetalleList()) {
-                    Pedido oldIdPedidoOfPedidoDetalleListPedidoDetalle = pedidoDetalleListPedidoDetalle.getIdPedido();
-                    pedidoDetalleListPedidoDetalle.setIdPedido(pedido);
-                    pedidoDetalleListPedidoDetalle = em.merge(pedidoDetalleListPedidoDetalle);
-                    if (oldIdPedidoOfPedidoDetalleListPedidoDetalle != null) {
-                        oldIdPedidoOfPedidoDetalleListPedidoDetalle.getPedidoDetalleList().remove(pedidoDetalleListPedidoDetalle);
-                        oldIdPedidoOfPedidoDetalleListPedidoDetalle = em.merge(oldIdPedidoOfPedidoDetalleListPedidoDetalle);
-                    }
+            for (PedidoDetalle pedidoDetalleListPedidoDetalle : pedido.getPedidoDetalleList()) {
+                Pedido oldIdPedidoOfPedidoDetalleListPedidoDetalle = pedidoDetalleListPedidoDetalle.getIdPedido();
+                pedidoDetalleListPedidoDetalle.setIdPedido(pedido);
+                pedidoDetalleListPedidoDetalle = em.merge(pedidoDetalleListPedidoDetalle);
+                if (oldIdPedidoOfPedidoDetalleListPedidoDetalle != null) {
+                    oldIdPedidoOfPedidoDetalleListPedidoDetalle.getPedidoDetalleList().remove(pedidoDetalleListPedidoDetalle);
+                    oldIdPedidoOfPedidoDetalleListPedidoDetalle = em.merge(oldIdPedidoOfPedidoDetalleListPedidoDetalle);
                 }
-            }
-            for (Factura facturaListFactura : pedido.getFacturaList()) {
-                Pedido oldIdPedidoOfFacturaListFactura = facturaListFactura.getIdPedido();
-                facturaListFactura.setIdPedido(pedido);
-                facturaListFactura = em.merge(facturaListFactura);
-                if (oldIdPedidoOfFacturaListFactura != null) {
-                    oldIdPedidoOfFacturaListFactura.getFacturaList().remove(facturaListFactura);
-                    oldIdPedidoOfFacturaListFactura = em.merge(oldIdPedidoOfFacturaListFactura);
+            }}
+            for (Ordencompra ordencompraListOrdencompra : pedido.getOrdencompraList()) {
+                Pedido oldIdPedidoOfOrdencompraListOrdencompra = ordencompraListOrdencompra.getIdPedido();
+                ordencompraListOrdencompra.setIdPedido(pedido);
+                ordencompraListOrdencompra = em.merge(ordencompraListOrdencompra);
+                if (oldIdPedidoOfOrdencompraListOrdencompra != null) {
+                    oldIdPedidoOfOrdencompraListOrdencompra.getOrdencompraList().remove(ordencompraListOrdencompra);
+                    oldIdPedidoOfOrdencompraListOrdencompra = em.merge(oldIdPedidoOfOrdencompraListOrdencompra);
                 }
             }
             for (GuiaremisionDetalle guiaremisionDetalleListGuiaremisionDetalle : pedido.getGuiaremisionDetalleList()) {
@@ -186,8 +185,8 @@ public class PedidoJpaController implements Serializable {
             Cliente idClienteNew = pedido.getIdCliente();
             List<PedidoDetalle> pedidoDetalleListOld = persistentPedido.getPedidoDetalleList();
             List<PedidoDetalle> pedidoDetalleListNew = pedido.getPedidoDetalleList();
-            List<Factura> facturaListOld = persistentPedido.getFacturaList();
-            List<Factura> facturaListNew = pedido.getFacturaList();
+            List<Ordencompra> ordencompraListOld = persistentPedido.getOrdencompraList();
+            List<Ordencompra> ordencompraListNew = pedido.getOrdencompraList();
             List<GuiaremisionDetalle> guiaremisionDetalleListOld = persistentPedido.getGuiaremisionDetalleList();
             List<GuiaremisionDetalle> guiaremisionDetalleListNew = pedido.getGuiaremisionDetalleList();
             List<Pagos> pagosListOld = persistentPedido.getPagosList();
@@ -209,13 +208,13 @@ public class PedidoJpaController implements Serializable {
             }
             pedidoDetalleListNew = attachedPedidoDetalleListNew;
             pedido.setPedidoDetalleList(pedidoDetalleListNew);
-            List<Factura> attachedFacturaListNew = new ArrayList<Factura>();
-            for (Factura facturaListNewFacturaToAttach : facturaListNew) {
-                facturaListNewFacturaToAttach = em.getReference(facturaListNewFacturaToAttach.getClass(), facturaListNewFacturaToAttach.getIdFactura());
-                attachedFacturaListNew.add(facturaListNewFacturaToAttach);
+            List<Ordencompra> attachedOrdencompraListNew = new ArrayList<Ordencompra>();
+            for (Ordencompra ordencompraListNewOrdencompraToAttach : ordencompraListNew) {
+                ordencompraListNewOrdencompraToAttach = em.getReference(ordencompraListNewOrdencompraToAttach.getClass(), ordencompraListNewOrdencompraToAttach.getIdOrdenCompra());
+                attachedOrdencompraListNew.add(ordencompraListNewOrdencompraToAttach);
             }
-            facturaListNew = attachedFacturaListNew;
-            pedido.setFacturaList(facturaListNew);
+            ordencompraListNew = attachedOrdencompraListNew;
+            pedido.setOrdencompraList(ordencompraListNew);
             List<GuiaremisionDetalle> attachedGuiaremisionDetalleListNew = new ArrayList<GuiaremisionDetalle>();
             for (GuiaremisionDetalle guiaremisionDetalleListNewGuiaremisionDetalleToAttach : guiaremisionDetalleListNew) {
                 guiaremisionDetalleListNewGuiaremisionDetalleToAttach = em.getReference(guiaremisionDetalleListNewGuiaremisionDetalleToAttach.getClass(), guiaremisionDetalleListNewGuiaremisionDetalleToAttach.getIdDetalleGuiaRemision());
@@ -271,20 +270,20 @@ public class PedidoJpaController implements Serializable {
                     }
                 }
             }
-            for (Factura facturaListOldFactura : facturaListOld) {
-                if (!facturaListNew.contains(facturaListOldFactura)) {
-                    facturaListOldFactura.setIdPedido(null);
-                    facturaListOldFactura = em.merge(facturaListOldFactura);
+            for (Ordencompra ordencompraListOldOrdencompra : ordencompraListOld) {
+                if (!ordencompraListNew.contains(ordencompraListOldOrdencompra)) {
+                    ordencompraListOldOrdencompra.setIdPedido(null);
+                    ordencompraListOldOrdencompra = em.merge(ordencompraListOldOrdencompra);
                 }
             }
-            for (Factura facturaListNewFactura : facturaListNew) {
-                if (!facturaListOld.contains(facturaListNewFactura)) {
-                    Pedido oldIdPedidoOfFacturaListNewFactura = facturaListNewFactura.getIdPedido();
-                    facturaListNewFactura.setIdPedido(pedido);
-                    facturaListNewFactura = em.merge(facturaListNewFactura);
-                    if (oldIdPedidoOfFacturaListNewFactura != null && !oldIdPedidoOfFacturaListNewFactura.equals(pedido)) {
-                        oldIdPedidoOfFacturaListNewFactura.getFacturaList().remove(facturaListNewFactura);
-                        oldIdPedidoOfFacturaListNewFactura = em.merge(oldIdPedidoOfFacturaListNewFactura);
+            for (Ordencompra ordencompraListNewOrdencompra : ordencompraListNew) {
+                if (!ordencompraListOld.contains(ordencompraListNewOrdencompra)) {
+                    Pedido oldIdPedidoOfOrdencompraListNewOrdencompra = ordencompraListNewOrdencompra.getIdPedido();
+                    ordencompraListNewOrdencompra.setIdPedido(pedido);
+                    ordencompraListNewOrdencompra = em.merge(ordencompraListNewOrdencompra);
+                    if (oldIdPedidoOfOrdencompraListNewOrdencompra != null && !oldIdPedidoOfOrdencompraListNewOrdencompra.equals(pedido)) {
+                        oldIdPedidoOfOrdencompraListNewOrdencompra.getOrdencompraList().remove(ordencompraListNewOrdencompra);
+                        oldIdPedidoOfOrdencompraListNewOrdencompra = em.merge(oldIdPedidoOfOrdencompraListNewOrdencompra);
                     }
                 }
             }
@@ -383,10 +382,10 @@ public class PedidoJpaController implements Serializable {
                 pedidoDetalleListPedidoDetalle.setIdPedido(null);
                 pedidoDetalleListPedidoDetalle = em.merge(pedidoDetalleListPedidoDetalle);
             }
-            List<Factura> facturaList = pedido.getFacturaList();
-            for (Factura facturaListFactura : facturaList) {
-                facturaListFactura.setIdPedido(null);
-                facturaListFactura = em.merge(facturaListFactura);
+            List<Ordencompra> ordencompraList = pedido.getOrdencompraList();
+            for (Ordencompra ordencompraListOrdencompra : ordencompraList) {
+                ordencompraListOrdencompra.setIdPedido(null);
+                ordencompraListOrdencompra = em.merge(ordencompraListOrdencompra);
             }
             List<GuiaremisionDetalle> guiaremisionDetalleList = pedido.getGuiaremisionDetalleList();
             for (GuiaremisionDetalle guiaremisionDetalleListGuiaremisionDetalle : guiaremisionDetalleList) {
@@ -409,6 +408,30 @@ public class PedidoJpaController implements Serializable {
             if (em != null) {
                 em.close();
             }
+        }
+    }
+
+    public List<Pedido> findPedidoEntities() {
+        return findPedidoEntities(true, -1, -1);
+    }
+
+    public List<Pedido> findPedidoEntities(int maxResults, int firstResult) {
+        return findPedidoEntities(false, maxResults, firstResult);
+    }
+
+    private List<Pedido> findPedidoEntities(boolean all, int maxResults, int firstResult) {
+        EntityManager em = getEntityManager();
+        try {
+            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+            cq.select(cq.from(Pedido.class));
+            Query q = em.createQuery(cq);
+            if (!all) {
+                q.setMaxResults(maxResults);
+                q.setFirstResult(firstResult);
+            }
+            return q.getResultList();
+        } finally {
+            em.close();
         }
     }
 
@@ -442,30 +465,6 @@ public class PedidoJpaController implements Serializable {
         return lista;
     }
 
-    public List<Pedido> findPedidoEntities() {
-        return findPedidoEntities(true, -1, -1);
-    }
-
-    public List<Pedido> findPedidoEntities(int maxResults, int firstResult) {
-        return findPedidoEntities(false, maxResults, firstResult);
-    }
-
-    private List<Pedido> findPedidoEntities(boolean all, int maxResults, int firstResult) {
-        EntityManager em = getEntityManager();
-        try {
-            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Pedido.class));
-            Query q = em.createQuery(cq);
-            if (!all) {
-                q.setMaxResults(maxResults);
-                q.setFirstResult(firstResult);
-            }
-            return q.getResultList();
-        } finally {
-            em.close();
-        }
-    }
-
     public Pedido findPedido(Integer id) {
         EntityManager em = getEntityManager();
         try {
@@ -487,5 +486,5 @@ public class PedidoJpaController implements Serializable {
             em.close();
         }
     }
-
+    
 }

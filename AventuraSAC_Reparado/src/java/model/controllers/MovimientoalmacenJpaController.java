@@ -6,21 +6,23 @@
 package model.controllers;
 
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import model.controllers.exceptions.NonexistentEntityException;
-import model.entities.Movimientoalmacen;
 import model.entities.Tipoitem;
 import model.entities.Ordencompra;
+import model.entities.Detallemovimiento;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import model.controllers.exceptions.NonexistentEntityException;
+import model.entities.Movimientoalmacen;
 
 /**
  *
- * @author Administrador
+ * @author CHELLI BONITA
  */
 public class MovimientoalmacenJpaController implements Serializable {
 
@@ -34,6 +36,9 @@ public class MovimientoalmacenJpaController implements Serializable {
     }
 
     public void create(Movimientoalmacen movimientoalmacen) {
+        if (movimientoalmacen.getDetallemovimientoList() == null) {
+            movimientoalmacen.setDetallemovimientoList(new ArrayList<Detallemovimiento>());
+        }
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -48,6 +53,14 @@ public class MovimientoalmacenJpaController implements Serializable {
                 idOrdenCompra = em.getReference(idOrdenCompra.getClass(), idOrdenCompra.getIdOrdenCompra());
                 movimientoalmacen.setIdOrdenCompra(idOrdenCompra);
             }
+            List<Detallemovimiento> attachedDetallemovimientoList = new ArrayList<Detallemovimiento>();
+            for (Detallemovimiento detallemovimientoListDetallemovimientoToAttach : movimientoalmacen.getDetallemovimientoList()) {
+                if (detallemovimientoListDetallemovimientoToAttach.getIdDetalle() != null) {
+                    //detallemovimientoListDetallemovimientoToAttach = em.getReference(detallemovimientoListDetallemovimientoToAttach.getClass(), detallemovimientoListDetallemovimientoToAttach.getIdDetalle());
+                    attachedDetallemovimientoList.add(detallemovimientoListDetallemovimientoToAttach);
+                }
+            }
+            movimientoalmacen.setDetallemovimientoList(attachedDetallemovimientoList);
             em.persist(movimientoalmacen);
             if (idTipoItem != null) {
                 idTipoItem.getMovimientoalmacenList().add(movimientoalmacen);
@@ -56,6 +69,22 @@ public class MovimientoalmacenJpaController implements Serializable {
             if (idOrdenCompra != null) {
                 idOrdenCompra.getMovimientoalmacenList().add(movimientoalmacen);
                 idOrdenCompra = em.merge(idOrdenCompra);
+            }
+            if (movimientoalmacen.getDetallemovimientoList() != null) {
+                for (Detallemovimiento detallemovimientoListDetallemovimiento : movimientoalmacen.getDetallemovimientoList()) {
+                   // Movimientoalmacen oldIdMovimientoOfDetallemovimientoListDetallemovimiento = detallemovimientoListDetallemovimiento.getIdMovimiento();
+                    //detallemovimientoListDetallemovimiento.setIdMovimiento(movimientoalmacen);
+                    //detallemovimientoListDetallemovimiento = em.merge(detallemovimientoListDetallemovimiento);
+                    if(detallemovimientoListDetallemovimiento.getIdDetalle() == 0){
+                         em.persist(detallemovimientoListDetallemovimiento);
+                    } else {
+                        em.merge(detallemovimientoListDetallemovimiento);
+                    
+                   // if (oldIdMovimientoOfDetallemovimientoListDetallemovimiento != null) {
+                     //   oldIdMovimientoOfDetallemovimientoListDetallemovimiento.getDetallemovimientoList().remove(detallemovimientoListDetallemovimiento);
+                       // oldIdMovimientoOfDetallemovimientoListDetallemovimiento = em.merge(oldIdMovimientoOfDetallemovimientoListDetallemovimiento);
+                    }
+                }
             }
             em.getTransaction().commit();
         } finally {
@@ -75,6 +104,8 @@ public class MovimientoalmacenJpaController implements Serializable {
             Tipoitem idTipoItemNew = movimientoalmacen.getIdTipoItem();
             Ordencompra idOrdenCompraOld = persistentMovimientoalmacen.getIdOrdenCompra();
             Ordencompra idOrdenCompraNew = movimientoalmacen.getIdOrdenCompra();
+            List<Detallemovimiento> detallemovimientoListOld = persistentMovimientoalmacen.getDetallemovimientoList();
+            List<Detallemovimiento> detallemovimientoListNew = movimientoalmacen.getDetallemovimientoList();
             if (idTipoItemNew != null) {
                 idTipoItemNew = em.getReference(idTipoItemNew.getClass(), idTipoItemNew.getIdTipoItem());
                 movimientoalmacen.setIdTipoItem(idTipoItemNew);
@@ -83,6 +114,13 @@ public class MovimientoalmacenJpaController implements Serializable {
                 idOrdenCompraNew = em.getReference(idOrdenCompraNew.getClass(), idOrdenCompraNew.getIdOrdenCompra());
                 movimientoalmacen.setIdOrdenCompra(idOrdenCompraNew);
             }
+            List<Detallemovimiento> attachedDetallemovimientoListNew = new ArrayList<Detallemovimiento>();
+            for (Detallemovimiento detallemovimientoListNewDetallemovimientoToAttach : detallemovimientoListNew) {
+                detallemovimientoListNewDetallemovimientoToAttach = em.getReference(detallemovimientoListNewDetallemovimientoToAttach.getClass(), detallemovimientoListNewDetallemovimientoToAttach.getIdDetalle());
+                attachedDetallemovimientoListNew.add(detallemovimientoListNewDetallemovimientoToAttach);
+            }
+            detallemovimientoListNew = attachedDetallemovimientoListNew;
+            movimientoalmacen.setDetallemovimientoList(detallemovimientoListNew);
             movimientoalmacen = em.merge(movimientoalmacen);
             if (idTipoItemOld != null && !idTipoItemOld.equals(idTipoItemNew)) {
                 idTipoItemOld.getMovimientoalmacenList().remove(movimientoalmacen);
@@ -99,6 +137,23 @@ public class MovimientoalmacenJpaController implements Serializable {
             if (idOrdenCompraNew != null && !idOrdenCompraNew.equals(idOrdenCompraOld)) {
                 idOrdenCompraNew.getMovimientoalmacenList().add(movimientoalmacen);
                 idOrdenCompraNew = em.merge(idOrdenCompraNew);
+            }
+            for (Detallemovimiento detallemovimientoListOldDetallemovimiento : detallemovimientoListOld) {
+                if (!detallemovimientoListNew.contains(detallemovimientoListOldDetallemovimiento)) {
+                    detallemovimientoListOldDetallemovimiento.setIdMovimiento(null);
+                    detallemovimientoListOldDetallemovimiento = em.merge(detallemovimientoListOldDetallemovimiento);
+                }
+            }
+            for (Detallemovimiento detallemovimientoListNewDetallemovimiento : detallemovimientoListNew) {
+                if (!detallemovimientoListOld.contains(detallemovimientoListNewDetallemovimiento)) {
+                    Movimientoalmacen oldIdMovimientoOfDetallemovimientoListNewDetallemovimiento = detallemovimientoListNewDetallemovimiento.getIdMovimiento();
+                    detallemovimientoListNewDetallemovimiento.setIdMovimiento(movimientoalmacen);
+                    detallemovimientoListNewDetallemovimiento = em.merge(detallemovimientoListNewDetallemovimiento);
+                    if (oldIdMovimientoOfDetallemovimientoListNewDetallemovimiento != null && !oldIdMovimientoOfDetallemovimientoListNewDetallemovimiento.equals(movimientoalmacen)) {
+                        oldIdMovimientoOfDetallemovimientoListNewDetallemovimiento.getDetallemovimientoList().remove(detallemovimientoListNewDetallemovimiento);
+                        oldIdMovimientoOfDetallemovimientoListNewDetallemovimiento = em.merge(oldIdMovimientoOfDetallemovimientoListNewDetallemovimiento);
+                    }
+                }
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -138,6 +193,11 @@ public class MovimientoalmacenJpaController implements Serializable {
             if (idOrdenCompra != null) {
                 idOrdenCompra.getMovimientoalmacenList().remove(movimientoalmacen);
                 idOrdenCompra = em.merge(idOrdenCompra);
+            }
+            List<Detallemovimiento> detallemovimientoList = movimientoalmacen.getDetallemovimientoList();
+            for (Detallemovimiento detallemovimientoListDetallemovimiento : detallemovimientoList) {
+                detallemovimientoListDetallemovimiento.setIdMovimiento(null);
+                detallemovimientoListDetallemovimiento = em.merge(detallemovimientoListDetallemovimiento);
             }
             em.remove(movimientoalmacen);
             em.getTransaction().commit();
@@ -193,5 +253,5 @@ public class MovimientoalmacenJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

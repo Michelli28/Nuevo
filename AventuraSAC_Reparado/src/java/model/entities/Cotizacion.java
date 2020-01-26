@@ -6,8 +6,6 @@
 package model.entities;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -62,18 +60,18 @@ public class Cotizacion implements Serializable {
     @Column(name = "Observacion")
     private String observacion;
     @OneToMany(mappedBy = "idCotizacion")
+    private List<Factura> facturaList;
+    @OneToMany(mappedBy = "idCotizacion")
     private List<CotizacionDetalle> cotizacionDetalleList;
     @JoinColumn(name = "idPedido", referencedColumnName = "idPedido")
     @ManyToOne
     private Pedido idPedido;
 
     public Cotizacion() {
-        fechaEmision = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
     }
 
     public Cotizacion(Integer idCotizacion) {
         this.idCotizacion = idCotizacion;
-        fechaEmision = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
     }
 
     public Cotizacion(Integer idCotizacion, String fechaEmision, double importe, double igv, double total) {
@@ -130,6 +128,15 @@ public class Cotizacion implements Serializable {
 
     public void setObservacion(String observacion) {
         this.observacion = observacion;
+    }
+
+    @XmlTransient
+    public List<Factura> getFacturaList() {
+        return facturaList;
+    }
+
+    public void setFacturaList(List<Factura> facturaList) {
+        this.facturaList = facturaList;
     }
 
     @XmlTransient

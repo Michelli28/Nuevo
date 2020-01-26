@@ -10,8 +10,9 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import model.entities.Proveedor;
+import model.entities.Pedido;
 import model.entities.Empleado;
+import model.entities.Proveedor;
 import model.entities.Movimientoalmacen;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ import model.entities.OrdencompraDetalle;
 
 /**
  *
- * @author Administrador
+ * @author CHELLI BONITA
  */
 public class OrdencompraJpaController implements Serializable {
 
@@ -47,15 +48,20 @@ public class OrdencompraJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Proveedor idProveedor = ordencompra.getIdProveedor();
-            if (idProveedor != null) {
-                idProveedor = em.getReference(idProveedor.getClass(), idProveedor.getIdProveedor());
-                ordencompra.setIdProveedor(idProveedor);
+            Pedido idPedido = ordencompra.getIdPedido();
+            if (idPedido != null) {
+                idPedido = em.getReference(idPedido.getClass(), idPedido.getIdPedido());
+                ordencompra.setIdPedido(idPedido);
             }
             Empleado idEmpleado = ordencompra.getIdEmpleado();
             if (idEmpleado != null) {
                 idEmpleado = em.getReference(idEmpleado.getClass(), idEmpleado.getIdEmpleado());
                 ordencompra.setIdEmpleado(idEmpleado);
+            }
+            Proveedor idProveedor = ordencompra.getIdProveedor();
+            if (idProveedor != null) {
+                idProveedor = em.getReference(idProveedor.getClass(), idProveedor.getIdProveedor());
+                ordencompra.setIdProveedor(idProveedor);
             }
             List<Movimientoalmacen> attachedMovimientoalmacenList = new ArrayList<Movimientoalmacen>();
             for (Movimientoalmacen movimientoalmacenListMovimientoalmacenToAttach : ordencompra.getMovimientoalmacenList()) {
@@ -63,25 +69,29 @@ public class OrdencompraJpaController implements Serializable {
                 attachedMovimientoalmacenList.add(movimientoalmacenListMovimientoalmacenToAttach);
             }
             ordencompra.setMovimientoalmacenList(attachedMovimientoalmacenList);
-            List<OrdencompraDetalle> attachedOrdencompraDetalleList = new ArrayList<OrdencompraDetalle>();
+             List<OrdencompraDetalle> attachedOrdencompraDetalleList = new ArrayList<OrdencompraDetalle>();
             //if (ordencompra.getOrdencompraDetalleList() != null) {
-                for (OrdencompraDetalle ordencompraDetalleListOrdencompraDetalleToAttach : ordencompra.getOrdencompraDetalleList()) {
-                    if (ordencompraDetalleListOrdencompraDetalleToAttach.getItem() != null) {
-                        //ordencompraDetalleListOrdencompraDetalleToAttach = em.getReference(ordencompraDetalleListOrdencompraDetalleToAttach.getClass(), ordencompraDetalleListOrdencompraDetalleToAttach.getItem());
-                        attachedOrdencompraDetalleList.add(ordencompraDetalleListOrdencompraDetalleToAttach);
-                    }
+            for (OrdencompraDetalle ordencompraDetalleListOrdencompraDetalleToAttach : ordencompra.getOrdencompraDetalleList()) {
+                if (ordencompraDetalleListOrdencompraDetalleToAttach.getItem() != null) {
+                    //ordencompraDetalleListOrdencompraDetalleToAttach = em.getReference(ordencompraDetalleListOrdencompraDetalleToAttach.getClass(), ordencompraDetalleListOrdencompraDetalleToAttach.getItem());
+                    attachedOrdencompraDetalleList.add(ordencompraDetalleListOrdencompraDetalleToAttach);
                 }
+            }
 
-                ordencompra.setOrdencompraDetalleList(attachedOrdencompraDetalleList);
-           // }
+            ordencompra.setOrdencompraDetalleList(attachedOrdencompraDetalleList);
+            
             em.persist(ordencompra);
-            if (idProveedor != null) {
-                idProveedor.getOrdencompraList().add(ordencompra);
-                idProveedor = em.merge(idProveedor);
+            if (idPedido != null) {
+                idPedido.getOrdencompraList().add(ordencompra);
+                idPedido = em.merge(idPedido);
             }
             if (idEmpleado != null) {
                 idEmpleado.getOrdencompraList().add(ordencompra);
                 idEmpleado = em.merge(idEmpleado);
+            }
+            if (idProveedor != null) {
+                idProveedor.getOrdencompraList().add(ordencompra);
+                idProveedor = em.merge(idProveedor);
             }
             for (Movimientoalmacen movimientoalmacenListMovimientoalmacen : ordencompra.getMovimientoalmacenList()) {
                 Ordencompra oldIdOrdenCompraOfMovimientoalmacenListMovimientoalmacen = movimientoalmacenListMovimientoalmacen.getIdOrdenCompra();
@@ -109,8 +119,6 @@ public class OrdencompraJpaController implements Serializable {
                 }
             }
             em.getTransaction().commit();
-        } catch (Exception e) {
-            System.out.println("Error " + e.getMessage());
         } finally {
             if (em != null) {
                 em.close();
@@ -124,21 +132,27 @@ public class OrdencompraJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Ordencompra persistentOrdencompra = em.find(Ordencompra.class, ordencompra.getIdOrdenCompra());
-            Proveedor idProveedorOld = persistentOrdencompra.getIdProveedor();
-            Proveedor idProveedorNew = ordencompra.getIdProveedor();
+            Pedido idPedidoOld = persistentOrdencompra.getIdPedido();
+            Pedido idPedidoNew = ordencompra.getIdPedido();
             Empleado idEmpleadoOld = persistentOrdencompra.getIdEmpleado();
             Empleado idEmpleadoNew = ordencompra.getIdEmpleado();
+            Proveedor idProveedorOld = persistentOrdencompra.getIdProveedor();
+            Proveedor idProveedorNew = ordencompra.getIdProveedor();
             List<Movimientoalmacen> movimientoalmacenListOld = persistentOrdencompra.getMovimientoalmacenList();
             List<Movimientoalmacen> movimientoalmacenListNew = ordencompra.getMovimientoalmacenList();
             List<OrdencompraDetalle> ordencompraDetalleListOld = persistentOrdencompra.getOrdencompraDetalleList();
             List<OrdencompraDetalle> ordencompraDetalleListNew = ordencompra.getOrdencompraDetalleList();
-            if (idProveedorNew != null) {
-                idProveedorNew = em.getReference(idProveedorNew.getClass(), idProveedorNew.getIdProveedor());
-                ordencompra.setIdProveedor(idProveedorNew);
+            if (idPedidoNew != null) {
+                idPedidoNew = em.getReference(idPedidoNew.getClass(), idPedidoNew.getIdPedido());
+                ordencompra.setIdPedido(idPedidoNew);
             }
             if (idEmpleadoNew != null) {
                 idEmpleadoNew = em.getReference(idEmpleadoNew.getClass(), idEmpleadoNew.getIdEmpleado());
                 ordencompra.setIdEmpleado(idEmpleadoNew);
+            }
+            if (idProveedorNew != null) {
+                idProveedorNew = em.getReference(idProveedorNew.getClass(), idProveedorNew.getIdProveedor());
+                ordencompra.setIdProveedor(idProveedorNew);
             }
             List<Movimientoalmacen> attachedMovimientoalmacenListNew = new ArrayList<Movimientoalmacen>();
             for (Movimientoalmacen movimientoalmacenListNewMovimientoalmacenToAttach : movimientoalmacenListNew) {
@@ -155,13 +169,13 @@ public class OrdencompraJpaController implements Serializable {
             ordencompraDetalleListNew = attachedOrdencompraDetalleListNew;
             ordencompra.setOrdencompraDetalleList(ordencompraDetalleListNew);
             ordencompra = em.merge(ordencompra);
-            if (idProveedorOld != null && !idProveedorOld.equals(idProveedorNew)) {
-                idProveedorOld.getOrdencompraList().remove(ordencompra);
-                idProveedorOld = em.merge(idProveedorOld);
+            if (idPedidoOld != null && !idPedidoOld.equals(idPedidoNew)) {
+                idPedidoOld.getOrdencompraList().remove(ordencompra);
+                idPedidoOld = em.merge(idPedidoOld);
             }
-            if (idProveedorNew != null && !idProveedorNew.equals(idProveedorOld)) {
-                idProveedorNew.getOrdencompraList().add(ordencompra);
-                idProveedorNew = em.merge(idProveedorNew);
+            if (idPedidoNew != null && !idPedidoNew.equals(idPedidoOld)) {
+                idPedidoNew.getOrdencompraList().add(ordencompra);
+                idPedidoNew = em.merge(idPedidoNew);
             }
             if (idEmpleadoOld != null && !idEmpleadoOld.equals(idEmpleadoNew)) {
                 idEmpleadoOld.getOrdencompraList().remove(ordencompra);
@@ -170,6 +184,14 @@ public class OrdencompraJpaController implements Serializable {
             if (idEmpleadoNew != null && !idEmpleadoNew.equals(idEmpleadoOld)) {
                 idEmpleadoNew.getOrdencompraList().add(ordencompra);
                 idEmpleadoNew = em.merge(idEmpleadoNew);
+            }
+            if (idProveedorOld != null && !idProveedorOld.equals(idProveedorNew)) {
+                idProveedorOld.getOrdencompraList().remove(ordencompra);
+                idProveedorOld = em.merge(idProveedorOld);
+            }
+            if (idProveedorNew != null && !idProveedorNew.equals(idProveedorOld)) {
+                idProveedorNew.getOrdencompraList().add(ordencompra);
+                idProveedorNew = em.merge(idProveedorNew);
             }
             for (Movimientoalmacen movimientoalmacenListOldMovimientoalmacen : movimientoalmacenListOld) {
                 if (!movimientoalmacenListNew.contains(movimientoalmacenListOldMovimientoalmacen)) {
@@ -234,15 +256,20 @@ public class OrdencompraJpaController implements Serializable {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The ordencompra with id " + id + " no longer exists.", enfe);
             }
-            Proveedor idProveedor = ordencompra.getIdProveedor();
-            if (idProveedor != null) {
-                idProveedor.getOrdencompraList().remove(ordencompra);
-                idProveedor = em.merge(idProveedor);
+            Pedido idPedido = ordencompra.getIdPedido();
+            if (idPedido != null) {
+                idPedido.getOrdencompraList().remove(ordencompra);
+                idPedido = em.merge(idPedido);
             }
             Empleado idEmpleado = ordencompra.getIdEmpleado();
             if (idEmpleado != null) {
                 idEmpleado.getOrdencompraList().remove(ordencompra);
                 idEmpleado = em.merge(idEmpleado);
+            }
+            Proveedor idProveedor = ordencompra.getIdProveedor();
+            if (idProveedor != null) {
+                idProveedor.getOrdencompraList().remove(ordencompra);
+                idProveedor = em.merge(idProveedor);
             }
             List<Movimientoalmacen> movimientoalmacenList = ordencompra.getMovimientoalmacenList();
             for (Movimientoalmacen movimientoalmacenListMovimientoalmacen : movimientoalmacenList) {

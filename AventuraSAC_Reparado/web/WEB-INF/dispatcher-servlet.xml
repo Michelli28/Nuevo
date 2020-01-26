@@ -68,6 +68,8 @@
                 <prop key="OrdenCompra.htm">ordencompraController</prop>
                 <prop key="generarorden.htm">ordencompraController</prop>
                 <prop key="listapedidoslogistica.htm">ordencompraController</prop>
+                <prop key="listaordenes.htm">ordencompraController</prop>
+                <prop key="eliminarorden.htm">ordencompraController</prop>
                 
                 <prop key="nuevopedido.htm">pedidoController</prop>
                 <prop key="listapedidos.htm">pedidoController</prop>

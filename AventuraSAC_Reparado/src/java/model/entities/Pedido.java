@@ -35,7 +35,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Pedido.findAll", query = "SELECT p FROM Pedido p")
     , @NamedQuery(name = "Pedido.findByIdPedido", query = "SELECT p FROM Pedido p WHERE p.idPedido = :idPedido")
     , @NamedQuery(name = "Pedido.findByFechaRegistro", query = "SELECT p FROM Pedido p WHERE p.fechaRegistro = :fechaRegistro")
-    , @NamedQuery(name = "Pedido.findByFechaEntrega", query = "SELECT p FROM Pedido p WHERE p.fechaEntrega = :fechaEntrega")})
+    , @NamedQuery(name = "Pedido.findByFechaEntrega", query = "SELECT p FROM Pedido p WHERE p.fechaEntrega = :fechaEntrega")
+    , @NamedQuery(name = "Pedido.findBySaldo", query = "SELECT p FROM Pedido p WHERE p.saldo = :saldo")
+    , @NamedQuery(name = "Pedido.findByAcumulado", query = "SELECT p FROM Pedido p WHERE p.acumulado = :acumulado")})
 public class Pedido implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -50,6 +52,7 @@ public class Pedido implements Serializable {
     @Basic(optional = false)
     @Column(name = "FechaEntrega")
     private String fechaEntrega;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "saldo")
     private Double saldo;
     @Column(name = "acumulado")
@@ -58,6 +61,8 @@ public class Pedido implements Serializable {
     private List<PedidoDetalle> pedidoDetalleList;
     @OneToMany(mappedBy = "idPedido")
     private List<Factura> facturaList;
+    @OneToMany(mappedBy = "idPedido")
+    private List<Ordencompra> ordencompraList;
     @JoinColumn(name = "idEstado", referencedColumnName = "idEstado")
     @ManyToOne(optional = false)
     private Estadopedido idEstado;
@@ -70,9 +75,9 @@ public class Pedido implements Serializable {
     private List<Pagos> pagosList;
     @OneToMany(mappedBy = "idPedido")
     private List<Cotizacion> cotizacionList;
-    
+
     public Pedido() {
-            fechaRegistro = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+        fechaRegistro = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
     }
 
     public Pedido(Integer idPedido) {
@@ -109,7 +114,7 @@ public class Pedido implements Serializable {
     public void setFechaEntrega(String fechaEntrega) {
         this.fechaEntrega = fechaEntrega;
     }
-    
+
     public Double getSaldo() {
         return saldo;
     }
@@ -117,7 +122,7 @@ public class Pedido implements Serializable {
     public void setSaldo(Double saldo) {
         this.saldo = saldo;
     }
-    
+
     public Double getAcumulado() {
         return acumulado;
     }
@@ -142,6 +147,15 @@ public class Pedido implements Serializable {
 
     public void setFacturaList(List<Factura> facturaList) {
         this.facturaList = facturaList;
+    }
+
+    @XmlTransient
+    public List<Ordencompra> getOrdencompraList() {
+        return ordencompraList;
+    }
+
+    public void setOrdencompraList(List<Ordencompra> ordencompraList) {
+        this.ordencompraList = ordencompraList;
     }
 
     public Estadopedido getIdEstado() {
@@ -186,7 +200,6 @@ public class Pedido implements Serializable {
     public void setCotizacionList(List<Cotizacion> cotizacionList) {
         this.cotizacionList = cotizacionList;
     }
-
 
     @Override
     public int hashCode() {

@@ -31,7 +31,7 @@
 
             <div class="card" id="carta">
 
-
+                <input type="hidden" name="idPedido" id="idPedido" value="${idPedido}">
                     <div class="card-header" id="cardheader">
                         <br>
                         <center><h2><strong>Orden de Compra</strong></h2></center>
@@ -207,6 +207,7 @@
                     type: 'POST',
                     url: 'generarorden.htm',
                     data: {
+                        'idPedido': $("#idPedido").val(),
                         'idEmpleado': $("#idEmpleado").val(),
                         'idProveedor' : $("#idProveedor").val(),
                         'fechaEmision': $("#txtfechaactual").val(),
@@ -214,7 +215,7 @@
                                 
                     },
                     success: function (data) {
-                        window.location.href = 'menulogistica.htm';
+                        window.location.href = 'listaordenes.htm';
                     }
                 });
             }

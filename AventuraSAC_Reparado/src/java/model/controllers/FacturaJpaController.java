@@ -10,7 +10,7 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import model.entities.Pedido;
+import model.entities.Cotizacion;
 import model.entities.Detallefactura;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,10 +42,10 @@ public class FacturaJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Pedido idPedido = factura.getIdPedido();
-            if (idPedido != null) {
-                idPedido = em.getReference(idPedido.getClass(), idPedido.getIdPedido());
-                factura.setIdPedido(idPedido);
+            Cotizacion idCotizacion = factura.getIdCotizacion();
+            if (idCotizacion != null) {
+                idCotizacion = em.getReference(idCotizacion.getClass(), idCotizacion.getIdCotizacion());
+                factura.setIdCotizacion(idCotizacion);
             }
             List<Detallefactura> attachedDetallefacturaList = new ArrayList<Detallefactura>();
             for (Detallefactura detallefacturaListDetallefacturaToAttach : factura.getDetallefacturaList()) {
@@ -54,9 +54,9 @@ public class FacturaJpaController implements Serializable {
             }
             factura.setDetallefacturaList(attachedDetallefacturaList);
             em.persist(factura);
-            if (idPedido != null) {
-                idPedido.getFacturaList().add(factura);
-                idPedido = em.merge(idPedido);
+            if (idCotizacion != null) {
+                idCotizacion.getFacturaList().add(factura);
+                idCotizacion = em.merge(idCotizacion);
             }
             for (Detallefactura detallefacturaListDetallefactura : factura.getDetallefacturaList()) {
                 Factura oldIdFacturaOfDetallefacturaListDetallefactura = detallefacturaListDetallefactura.getIdFactura();
@@ -81,13 +81,13 @@ public class FacturaJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Factura persistentFactura = em.find(Factura.class, factura.getIdFactura());
-            Pedido idPedidoOld = persistentFactura.getIdPedido();
-            Pedido idPedidoNew = factura.getIdPedido();
+            Cotizacion idCotizacionOld = persistentFactura.getIdCotizacion();
+            Cotizacion idCotizacionNew = factura.getIdCotizacion();
             List<Detallefactura> detallefacturaListOld = persistentFactura.getDetallefacturaList();
             List<Detallefactura> detallefacturaListNew = factura.getDetallefacturaList();
-            if (idPedidoNew != null) {
-                idPedidoNew = em.getReference(idPedidoNew.getClass(), idPedidoNew.getIdPedido());
-                factura.setIdPedido(idPedidoNew);
+            if (idCotizacionNew != null) {
+                idCotizacionNew = em.getReference(idCotizacionNew.getClass(), idCotizacionNew.getIdCotizacion());
+                factura.setIdCotizacion(idCotizacionNew);
             }
             List<Detallefactura> attachedDetallefacturaListNew = new ArrayList<Detallefactura>();
             for (Detallefactura detallefacturaListNewDetallefacturaToAttach : detallefacturaListNew) {
@@ -97,13 +97,13 @@ public class FacturaJpaController implements Serializable {
             detallefacturaListNew = attachedDetallefacturaListNew;
             factura.setDetallefacturaList(detallefacturaListNew);
             factura = em.merge(factura);
-            if (idPedidoOld != null && !idPedidoOld.equals(idPedidoNew)) {
-                idPedidoOld.getFacturaList().remove(factura);
-                idPedidoOld = em.merge(idPedidoOld);
+            if (idCotizacionOld != null && !idCotizacionOld.equals(idCotizacionNew)) {
+                idCotizacionOld.getFacturaList().remove(factura);
+                idCotizacionOld = em.merge(idCotizacionOld);
             }
-            if (idPedidoNew != null && !idPedidoNew.equals(idPedidoOld)) {
-                idPedidoNew.getFacturaList().add(factura);
-                idPedidoNew = em.merge(idPedidoNew);
+            if (idCotizacionNew != null && !idCotizacionNew.equals(idCotizacionOld)) {
+                idCotizacionNew.getFacturaList().add(factura);
+                idCotizacionNew = em.merge(idCotizacionNew);
             }
             for (Detallefactura detallefacturaListOldDetallefactura : detallefacturaListOld) {
                 if (!detallefacturaListNew.contains(detallefacturaListOldDetallefactura)) {
@@ -151,10 +151,10 @@ public class FacturaJpaController implements Serializable {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The factura with id " + id + " no longer exists.", enfe);
             }
-            Pedido idPedido = factura.getIdPedido();
-            if (idPedido != null) {
-                idPedido.getFacturaList().remove(factura);
-                idPedido = em.merge(idPedido);
+            Cotizacion idCotizacion = factura.getIdCotizacion();
+            if (idCotizacion != null) {
+                idCotizacion.getFacturaList().remove(factura);
+                idCotizacion = em.merge(idCotizacion);
             }
             List<Detallefactura> detallefacturaList = factura.getDetallefacturaList();
             for (Detallefactura detallefacturaListDetallefactura : detallefacturaList) {

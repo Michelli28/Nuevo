@@ -32,7 +32,7 @@
         <div class="container m-8" >
 
             <div class="card"  id="carta" style="margin: 6% auto;">
-                <form:form method="post" modelAttribute="fichatecnica" id="formulario" >
+                <form:form method="post" modelAttribute="fichatecnica" id="formulario" enctype="multipart/form-data">
 
                     <div class="card-header" id="cardheader">
                         <br>
@@ -79,7 +79,7 @@
                         <center><h3 style="font-family: Segou IU; font-size: 20px;"><strong>Ingresar datos de la Prenda</strong></h3></center>
 
 
-                        <form:hidden path="idEstado" id="fentregaI" value="${fichatecnica.idEstado}"/>
+                        <form:hidden path="idEstado.idEstado" value="1"/>
 
 
                         <div class="row" style="text-align: left;">

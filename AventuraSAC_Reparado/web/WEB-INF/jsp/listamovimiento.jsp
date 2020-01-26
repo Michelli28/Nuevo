@@ -40,7 +40,6 @@
                                     <th style="text-align: center; width: 20%;">IdMovimiento</th>
                                     <th style="text-align: center; width: 20%;">Orden de Compra</th>
                                     <th style="text-align: center; width: 20%;">Tipo movimiento</th>
-                                    <th style="text-align: center;">Descripción</th>
                                     <th style="text-align: center; width: 20%;">Tipo Item</th>
                                     <th style="text-align: center;">Fecha</th>
                                 </tr>
@@ -52,7 +51,6 @@
                                         <th scope="col" style="text-align: center;">${item.idMovimiento}</th>
                                         <td style="text-align: center;">${item.idOrdenCompra.idOrdenCompra}</td>
                                         <td style="text-align: center;">${item.tipoMovimiento}</td>
-                                        <td style="text-align: center;">${item.descripcion}</td>
                                         <td style="text-align: center;">${item.idTipoItem.nombre}</td>
                                         <td style="text-align: center;">${item.fecha}</td>
                                     </tr>

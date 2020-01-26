@@ -61,16 +61,6 @@
                     <section>
                         <div class="content">
                             <header>
-                                <a href="OrdenCompra.htm" class="icon fa-file" onclick="Enviar()"><span class="label">Icon</span></a>
-                                <h2>GENERAR ORDEN DE COMPRA</h2>
-                            </header>
-                            <p>Elabora la orden de compra para poder hacer el pedido al proveedor.</p>								
-                        </div>
-                    </section>
-
-                    <section>
-                        <div class="content">
-                            <header>
                                 <a href="listaordenes.htm" class="icon fa-list"><span class="label">Icon</span></a>
                                 <h2>LISTA DE ÓRDENES DE COMPRA</h2>
                             </header>

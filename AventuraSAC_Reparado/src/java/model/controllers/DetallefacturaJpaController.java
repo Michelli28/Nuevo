@@ -6,6 +6,7 @@
 package model.controllers;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -14,6 +15,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import model.controllers.exceptions.NonexistentEntityException;
+import model.entities.CotizacionDetalle;
 import model.entities.Detallefactura;
 import model.entities.Factura;
 
@@ -37,12 +39,21 @@ public class DetallefacturaJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
+            CotizacionDetalle idDetalleCotizacion = detallefactura.getIdDetalleCotizacion();
+            if (idDetalleCotizacion != null) {
+                idDetalleCotizacion = em.getReference(idDetalleCotizacion.getClass(), idDetalleCotizacion.getIdDetalleCotizacion());
+                detallefactura.setIdDetalleCotizacion(idDetalleCotizacion);
+            }
             Factura idFactura = detallefactura.getIdFactura();
             if (idFactura != null) {
                 idFactura = em.getReference(idFactura.getClass(), idFactura.getIdFactura());
                 detallefactura.setIdFactura(idFactura);
             }
             em.persist(detallefactura);
+            if (idDetalleCotizacion != null) {
+                idDetalleCotizacion.getDetallefacturaList().add(detallefactura);
+                idDetalleCotizacion = em.merge(idDetalleCotizacion);
+            }
             if (idFactura != null) {
                 idFactura.getDetallefacturaList().add(detallefactura);
                 idFactura = em.merge(idFactura);
@@ -61,13 +72,27 @@ public class DetallefacturaJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Detallefactura persistentDetallefactura = em.find(Detallefactura.class, detallefactura.getIdDetalleFactura());
+            CotizacionDetalle idDetalleCotizacionOld = persistentDetallefactura.getIdDetalleCotizacion();
+            CotizacionDetalle idDetalleCotizacionNew = detallefactura.getIdDetalleCotizacion();
             Factura idFacturaOld = persistentDetallefactura.getIdFactura();
             Factura idFacturaNew = detallefactura.getIdFactura();
+            if (idDetalleCotizacionNew != null) {
+                idDetalleCotizacionNew = em.getReference(idDetalleCotizacionNew.getClass(), idDetalleCotizacionNew.getIdDetalleCotizacion());
+                detallefactura.setIdDetalleCotizacion(idDetalleCotizacionNew);
+            }
             if (idFacturaNew != null) {
                 idFacturaNew = em.getReference(idFacturaNew.getClass(), idFacturaNew.getIdFactura());
                 detallefactura.setIdFactura(idFacturaNew);
             }
             detallefactura = em.merge(detallefactura);
+            if (idDetalleCotizacionOld != null && !idDetalleCotizacionOld.equals(idDetalleCotizacionNew)) {
+                idDetalleCotizacionOld.getDetallefacturaList().remove(detallefactura);
+                idDetalleCotizacionOld = em.merge(idDetalleCotizacionOld);
+            }
+            if (idDetalleCotizacionNew != null && !idDetalleCotizacionNew.equals(idDetalleCotizacionOld)) {
+                idDetalleCotizacionNew.getDetallefacturaList().add(detallefactura);
+                idDetalleCotizacionNew = em.merge(idDetalleCotizacionNew);
+            }
             if (idFacturaOld != null && !idFacturaOld.equals(idFacturaNew)) {
                 idFacturaOld.getDetallefacturaList().remove(detallefactura);
                 idFacturaOld = em.merge(idFacturaOld);
@@ -104,6 +129,11 @@ public class DetallefacturaJpaController implements Serializable {
                 detallefactura.getIdDetalleFactura();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The detallefactura with id " + id + " no longer exists.", enfe);
+            }
+            CotizacionDetalle idDetalleCotizacion = detallefactura.getIdDetalleCotizacion();
+            if (idDetalleCotizacion != null) {
+                idDetalleCotizacion.getDetallefacturaList().remove(detallefactura);
+                idDetalleCotizacion = em.merge(idDetalleCotizacion);
             }
             Factura idFactura = detallefactura.getIdFactura();
             if (idFactura != null) {
@@ -143,6 +173,21 @@ public class DetallefacturaJpaController implements Serializable {
         }
     }
 
+     public List<Detallefactura> listadoxpedido(int idDetallePedido) {
+        EntityManager em = getEntityManager();
+        List<Detallefactura> lista = new ArrayList();
+        try {
+            Query q = em.createQuery("SELECT d FROM Detallefactura d WHERE d.idDetallePedido.idDetallePedido = :idDetallePedido").setParameter("idDetallePedido",idDetallePedido);
+            lista = (List<Detallefactura>)q.getResultList();
+            System.out.println("Listado por detalle pedido" + lista.size());
+
+        } 
+        finally {
+            em.close();
+        }
+        return lista;
+    }
+    
     public Detallefactura findDetallefactura(Integer id) {
         EntityManager em = getEntityManager();
         try {

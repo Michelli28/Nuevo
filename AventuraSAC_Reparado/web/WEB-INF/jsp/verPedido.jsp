@@ -168,6 +168,7 @@
                     <center>
                       
                         <a class="btn btn-dark" style="text-decoration: none; width: 200px; height: 50px; padding: 13px; margin: 0px 10px" href="menulogistica.htm" role="button">Regresar al Menú</a> 
+                        <a class="btn btn-info" style="text-decoration: none; width: 200px; height: 50px; padding: 13px; margin: 0px 10px" href="OrdenCompra.htm?idPedido=${pedido.idPedido}" role="button">Generar Orden Compra</a> 
                     </center>
                 </div>
 

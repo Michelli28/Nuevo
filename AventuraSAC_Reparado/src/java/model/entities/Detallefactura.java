@@ -28,25 +28,22 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Detallefactura.findAll", query = "SELECT d FROM Detallefactura d")
-    , @NamedQuery(name = "Detallefactura.findByIdDetalleFactura", query = "SELECT d FROM Detallefactura d WHERE d.idDetalleFactura = :idDetalleFactura")
     , @NamedQuery(name = "Detallefactura.findBySubtotal", query = "SELECT d FROM Detallefactura d WHERE d.subtotal = :subtotal")
-    , @NamedQuery(name = "Detallefactura.findByIgv", query = "SELECT d FROM Detallefactura d WHERE d.igv = :igv")
-    , @NamedQuery(name = "Detallefactura.findByTotal", query = "SELECT d FROM Detallefactura d WHERE d.total = :total")})
+    , @NamedQuery(name = "Detallefactura.findByIdDetalleFactura", query = "SELECT d FROM Detallefactura d WHERE d.idDetalleFactura = :idDetalleFactura")})
 public class Detallefactura implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "Subtotal")
+    private Double subtotal;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idDetalleFactura")
     private Integer idDetalleFactura;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Column(name = "Subtotal")
-    private Double subtotal;
-    @Column(name = "Igv")
-    private Double igv;
-    @Column(name = "Total")
-    private Double total;
+    @JoinColumn(name = "idDetalleCotizacion", referencedColumnName = "idDetalleCotizacion")
+    @ManyToOne
+    private CotizacionDetalle idDetalleCotizacion;
     @JoinColumn(name = "idFactura", referencedColumnName = "idFactura")
     @ManyToOne
     private Factura idFactura;
@@ -58,14 +55,6 @@ public class Detallefactura implements Serializable {
         this.idDetalleFactura = idDetalleFactura;
     }
 
-    public Integer getIdDetalleFactura() {
-        return idDetalleFactura;
-    }
-
-    public void setIdDetalleFactura(Integer idDetalleFactura) {
-        this.idDetalleFactura = idDetalleFactura;
-    }
-
     public Double getSubtotal() {
         return subtotal;
     }
@@ -74,20 +63,20 @@ public class Detallefactura implements Serializable {
         this.subtotal = subtotal;
     }
 
-    public Double getIgv() {
-        return igv;
+    public Integer getIdDetalleFactura() {
+        return idDetalleFactura;
     }
 
-    public void setIgv(Double igv) {
-        this.igv = igv;
+    public void setIdDetalleFactura(Integer idDetalleFactura) {
+        this.idDetalleFactura = idDetalleFactura;
     }
 
-    public Double getTotal() {
-        return total;
+    public CotizacionDetalle getIdDetalleCotizacion() {
+        return idDetalleCotizacion;
     }
 
-    public void setTotal(Double total) {
-        this.total = total;
+    public void setIdDetalleCotizacion(CotizacionDetalle idDetalleCotizacion) {
+        this.idDetalleCotizacion = idDetalleCotizacion;
     }
 
     public Factura getIdFactura() {

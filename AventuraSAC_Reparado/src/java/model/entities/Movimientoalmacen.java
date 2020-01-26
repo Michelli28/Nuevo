@@ -6,6 +6,7 @@
 package model.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,12 +17,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Administrador
+ * @author CHELLI BONITA
  */
 @Entity
 @Table(name = "movimientoalmacen")
@@ -30,7 +33,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Movimientoalmacen.findAll", query = "SELECT m FROM Movimientoalmacen m")
     , @NamedQuery(name = "Movimientoalmacen.findByIdMovimiento", query = "SELECT m FROM Movimientoalmacen m WHERE m.idMovimiento = :idMovimiento")
     , @NamedQuery(name = "Movimientoalmacen.findByTipoMovimiento", query = "SELECT m FROM Movimientoalmacen m WHERE m.tipoMovimiento = :tipoMovimiento")
-    , @NamedQuery(name = "Movimientoalmacen.findByDescripcion", query = "SELECT m FROM Movimientoalmacen m WHERE m.descripcion = :descripcion")
     , @NamedQuery(name = "Movimientoalmacen.findByFecha", query = "SELECT m FROM Movimientoalmacen m WHERE m.fecha = :fecha")})
 public class Movimientoalmacen implements Serializable {
 
@@ -43,9 +45,6 @@ public class Movimientoalmacen implements Serializable {
     @Column(name = "TipoMovimiento")
     private String tipoMovimiento;
     @Basic(optional = false)
-    @Column(name = "descripcion")
-    private String descripcion;
-    @Basic(optional = false)
     @Column(name = "fecha")
     private String fecha;
     @JoinColumn(name = "idTipoItem", referencedColumnName = "idTipoItem")
@@ -54,6 +53,8 @@ public class Movimientoalmacen implements Serializable {
     @JoinColumn(name = "idOrdenCompra", referencedColumnName = "idOrdenCompra")
     @ManyToOne
     private Ordencompra idOrdenCompra;
+    @OneToMany(mappedBy = "idMovimiento")
+    private List<Detallemovimiento> detallemovimientoList;
 
     public Movimientoalmacen() {
     }
@@ -62,9 +63,8 @@ public class Movimientoalmacen implements Serializable {
         this.idMovimiento = idMovimiento;
     }
 
-    public Movimientoalmacen(Integer idMovimiento, String descripcion, String fecha) {
+    public Movimientoalmacen(Integer idMovimiento, String fecha) {
         this.idMovimiento = idMovimiento;
-        this.descripcion = descripcion;
         this.fecha = fecha;
     }
 
@@ -82,14 +82,6 @@ public class Movimientoalmacen implements Serializable {
 
     public void setTipoMovimiento(String tipoMovimiento) {
         this.tipoMovimiento = tipoMovimiento;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
     }
 
     public String getFecha() {
@@ -114,6 +106,15 @@ public class Movimientoalmacen implements Serializable {
 
     public void setIdOrdenCompra(Ordencompra idOrdenCompra) {
         this.idOrdenCompra = idOrdenCompra;
+    }
+
+    @XmlTransient
+    public List<Detallemovimiento> getDetallemovimientoList() {
+        return detallemovimientoList;
+    }
+
+    public void setDetallemovimientoList(List<Detallemovimiento> detallemovimientoList) {
+        this.detallemovimientoList = detallemovimientoList;
     }
 
     @Override

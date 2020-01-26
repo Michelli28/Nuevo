@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Administrador
+ * @author CHELLI BONITA
  */
 @Entity
 @Table(name = "ordencompra")
@@ -46,12 +46,15 @@ public class Ordencompra implements Serializable {
     private String fechaEmision;
     @OneToMany(mappedBy = "idOrdenCompra")
     private List<Movimientoalmacen> movimientoalmacenList;
-    @JoinColumn(name = "idProveedor", referencedColumnName = "idProveedor")
+    @JoinColumn(name = "idPedido", referencedColumnName = "idPedido")
     @ManyToOne
-    private Proveedor idProveedor;
+    private Pedido idPedido;
     @JoinColumn(name = "idEmpleado", referencedColumnName = "idEmpleado")
     @ManyToOne
     private Empleado idEmpleado;
+    @JoinColumn(name = "idProveedor", referencedColumnName = "idProveedor")
+    @ManyToOne
+    private Proveedor idProveedor;
     @OneToMany(mappedBy = "idOrdenCompra")
     private List<OrdencompraDetalle> ordencompraDetalleList;
 
@@ -92,12 +95,12 @@ public class Ordencompra implements Serializable {
         this.movimientoalmacenList = movimientoalmacenList;
     }
 
-    public Proveedor getIdProveedor() {
-        return idProveedor;
+    public Pedido getIdPedido() {
+        return idPedido;
     }
 
-    public void setIdProveedor(Proveedor idProveedor) {
-        this.idProveedor = idProveedor;
+    public void setIdPedido(Pedido idPedido) {
+        this.idPedido = idPedido;
     }
 
     public Empleado getIdEmpleado() {
@@ -106,6 +109,14 @@ public class Ordencompra implements Serializable {
 
     public void setIdEmpleado(Empleado idEmpleado) {
         this.idEmpleado = idEmpleado;
+    }
+
+    public Proveedor getIdProveedor() {
+        return idProveedor;
+    }
+
+    public void setIdProveedor(Proveedor idProveedor) {
+        this.idProveedor = idProveedor;
     }
 
     @XmlTransient

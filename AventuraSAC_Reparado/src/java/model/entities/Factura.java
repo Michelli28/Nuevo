@@ -32,7 +32,10 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Factura.findAll", query = "SELECT f FROM Factura f")
     , @NamedQuery(name = "Factura.findByIdFactura", query = "SELECT f FROM Factura f WHERE f.idFactura = :idFactura")
-    , @NamedQuery(name = "Factura.findByFecha", query = "SELECT f FROM Factura f WHERE f.fecha = :fecha")})
+    , @NamedQuery(name = "Factura.findByFecha", query = "SELECT f FROM Factura f WHERE f.fecha = :fecha")
+    , @NamedQuery(name = "Factura.findByImporte", query = "SELECT f FROM Factura f WHERE f.importe = :importe")
+    , @NamedQuery(name = "Factura.findByIgv", query = "SELECT f FROM Factura f WHERE f.igv = :igv")
+    , @NamedQuery(name = "Factura.findByTotal", query = "SELECT f FROM Factura f WHERE f.total = :total")})
 public class Factura implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,9 +47,16 @@ public class Factura implements Serializable {
     @Basic(optional = false)
     @Column(name = "fecha")
     private String fecha;
-    @JoinColumn(name = "idPedido", referencedColumnName = "idPedido")
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "importe")
+    private Double importe;
+    @Column(name = "Igv")
+    private Double igv;
+    @Column(name = "Total")
+    private Double total;
+    @JoinColumn(name = "idCotizacion", referencedColumnName = "idCotizacion")
     @ManyToOne
-    private Pedido idPedido;
+    private Cotizacion idCotizacion;
     @OneToMany(mappedBy = "idFactura")
     private List<Detallefactura> detallefacturaList;
 
@@ -78,12 +88,36 @@ public class Factura implements Serializable {
         this.fecha = fecha;
     }
 
-    public Pedido getIdPedido() {
-        return idPedido;
+    public Double getImporte() {
+        return importe;
     }
 
-    public void setIdPedido(Pedido idPedido) {
-        this.idPedido = idPedido;
+    public void setImporte(Double importe) {
+        this.importe = importe;
+    }
+
+    public Double getIgv() {
+        return igv;
+    }
+
+    public void setIgv(Double igv) {
+        this.igv = igv;
+    }
+
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
+    }
+
+    public Cotizacion getIdCotizacion() {
+        return idCotizacion;
+    }
+
+    public void setIdCotizacion(Cotizacion idCotizacion) {
+        this.idCotizacion = idCotizacion;
     }
 
     @XmlTransient

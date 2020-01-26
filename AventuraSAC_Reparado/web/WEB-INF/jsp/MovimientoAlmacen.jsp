@@ -24,100 +24,108 @@
         <div class="container md-8">
             <br>
             <div class="card" id="carta">
-                    <div class="card-header" id="cardheader">
-                        <br>
-                        <center><h2>Movimiento de Almacén</h2></center>
-                        <br>
-                    </div>
+                <div class="card-header" id="cardheader">
+                    <br>
+                    <center><h2>Movimiento de Almacén</h2></center>
+                    <br>
+                </div>
 
-                    <div class="card-body">
-                        <div class="d-flex flex-row">
-                            <div class="p-4">
-                                <div class="d-flex flex-row">
-                                    <div class="p-6">
-                                        <label for="idOrdenCompra">Orden de Compra:</label> 
-                                    </div>
-                                    <div class="p-6">
-                                        <input name="idOrdenCompra" id="idOrdenCompra" cssClass="form-control" style="height:35px; margin-left: 15px; width: 50px;" placeholder="ID"/>
-                                    </div>
+                <div class="card-body">
+                    <div class="d-flex flex-row">
+                        <div class="p-3">
+                            <div class="d-flex flex-row">
+                                <div class="p-6">
+                                    <label for="idOrdenCompra">Orden de Compra:</label> 
                                 </div>
-                            </div>
-                            <div class="p-4">
-                                <div class="d-flex flex-row" style="margin-left: 65px;">
-                                    <div class="p-6">
-                                        <label for="tipoMovimiento">Tipo de Movimiento:</label> 
-                                    </div>
-                                    <div class="p-6">
-                                        <input name="tipoMovimiento" id="tipoMovimiento" cssClass="form-control" style="height:35px; margin-left: 15px;" placeholder="Tipo de Movimiento"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="p-4">
-                                <div class="d-flex flex-row" style="margin-left: 65px;">
-                                    <div class="p-6">
-                                        <label for="fecha">Fecha:</label> 
-                                    </div>
-                                    <div class="p-6">
-                                        <input name="fecha" id="fecha" cssClass="form-control" style="height:35px; margin-left: 15px;" />
-                                    </div>
+                                <div class="p-6">
+                                    <input name="idOrdenCompra" id="idOrdenCompra" cssClass="form-control" style="height:35px; margin-left: 15px; width: 50px;text-align: center;" placeholder="ID"/>
                                 </div>
                             </div>
                         </div>
-                        <div class="d-flex flex-row">
-                            <div class="p-4">
-                                <div class="d-flex flex-row">
-                                    <div class="p-6">
-                                        <label for="idTipoItem">Tipo Item:</label> 
-                                    </div>
-                                    <div class="p-6">
-                                        <select name="idTipoItem" id="idTipoItem" style="height:50px; margin-left: 15px; width: 300px;">
-                                            <c:forEach var="x" items="${tipoitem}">
-                                                <option value="${x.idTipoItem}">${x.nombre}</option>
-                                            </c:forEach>
-                                        </select>
-                                        </div>
-                                    </div>
+                        <div class="p-3">
+                            <div class="d-flex flex-row" style="margin-left: 18px;">
+                                <div class="p-6">
+                                    <label for="tipoMovimiento">Tipo de Movimiento:</label> 
                                 </div>
-                            <div class="p-4">
-                                <div class="d-flex flex-row">
-                                    <div class="p-6">
-                                        <label for="descripcion">Descripción:</label> 
-                                    </div>
-                                    <div class="p-6">
-                                        <textarea name="descripcion" id="descripcion" cssClass="form-control" style="height:50px; margin-left: 15px; width: 300px;" placeholder="Ingrese la descripción"></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="p-4">
-                                    <input type="button" class="btn btn-dark" value="Guardar" onclick="guardar()"/>
+                                <div class="p-6">
+                                    <input name="tipoMovimiento" id="tipoMovimiento" cssClass="form-control" style="height:35px; margin-left: 15px; width: 150px; text-align: center;" placeholder="Tipo de Movimiento"/>
                                 </div>
                             </div>
+                        </div>
+                        <div class="p-3">
+                            <div class="d-flex flex-row" style="margin-left:18px;">
+                                <div class="p-6">
+                                    <label for="fecha">Fecha:</label> 
+                                </div>
+                                <div class="p-6">
+                                    <input name="fecha" id="fecha" cssClass="form-control" style="height:35px; margin-left: 15px; width: 100px; text-align: center;" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-3">
+                            <div class="d-flex flex-row" style="margin-left:18px;">
+                                <div class="p-6">
+                                    <label for="idTipoItem">Tipo Item:</label> 
+                                </div>
+                                <div class="p-6">
+                                    <select name="idTipoItem" id="idTipoItem" style="height:35px; margin-left: 15px; width: 100px;">
+                                        <c:forEach var="x" items="${tipoitem}">
+                                            <option value="${x.idTipoItem}">${x.nombre}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-row">
 
-                            <br>
+                        <div class="p-4">
+                            <div class="d-flex flex-row" style="margin-left:-5px;">
+                                <div class="p-6">
+                                    <label for="descripcion">Descripción:</label> 
+                                </div>
+                                <div class="p-6">
+                                    <input name="descripcion" id="descripcion" cssClass="form-control" style="height:35px; margin-left: 15px; width: 150px; text-align: center;" placeholder="Ingrese..">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="d-flex flex-row" style="margin-left: 15px;">
+                                <div class="p-6">
+                                    <label for="cantidad">Cantidad:</label> 
+                                </div>
+                                <div class="p-6">
+                                    <input name="cantidad" id="cantidad" cssClass="form-control" style="height:35px; margin-left: 15px; width: 100px; text-align: center;" placeholder="Ingrese..">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <input type="button" class="btn btn-dark" value="Guardar" onclick="guardar()"/>
+                        </div>
+                    </div>
 
-                            <table class="table table-bordered" style="width: 100%;" id="table">
-                                <thead style="background-color: #D6D9D9;">
-                                    <tr>
-                                        <th style="text-align: center; width: 20%;">Orden de Compra</th>
-                                        <th style="text-align: center; width: 20%;">Tipo movimiento</th>
-                                        <th style="text-align: center; width: 20%;">Descripción</th>
-                                        <th style="text-align: center; width: 20%;">Tipo Item</th>
-                                        <th style="text-align: center;">Fecha</th>
-                                        <th style="text-align: center;">Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tablita">
-                                    
+                    <br>
+                    <center>
+                        <table class="table table-bordered" style="width: 50%; text-align: center;" id="table">
+                            <thead style="background-color: #D6D9D9;">
+                                <tr>
+                                    <th style="text-align: center; width: 20%">Cantidad</th>
+                                    <th style="text-align: center; ">Descripción</th>
+                                    <th style="text-align: center;">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablita">
+
                             </tbody>
                         </table>
+                    </center>
+                    <hr style="border: solid gray 1px;">
+                    <center>
+                        <input type="button" class="btn btn-dark" value="Registrar" onclick="Enviar()"/>
+                        <a class="btn btn-dark" href="menualmacen.htm" role="button">Regresar al Menú</a> 
+                    </center>
 
-                        <hr style="border: solid gray 1px;">
-                        <center>
-                            <input type="button" class="btn btn-dark" value="Registrar" onclick="Enviar()"/>
-                            <a class="btn btn-dark" href="menualmacen.htm" role="button">Regresar al Menú</a> 
-                        </center>
-
-                    </div>
+                </div>
 
             </div>
 
@@ -127,23 +135,19 @@
         <br>
         <script>
             function guardar() {
-                var idOrden = document.getElementById("idOrdenCompra").value;
-                var tipoMovimiento = document.getElementById("tipoMovimiento").value;
-                
+
                 var descripcion = document.getElementById("descripcion").value;
-                var idtipo = document.getElementById("idTipoItem").value;
-                var fecha = document.getElementById("fecha").value;
+                var cantidad = document.getElementById("cantidad").value;
                 var i = 1;
-                var fila = '<tr id="row" ' + i + '><td style="text-align: center;">'+ idOrden + '</td><td style="text-align: center;">' + tipoMovimiento + '</td><td style="text-align: center;">'+ descripcion + '</td><td style="text-align: center;">'+ idtipo + '</td><td style="text-align: center;">' + fecha + '</td><td style="text-align:center;"><button type="button" id="' + i + '" class="btn btn-danger btn_remove" onclick="remove(this)" >Quitar</button></td></tr>';
+                var fila = '<tr id="row" ' + i + '><td style="text-align: center;">' + cantidad + '</td><td style="text-align: center;">' + descripcion + '</td><td style="text-align:center;"><button type="button" id="' + i + '" class="btn btn-danger btn_remove" onclick="remove(this)" >Quitar</button></td></tr>';
 
                 i = i + 1;
                 var btn = document.createElement("TR");
                 btn.innerHTML = fila;
                 document.getElementById("tablita").appendChild(btn);
-                document.getElementById("idOrdenCompra").value = "";
-                document.getElementById("tipoMovimiento").value = "";
+                document.getElementById("cantidad").value = "";
                 document.getElementById("descripcion").value = "";
-                document.getElementById("idOrdenCompra").focus();
+                document.getElementById("descripcion").focus();
             }
 
 
@@ -161,11 +165,15 @@
 
                 var detalles = obtenerDetalles();
 
-            //  alert(detalles).val());
+                //  alert(detalles).val());
                 $.ajax({
                     type: 'POST',
                     url: 'crearmovimiento.htm',
                     data: {
+                        'idOrdenCompra': $("#idOrdenCompra").val(),
+                        'tipoMovimiento': $("#tipoMovimiento").val(),
+                        'fecha': $("#fecha").val(),
+                        'idTipoItem': $("#idTipoItem").val(),
                         'detalles': detalles
                     },
                     success: function (data) {
@@ -182,13 +190,9 @@
                     // ID ORDEN
                     cadena += $(this).find('td:eq(0)').text() + ",";
                     // TIPO MOVIMIENTO
-                    cadena += $(this).find('td:eq(1)').text() + ",";
+                    cadena += $(this).find('td:eq(1)').text() + ";";
                     // DESCRIPCION
-                    cadena += $(this).find('td:eq(2)').text() + ",";
-                    // FECHA
-                    cadena += $(this).find('td:eq(3)').text() + ",";
-                    
-                    cadena += $(this).find('td:eq(4)').text() + ";";
+                   
                 });
                 return cadena.substring(0, cadena.length - 1);
             }

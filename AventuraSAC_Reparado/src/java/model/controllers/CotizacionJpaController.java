@@ -11,13 +11,14 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import model.entities.Pedido;
-import model.entities.CotizacionDetalle;
+import model.entities.Factura;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import model.controllers.exceptions.NonexistentEntityException;
 import model.entities.Cotizacion;
+import model.entities.CotizacionDetalle;
 
 /**
  *
@@ -35,6 +36,9 @@ public class CotizacionJpaController implements Serializable {
     }
 
     public void create(Cotizacion cotizacion) {
+        if (cotizacion.getFacturaList() == null) {
+            cotizacion.setFacturaList(new ArrayList<Factura>());
+        }
         if (cotizacion.getCotizacionDetalleList() == null) {
             cotizacion.setCotizacionDetalleList(new ArrayList<CotizacionDetalle>());
         }
@@ -47,7 +51,13 @@ public class CotizacionJpaController implements Serializable {
                 idPedido = em.getReference(idPedido.getClass(), idPedido.getIdPedido());
                 cotizacion.setIdPedido(idPedido);
             }
-//            List<CotizacionDetalle> attachedCotizacionDetalleList = new ArrayList<CotizacionDetalle>();
+            List<Factura> attachedFacturaList = new ArrayList<Factura>();
+            for (Factura facturaListFacturaToAttach : cotizacion.getFacturaList()) {
+                facturaListFacturaToAttach = em.getReference(facturaListFacturaToAttach.getClass(), facturaListFacturaToAttach.getIdFactura());
+                attachedFacturaList.add(facturaListFacturaToAttach);
+            }
+            cotizacion.setFacturaList(attachedFacturaList);
+            //            List<CotizacionDetalle> attachedCotizacionDetalleList = new ArrayList<CotizacionDetalle>();
 //
 //            for (CotizacionDetalle cotizacionDetalleListCotizacionDetalleToAttach : cotizacion.getCotizacionDetalleList()) {
 //                if (cotizacionDetalleListCotizacionDetalleToAttach.getIdDetalleCotizacion() != null) {
@@ -61,6 +71,15 @@ public class CotizacionJpaController implements Serializable {
             if (idPedido != null) {
                 idPedido.getCotizacionList().add(cotizacion);
                 idPedido = em.merge(idPedido);
+            }
+            for (Factura facturaListFactura : cotizacion.getFacturaList()) {
+                Cotizacion oldIdCotizacionOfFacturaListFactura = facturaListFactura.getIdCotizacion();
+                facturaListFactura.setIdCotizacion(cotizacion);
+                facturaListFactura = em.merge(facturaListFactura);
+                if (oldIdCotizacionOfFacturaListFactura != null) {
+                    oldIdCotizacionOfFacturaListFactura.getFacturaList().remove(facturaListFactura);
+                    oldIdCotizacionOfFacturaListFactura = em.merge(oldIdCotizacionOfFacturaListFactura);
+                }
             }
             if (cotizacion.getCotizacionDetalleList() != null) {
                 for (CotizacionDetalle cotizacionDetalleListCotizacionDetalle : cotizacion.getCotizacionDetalleList()) {
@@ -77,6 +96,7 @@ public class CotizacionJpaController implements Serializable {
 //                    }
                 }
             }
+            
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -93,19 +113,26 @@ public class CotizacionJpaController implements Serializable {
             Cotizacion persistentCotizacion = em.find(Cotizacion.class, cotizacion.getIdCotizacion());
             Pedido idPedidoOld = persistentCotizacion.getIdPedido();
             Pedido idPedidoNew = cotizacion.getIdPedido();
+            List<Factura> facturaListOld = persistentCotizacion.getFacturaList();
+            List<Factura> facturaListNew = cotizacion.getFacturaList();
             List<CotizacionDetalle> cotizacionDetalleListOld = persistentCotizacion.getCotizacionDetalleList();
             List<CotizacionDetalle> cotizacionDetalleListNew = cotizacion.getCotizacionDetalleList();
             if (idPedidoNew != null) {
                 idPedidoNew = em.getReference(idPedidoNew.getClass(), idPedidoNew.getIdPedido());
                 cotizacion.setIdPedido(idPedidoNew);
             }
+            List<Factura> attachedFacturaListNew = new ArrayList<Factura>();
+            for (Factura facturaListNewFacturaToAttach : facturaListNew) {
+                facturaListNewFacturaToAttach = em.getReference(facturaListNewFacturaToAttach.getClass(), facturaListNewFacturaToAttach.getIdFactura());
+                attachedFacturaListNew.add(facturaListNewFacturaToAttach);
+            }
+            facturaListNew = attachedFacturaListNew;
+            cotizacion.setFacturaList(facturaListNew);
             List<CotizacionDetalle> attachedCotizacionDetalleListNew = new ArrayList<CotizacionDetalle>();
-
             for (CotizacionDetalle cotizacionDetalleListNewCotizacionDetalleToAttach : cotizacionDetalleListNew) {
                 cotizacionDetalleListNewCotizacionDetalleToAttach = em.getReference(cotizacionDetalleListNewCotizacionDetalleToAttach.getClass(), cotizacionDetalleListNewCotizacionDetalleToAttach.getIdDetalleCotizacion());
                 attachedCotizacionDetalleListNew.add(cotizacionDetalleListNewCotizacionDetalleToAttach);
             }
-
             cotizacionDetalleListNew = attachedCotizacionDetalleListNew;
             cotizacion.setCotizacionDetalleList(cotizacionDetalleListNew);
             cotizacion = em.merge(cotizacion);
@@ -116,6 +143,23 @@ public class CotizacionJpaController implements Serializable {
             if (idPedidoNew != null && !idPedidoNew.equals(idPedidoOld)) {
                 idPedidoNew.getCotizacionList().add(cotizacion);
                 idPedidoNew = em.merge(idPedidoNew);
+            }
+            for (Factura facturaListOldFactura : facturaListOld) {
+                if (!facturaListNew.contains(facturaListOldFactura)) {
+                    facturaListOldFactura.setIdCotizacion(null);
+                    facturaListOldFactura = em.merge(facturaListOldFactura);
+                }
+            }
+            for (Factura facturaListNewFactura : facturaListNew) {
+                if (!facturaListOld.contains(facturaListNewFactura)) {
+                    Cotizacion oldIdCotizacionOfFacturaListNewFactura = facturaListNewFactura.getIdCotizacion();
+                    facturaListNewFactura.setIdCotizacion(cotizacion);
+                    facturaListNewFactura = em.merge(facturaListNewFactura);
+                    if (oldIdCotizacionOfFacturaListNewFactura != null && !oldIdCotizacionOfFacturaListNewFactura.equals(cotizacion)) {
+                        oldIdCotizacionOfFacturaListNewFactura.getFacturaList().remove(facturaListNewFactura);
+                        oldIdCotizacionOfFacturaListNewFactura = em.merge(oldIdCotizacionOfFacturaListNewFactura);
+                    }
+                }
             }
             for (CotizacionDetalle cotizacionDetalleListOldCotizacionDetalle : cotizacionDetalleListOld) {
                 if (!cotizacionDetalleListNew.contains(cotizacionDetalleListOldCotizacionDetalle)) {
@@ -167,6 +211,11 @@ public class CotizacionJpaController implements Serializable {
             if (idPedido != null) {
                 idPedido.getCotizacionList().remove(cotizacion);
                 idPedido = em.merge(idPedido);
+            }
+            List<Factura> facturaList = cotizacion.getFacturaList();
+            for (Factura facturaListFactura : facturaList) {
+                facturaListFactura.setIdCotizacion(null);
+                facturaListFactura = em.merge(facturaListFactura);
             }
             List<CotizacionDetalle> cotizacionDetalleList = cotizacion.getCotizacionDetalleList();
             for (CotizacionDetalle cotizacionDetalleListCotizacionDetalle : cotizacionDetalleList) {
@@ -227,5 +276,5 @@ public class CotizacionJpaController implements Serializable {
             em.close();
         }
     }
-
+    
 }

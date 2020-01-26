@@ -40,14 +40,14 @@ public class PedidoDetalle implements Serializable {
     @Basic(optional = false)
     @Column(name = "idDetallePedido")
     private Integer idDetallePedido;
-    @OneToMany(mappedBy = "idDetallePedido")
-    private List<CotizacionDetalle> cotizacionDetalleList;
     @JoinColumn(name = "idFicha", referencedColumnName = "idFicha")
     @ManyToOne
     private Fichatecnica idFicha;
     @JoinColumn(name = "idPedido", referencedColumnName = "idPedido")
     @ManyToOne
     private Pedido idPedido;
+    @OneToMany(mappedBy = "idDetallePedido")
+    private List<CotizacionDetalle> cotizacionDetalleList;
 
     public PedidoDetalle() {
     }
@@ -64,15 +64,6 @@ public class PedidoDetalle implements Serializable {
         this.idDetallePedido = idDetallePedido;
     }
 
-    @XmlTransient
-    public List<CotizacionDetalle> getCotizacionDetalleList() {
-        return cotizacionDetalleList;
-    }
-
-    public void setCotizacionDetalleList(List<CotizacionDetalle> cotizacionDetalleList) {
-        this.cotizacionDetalleList = cotizacionDetalleList;
-    }
-
     public Fichatecnica getIdFicha() {
         return idFicha;
     }
@@ -87,6 +78,15 @@ public class PedidoDetalle implements Serializable {
 
     public void setIdPedido(Pedido idPedido) {
         this.idPedido = idPedido;
+    }
+
+    @XmlTransient
+    public List<CotizacionDetalle> getCotizacionDetalleList() {
+        return cotizacionDetalleList;
+    }
+
+    public void setCotizacionDetalleList(List<CotizacionDetalle> cotizacionDetalleList) {
+        this.cotizacionDetalleList = cotizacionDetalleList;
     }
 
     @Override
