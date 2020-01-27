@@ -6,8 +6,6 @@
 package model.entities;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -60,8 +58,6 @@ public class Pedido implements Serializable {
     @OneToMany(mappedBy = "idPedido")
     private List<PedidoDetalle> pedidoDetalleList;
     @OneToMany(mappedBy = "idPedido")
-    private List<Factura> facturaList;
-    @OneToMany(mappedBy = "idPedido")
     private List<Ordencompra> ordencompraList;
     @JoinColumn(name = "idEstado", referencedColumnName = "idEstado")
     @ManyToOne(optional = false)
@@ -77,12 +73,10 @@ public class Pedido implements Serializable {
     private List<Cotizacion> cotizacionList;
 
     public Pedido() {
-        fechaRegistro = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
     }
 
     public Pedido(Integer idPedido) {
         this.idPedido = idPedido;
-        fechaRegistro = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
     }
 
     public Pedido(Integer idPedido, String fechaRegistro, String fechaEntrega) {
@@ -138,15 +132,6 @@ public class Pedido implements Serializable {
 
     public void setPedidoDetalleList(List<PedidoDetalle> pedidoDetalleList) {
         this.pedidoDetalleList = pedidoDetalleList;
-    }
-
-    @XmlTransient
-    public List<Factura> getFacturaList() {
-        return facturaList;
-    }
-
-    public void setFacturaList(List<Factura> facturaList) {
-        this.facturaList = facturaList;
     }
 
     @XmlTransient

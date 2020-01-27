@@ -67,12 +67,15 @@
                                                           item.idEstado.idEstado == 2 || 
                                                           item.idEstado.idEstado == 3 ||
                                                           item.idEstado.idEstado == 4 || 
-                                                          item.idEstado.idEstado == 5}">
+                                                          item.idEstado.idEstado == 5 ||
+                                                          item.idEstado.idEstado == 7
+                                                  }">
                                             <td></td>
                                         </c:if>
                                              <c:if test="${item.cotizacionList.size() != 0 && item.idEstado.idEstado == 6}">
                                             <td style="text-align: center;"><a class="btn btn-info" role="button" href="Factura.htm?idPedido=${item.idPedido}" >Facturar<i class="fas fa-edit"></i></a></td>
                                         </c:if>
+                                             
                                   
                                 </tr>
                             </c:forEach>

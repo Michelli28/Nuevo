@@ -53,7 +53,7 @@
                                 <div class="row" id="ngui">
                                     N° &nbsp;&nbsp;&nbsp;<input type="text"style="background: #F0E9FF;"  id="idCotizacion">&nbsp;-&nbsp;0000041
                                 </div>
-
+                                
                             </fieldset>
                         </div>
                     </div>
@@ -64,12 +64,13 @@
 
                 <div class="card-body">
 
-                    <form method="post" modelAttribute="cliente" id="formulario">
+                    <form id="formulario">
 
                         <input type="hidden" name="idPedido" id="idPedido" value="${idPedido}">
+                        <input type="hidden" id="idCotizacion" name="idCotizacion" value="${coti.idCotizacion}">
 
                         <center>
-                            <div class="card-title"><h2><strong>Datos del Cliente</strong></h2></div>
+                            <div class="card-title"><h3 ><strong>Datos del Cliente</strong></h3></div>
                         </center>
                         <c:forEach items="${cliente}" var="item1">
                             <fieldset id="fieldset1" style="border: 1px solid gray">
@@ -113,21 +114,19 @@
                             <table class="table" id="table">
                                 <thead class="thead-dark">
                                     <tr class="encabezado">
-                                        <th style="text-align: center;">IdPedido</th>
                                         <th style="text-align: center;">IdFicha</th>
                                         <th style="text-align: center;">Descripcion</th>
-                                    
+                                        <th style="text-align: center;">Cantidad</th>
                                         <th style="text-align: center;">Subtotal</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <c:forEach var="item" items="${detalle}">
                                         <tr>
-                                            <td style="text-align: center;">${item.idDetallePedido}</td>
-                                            <td style="text-align: center;">${item.idFicha.idFicha}</td>
-                                            <td style="text-align: center;">${item.idFicha.descripcion}</td>
-                                   
-                                            <td ><input type="text" name="subTotal"  value="${item.idDetallePedido.subTotal}" style="background: #F0E9FF;" id="subtotal" class="monto" style="text-align: center;" onkeyup="sumar()"/></td>
+                                            <td  id="idDetalleCotizacion" name="idDetalleCotizacion">${item.idDetalleCotizacion}</td>
+                                            <td style="text-align: center;">${item.idDetallePedido.idFicha.descripcion}</td>
+                                            <td style="text-align: center;width: 30%;">${item.idDetallePedido.idFicha.cantidad}</td>
+                                            <td style="width: 30%;"><center><input type="text" name="subTotal"  value="${item.subTotal}" style="background: #F0E9FF; width: 60%; text-align: center;" id="subtotal" class="monto" style="text-align: center;" onkeyup="sumar()" readonly="readonly"/></center></td>
 
                                         </tr>
                                     </c:forEach>
@@ -148,7 +147,7 @@
                                             <label for="importe" >Importe(S/):</label>
                                         </div>
                                         <div class="p-6">
-                                            <textarea style="background: #F0E9FF;" id="imp" name="imp"></textarea> 
+                                            <input style="background: #F0E9FF; width: 115%;" id="imp" name="imp" type="text" value="${coti.importe}">
 
                                         </div>
                                     </div>
@@ -157,7 +156,7 @@
                                             <label for="igv" >IGV(%18):</label>
                                         </div>
                                         <div class="p-6">
-                                            <textarea style="background: #F0E9FF;" id="igv" name="igv"></textarea>
+                                            <input style="background: #F0E9FF;width: 115%;" id="igv" name="igv" type="text" value="${coti.igv}">
                                         </div>	
                                     </div>
                                     <div class="d-flex flex-row" >
@@ -165,7 +164,7 @@
                                             <label for="total" >Total(S/):</label>
                                         </div>
                                         <div  class="p-6">
-                                            <textarea style="background: #F0E9FF;" id="total" name="total"></textarea>
+                                            <input style="background: #F0E9FF;width: 115%;" id="total" name="total" type="text" value="${coti.total}">
 
                                         </div>	
                                     </div>
@@ -174,18 +173,18 @@
                             </div>
                         </div>
 
-                        <div class="col">
-                            <label for="observacion" >Observaciones:</label>
-                            <textarea name="observacion" style="background: #F0E9FF;" id="observacion" ></textarea>
-
-                        </div>
-
                         <fieldset id="fieldset4" style="border: 1px solid gray">
                             <legend><p>¿Qué acción desea realizar?</p></legend>
-                            <div class="row" id="fila8">
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" id="btn" onclick="Enviar()" class="btn btn-success" >Enviar</button>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-outline-secondary">Cancelar</button>
+                            <center>
+                            <div class="d-flex flex-row" >
+                                <div class="p-6">
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" id="btn" onclick="Enviar()" class="btn btn-success" style="padding: 0px 20px;">Enviar</button>
+                                </div>
+                                <div class="p-6">
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-outline-secondary" style="padding: 0px 20px;">Cancelar</button>
+                                </div>
                             </div>
+                                </center>
                         </fieldset>
 
                     </form>
@@ -195,6 +194,7 @@
 
 
         </div>
+                                            <br>
 
         <script>
             $(function () {
@@ -225,6 +225,49 @@
                     });
                 });
             });
+        </script>
+        <script>
+            function Enviar() {
+
+                var detalles = obtenerDetalles();
+                //var fechae = formato($("#fechae").val());
+
+    //alert(formato($("#fechaentrega").val()));
+                $.ajax({
+                    type: 'POST',
+                    url: 'generarfactura.htm',
+                    data: {
+                        'idPedido': $("#idPedido").val(),
+                        'fechaEmision': $("#txtfechaactual").val(), 
+                        'imp': $("#imp").val(),
+                        'igv': $("#igv").val(),
+                        'total': $("#total").val(),
+                        'detalles': detalles
+                    },
+                    success: function (data) {
+                        window.location.href = 'listapedidostrabajador.htm';
+                    }
+                });
+            }
+
+         
+            function obtenerDetalles() {
+                var cadena = '';
+                // Recorrer las filas TR de la tabla
+                $("#table tbody tr").each(function (i) {
+                    // ID FICHA
+                    cadena += $(this).find('td:eq(0)').text() + ",";
+                    //cadena += $(this).find('td:eq(2)').text() + ";";
+                    cadena += $(this).find("input").val() + ";";
+                    // ESTADO
+                   // cadena += $(this).find('td:eq(1)').text() + ";";
+                    // SUBTOTAL
+               
+                });
+                return cadena.substring(0, cadena.length - 1);
+            }
+
+
         </script>
     </body>
 </html>

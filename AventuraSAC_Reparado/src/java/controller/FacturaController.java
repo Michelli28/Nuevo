@@ -4,20 +4,27 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.StringTokenizer;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.servlet.http.HttpServletRequest;
 import model.controllers.ClienteJpaController;
+import model.controllers.CotizacionDetalleJpaController;
+import model.controllers.CotizacionJpaController;
 import model.controllers.DetallefacturaJpaController;
+import model.controllers.EstadopedidoJpaController;
 import model.controllers.FacturaJpaController;
 import model.controllers.PedidoDetalleJpaController;
 import model.controllers.PedidoJpaController;
 import model.entities.Cliente;
+import model.entities.Cotizacion;
+import model.entities.CotizacionDetalle;
 import model.entities.Detallefactura;
 import model.entities.Factura;
 import model.entities.Pedido;
 import model.entities.PedidoDetalle;
+import static model.entities.PedidoDetalle_.idDetallePedido;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,18 +37,22 @@ public class FacturaController {
     private EntityManager em;
     private EntityManagerFactory emf;
     private PedidoJpaController repo1;
-    private PedidoDetalleJpaController repo2;
-    private ClienteJpaController repo3;
-    private FacturaJpaController repo4;
-    private DetallefacturaJpaController repo5;
+    private CotizacionJpaController repo2;
+    private CotizacionDetalleJpaController repo3;
+    private ClienteJpaController repo4;
+    private FacturaJpaController repo5;
+    private DetallefacturaJpaController repo6;
+    private EstadopedidoJpaController repo7;
     
     public FacturaController() {
         em = getEntityManager();
         repo1 = new PedidoJpaController(emf);
-        repo2 = new PedidoDetalleJpaController(emf);
-        repo3 = new ClienteJpaController(emf);
-        repo4 = new FacturaJpaController(emf);
-        repo5 = new DetallefacturaJpaController(emf);
+        repo2 = new CotizacionJpaController(emf);
+        repo3 = new CotizacionDetalleJpaController(emf);
+        repo4 = new ClienteJpaController(emf);
+        repo5 = new FacturaJpaController(emf);
+        repo6 = new DetallefacturaJpaController(emf);
+        repo7 = new EstadopedidoJpaController(emf);
     }
     
     private EntityManager getEntityManager() {
@@ -54,7 +65,7 @@ public class FacturaController {
     
     @RequestMapping(value = "Factura.htm",method = RequestMethod.GET)
     
-    public ModelAndView NuevoPago(Model model, HttpServletRequest request) {
+    public ModelAndView GenerarFactura(Model model, HttpServletRequest request) {
         
         ModelAndView mv = new ModelAndView();
         
@@ -65,9 +76,11 @@ public class FacturaController {
         request.setAttribute("fecha", fechaEmision);
         
         List<Pedido> p = repo1.findPedidoEntities();
-        List<PedidoDetalle> det = repo2.findPedidoDetalleEntities();
-        List<PedidoDetalle> dettemp = new ArrayList();
-        List<Cliente> c = repo3.findClienteEntities();
+        List<Cotizacion> cot = repo2.findCotizacionEntities();
+        List<Cotizacion> coti = new ArrayList();
+        List<CotizacionDetalle> det = repo3.findCotizacionDetalleEntities();
+        List<CotizacionDetalle> dettemp = new ArrayList();
+        List<Cliente> c = repo4.findClienteEntities();
         List<Cliente> ctemp = new ArrayList();
         
         boolean en = false;
@@ -83,9 +96,16 @@ public class FacturaController {
             }
         }
         
-        for(PedidoDetalle pd : det){
-            if(pd.getIdPedido().getIdPedido() == id){
-                List<Detallefactura> fd = repo5.listadoxpedido(pd.getIdDetallePedido());
+        for(Cotizacion co : cot){
+            if(co.getIdPedido().getIdPedido() == id){
+                
+                mv.addObject("coti", co);
+            }
+        }
+        
+        for(CotizacionDetalle pd : det){
+            if(pd.getIdDetallePedido().getIdPedido().getIdPedido() == id){
+                List<Detallefactura> fd = repo6.listadoxpedido(pd.getIdDetalleCotizacion());
                 if (fd.size() == 0) {
                     dettemp.add(pd);
                 }
@@ -98,5 +118,65 @@ public class FacturaController {
         mv.setViewName("Factura");
         return mv;
     }
+    
+    @RequestMapping(value = "generarfactura.htm", method = RequestMethod.POST)
+
+    public ModelAndView GenerarFactura(HttpServletRequest request) throws Exception {
+
+        
+        int idPedido = Integer.parseInt(request.getParameter("idPedido"));
+        
+        String fecha = request.getParameter("fechaEmision");
+        double impo = Double.parseDouble(request.getParameter("imp"));
+        double igvv = Double.parseDouble(request.getParameter("igv"));
+        double total = Double.parseDouble(request.getParameter("total"));
+        //int idDetalle = Integer.parseInt(request.getParameter("idDetalleCotizacion"));
+        String detalles = request.getParameter("detalles");
+        //int id = Integer.parseInt(request.getParameter("idCotizacion"));
+
+        Factura f = new Factura();
+        f.setDetallefacturaList(new ArrayList<Detallefactura>());
+
+        f.setIdCotizacion(repo2.findCotizacion(idPedido));
+        f.setFecha(fecha);
+        f.setImporte(impo);
+        f.setIgv(igvv);
+        f.setTotal(total);
+
+        StringTokenizer stD = new StringTokenizer(detalles, ";");
+        int detalle = stD.countTokens();
+        int idCoti = 0;
+        double subTotal = 0.0;
+        
+        for (int i = 0; i < detalle; i++) {
+            // Obtenemos los datos de cada pedido
+            String linea = stD.nextToken();
+            StringTokenizer stDatos = new StringTokenizer(linea, ",");
+            idCoti = Integer.parseInt(stDatos.nextToken());
+            subTotal = Double.parseDouble(stDatos.nextToken());
+
+            Detallefactura detalleF = new Detallefactura();
+ 
+            detalleF.setIdFactura(f);
+            detalleF.setIdDetalleFactura(0);
+            detalleF.setIdDetalleCotizacion(repo3.findCotizacionDetalle(idCoti));
+            detalleF.setSubtotal(subTotal);
+            f.getDetallefacturaList().add(detalleF);
+        }
+
+        repo5.create(f);
+        
+        Pedido pedido = repo1.findPedido(idPedido);
+        Cotizacion co = repo2.findCotizacion(idPedido);
+
+        if(co.getIdPedido().getIdPedido() == pedido.getIdPedido()){
+            pedido.setIdEstado(repo7.findEstadopedido(7));
+            repo1.edit(pedido);
+        }
+    
+
+        return new ModelAndView("redirect:/listapedidostrabajador.htm");
+    }
+
 
 }

@@ -188,8 +188,8 @@ table,td  {
 
 #fieldset4 {
 
-    margin: 0% 70%;
-    padding: 0% 5%;
+    margin: 3% 0% -4% 37%;
+    padding: 0% 2%;
     height: 110px; /*Ancho*/
     width: 28%;/*Largoo*/
     text-align: center;
@@ -200,8 +200,8 @@ table,td  {
     color:black;
 }
 
-.filo8 button{
-    top:5%;
+#fila8 {
+    top:1%;
     text-align: center;
 }
 

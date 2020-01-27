@@ -49,8 +49,10 @@ public class FacturaJpaController implements Serializable {
             }
             List<Detallefactura> attachedDetallefacturaList = new ArrayList<Detallefactura>();
             for (Detallefactura detallefacturaListDetallefacturaToAttach : factura.getDetallefacturaList()) {
-                detallefacturaListDetallefacturaToAttach = em.getReference(detallefacturaListDetallefacturaToAttach.getClass(), detallefacturaListDetallefacturaToAttach.getIdDetalleFactura());
-                attachedDetallefacturaList.add(detallefacturaListDetallefacturaToAttach);
+                if (detallefacturaListDetallefacturaToAttach.getIdDetalleFactura() != null) {
+                    //detallefacturaListDetallefacturaToAttach = em.getReference(detallefacturaListDetallefacturaToAttach.getClass(), detallefacturaListDetallefacturaToAttach.getIdDetalleFactura());
+                    attachedDetallefacturaList.add(detallefacturaListDetallefacturaToAttach);
+                }
             }
             factura.setDetallefacturaList(attachedDetallefacturaList);
             em.persist(factura);
@@ -58,13 +60,21 @@ public class FacturaJpaController implements Serializable {
                 idCotizacion.getFacturaList().add(factura);
                 idCotizacion = em.merge(idCotizacion);
             }
-            for (Detallefactura detallefacturaListDetallefactura : factura.getDetallefacturaList()) {
-                Factura oldIdFacturaOfDetallefacturaListDetallefactura = detallefacturaListDetallefactura.getIdFactura();
-                detallefacturaListDetallefactura.setIdFactura(factura);
-                detallefacturaListDetallefactura = em.merge(detallefacturaListDetallefactura);
-                if (oldIdFacturaOfDetallefacturaListDetallefactura != null) {
+
+            if (factura.getDetallefacturaList() != null) {
+                for (Detallefactura detallefacturaListDetallefactura : factura.getDetallefacturaList()) {
+                    // Factura oldIdFacturaOfDetallefacturaListDetallefactura = detallefacturaListDetallefactura.getIdFactura();
+                    //detallefacturaListDetallefactura.setIdFactura(factura);
+                    //detallefacturaListDetallefactura = em.merge(detallefacturaListDetallefactura);
+                    if (detallefacturaListDetallefactura.getIdDetalleFactura() == 0) {
+                        em.persist(detallefacturaListDetallefactura);
+                    } else {
+                        em.merge(detallefacturaListDetallefactura);
+                    }
+                    /*if (oldIdFacturaOfDetallefacturaListDetallefactura != null) {
                     oldIdFacturaOfDetallefacturaListDetallefactura.getDetallefacturaList().remove(detallefacturaListDetallefactura);
                     oldIdFacturaOfDetallefacturaListDetallefactura = em.merge(oldIdFacturaOfDetallefacturaListDetallefactura);
+                }*/
                 }
             }
             em.getTransaction().commit();
@@ -215,5 +225,5 @@ public class FacturaJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }
