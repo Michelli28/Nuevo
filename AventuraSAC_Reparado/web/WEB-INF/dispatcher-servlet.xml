@@ -80,6 +80,7 @@
                 <prop key="Registrar.htm">pagoController</prop>
                 
                 <prop key="Factura.htm">facturaController</prop>
+                <prop key="VerFactura.htm">facturaController</prop>
                 
                 <prop key="nuevomovimiento.htm">movimientoController</prop>
                 <prop key="listamovimiento.htm">movimientoController</prop>

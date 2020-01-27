@@ -155,7 +155,7 @@
                                     <th style="text-align: center;">${item.idFicha.cantidad}</th>
                                     <th style="text-align: center;">${item.idFicha.idEstado.nombre}</th>
                                     <td scope="col-2" style="text-align: center;">
-                                        <a class="btn btn-warning" role="button" style="height: 50%; text-decoration: none;" href="verficha.htm?id=${item.idFicha}" >Ver Ficha <i class="fas fa-edit"></i></a> 
+                                        <a class="btn btn-warning" role="button" style="height: 50%; text-decoration: none;" href="verficha.htm?id=${item.idFicha.idFicha}" >Ver Ficha <i class="fas fa-edit"></i></a> 
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -174,7 +174,7 @@
 
             </div>  
         </div>
-    </div>
+                    <br>
     <script type="text/javascript">
         function eliminar(id) {
             if (confirm("¿Desea eliminar la ficha técnica?")) {

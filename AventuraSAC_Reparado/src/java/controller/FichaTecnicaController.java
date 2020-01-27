@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 import model.controllers.EstadoJpaController;
 import model.controllers.FichatecnicaJpaController;
+import model.controllers.PedidoDetalleJpaController;
+import model.controllers.PedidoJpaController;
 import model.controllers.TallaJpaController;
 import model.controllers.TipomodeloJpaController;
 import model.controllers.TipotelaJpaController;
@@ -21,6 +23,8 @@ import model.controllers.exceptions.NonexistentEntityException;
 import model.entities.Cliente;
 import model.entities.Estado;
 import model.entities.Fichatecnica;
+import model.entities.Pedido;
+import model.entities.PedidoDetalle;
 import model.entities.Talla;
 import model.entities.Tipomodelo;
 import model.entities.Tipotela;
@@ -45,6 +49,8 @@ public class FichaTecnicaController {
     private TipomodeloJpaController repo2;
     private TallaJpaController repo3;
     private EstadoJpaController repo4;
+    private PedidoJpaController repo5;
+    private PedidoDetalleJpaController repo6;
 
     public FichaTecnicaController() {
         em = getEntityManager();
@@ -53,6 +59,8 @@ public class FichaTecnicaController {
         repo2 = new TipomodeloJpaController(emf);
         repo3 = new TallaJpaController(emf);
         repo4 = new EstadoJpaController(emf);
+        repo5 = new PedidoJpaController(emf);
+        repo6 = new PedidoDetalleJpaController(emf);
     }
 
     private EntityManager getEntityManager() {
@@ -184,5 +192,31 @@ public class FichaTecnicaController {
 
         return new ModelAndView("redirect:/nuevopedido.htm");
     }
+    
+    @RequestMapping(value = "verficha.htm", method = RequestMethod.GET)
+
+    public ModelAndView VerFichatecnica(HttpServletRequest request) {
+
+     
+        ModelAndView mv = new ModelAndView();
+        
+        int id = Integer.parseInt(request.getParameter("id"));
+
+        Fichatecnica obj = repo.findFichatecnica(id);
+        List<PedidoDetalle> detalle = repo6.findPedidoDetalleEntities();
+
+        
+        for(PedidoDetalle p : detalle){
+            if(p.getIdFicha().getIdFicha() == obj.getIdFicha()){
+                mv.addObject("fichatecnica", p);
+            }
+        }
+
+        mv.setViewName("verFicha");
+
+        return mv;
+
+    }
+
 
 }

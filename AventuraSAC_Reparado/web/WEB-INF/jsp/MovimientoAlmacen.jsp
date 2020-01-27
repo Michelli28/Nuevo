@@ -17,9 +17,17 @@
         <header id="header">
             <a class="logo" href="menu.htm">Aventura S.A.C.</a>
             <nav>
-                <a href="login.htm">Salir</a>
+                <a href="#menu">Menu</a>
             </nav>
         </header>
+        
+        <nav id="menu">
+            <ul class="links">
+                <li><a href="menuventas.htm">Home</a></li>
+                <li><a href="quienessomos.htm">Quienes Somos</a></li>
+                <li><a href="login.htm">Salir</a>
+            </ul>
+        </nav>
 
         <div class="container md-8">
             <br>

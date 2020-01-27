@@ -78,7 +78,9 @@
                                             <c:if test="${item.idEstado.idEstado == 4}">
                                         <td style="text-align: center;"><a class="btn btn-info" role="button" href="verPedido.htm?idPedido=${item.idPedido}" style="text-decoration: none;">Ver Pedido<i class="fas fa-edit"></i></a></td>
                                     </c:if>
-
+                                        <c:if test="${item.idEstado.idEstado == 7}">
+                                        <td ></td>
+                                    </c:if>
                                 </tr>
                             </c:forEach>
 

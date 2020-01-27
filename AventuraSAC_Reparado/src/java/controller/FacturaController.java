@@ -43,7 +43,7 @@ public class FacturaController {
     private FacturaJpaController repo5;
     private DetallefacturaJpaController repo6;
     private EstadopedidoJpaController repo7;
-    
+
     public FacturaController() {
         em = getEntityManager();
         repo1 = new PedidoJpaController(emf);
@@ -54,7 +54,7 @@ public class FacturaController {
         repo6 = new DetallefacturaJpaController(emf);
         repo7 = new EstadopedidoJpaController(emf);
     }
-    
+
     private EntityManager getEntityManager() {
 
         if (emf == null) {
@@ -62,19 +62,19 @@ public class FacturaController {
         }
         return emf.createEntityManager();
     }
-    
-    @RequestMapping(value = "Factura.htm",method = RequestMethod.GET)
-    
+
+    @RequestMapping(value = "Factura.htm", method = RequestMethod.GET)
+
     public ModelAndView GenerarFactura(Model model, HttpServletRequest request) {
-        
+
         ModelAndView mv = new ModelAndView();
-        
+
         int id = Integer.parseInt(request.getParameter("idPedido"));
         request.setAttribute("idPedido", id);
-        
+
         String fechaEmision = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
         request.setAttribute("fecha", fechaEmision);
-        
+
         List<Pedido> p = repo1.findPedidoEntities();
         List<Cotizacion> cot = repo2.findCotizacionEntities();
         List<Cotizacion> coti = new ArrayList();
@@ -82,50 +82,49 @@ public class FacturaController {
         List<CotizacionDetalle> dettemp = new ArrayList();
         List<Cliente> c = repo4.findClienteEntities();
         List<Cliente> ctemp = new ArrayList();
-        
+
         boolean en = false;
-        
-        for(Pedido pe : p){
-            if(pe.getIdPedido() == id){
-                for(Cliente cli : c){
-                    if(pe.getIdCliente().getIdCliente() == cli.getIdCliente()){
+
+        for (Pedido pe : p) {
+            if (pe.getIdPedido() == id) {
+                for (Cliente cli : c) {
+                    if (pe.getIdCliente().getIdCliente() == cli.getIdCliente()) {
                         en = true;
                         ctemp.add(cli);
                     }
                 }
             }
         }
-        
-        for(Cotizacion co : cot){
-            if(co.getIdPedido().getIdPedido() == id){
-                
+
+        for (Cotizacion co : cot) {
+            if (co.getIdPedido().getIdPedido() == id) {
+
                 mv.addObject("coti", co);
             }
         }
-        
-        for(CotizacionDetalle pd : det){
-            if(pd.getIdDetallePedido().getIdPedido().getIdPedido() == id){
+
+        for (CotizacionDetalle pd : det) {
+            if (pd.getIdDetallePedido().getIdPedido().getIdPedido() == id) {
                 List<Detallefactura> fd = repo6.listadoxpedido(pd.getIdDetalleCotizacion());
                 if (fd.size() == 0) {
                     dettemp.add(pd);
                 }
             }
         }
-        
+
         mv.addObject("cliente", ctemp);
         mv.addObject("detalle", dettemp);
         mv.addObject("factura", new Factura());
         mv.setViewName("Factura");
         return mv;
     }
-    
+
     @RequestMapping(value = "generarfactura.htm", method = RequestMethod.POST)
 
     public ModelAndView GenerarFactura(HttpServletRequest request) throws Exception {
 
-        
         int idPedido = Integer.parseInt(request.getParameter("idPedido"));
-        
+
         String fecha = request.getParameter("fechaEmision");
         double impo = Double.parseDouble(request.getParameter("imp"));
         double igvv = Double.parseDouble(request.getParameter("igv"));
@@ -147,7 +146,7 @@ public class FacturaController {
         int detalle = stD.countTokens();
         int idCoti = 0;
         double subTotal = 0.0;
-        
+
         for (int i = 0; i < detalle; i++) {
             // Obtenemos los datos de cada pedido
             String linea = stD.nextToken();
@@ -156,7 +155,7 @@ public class FacturaController {
             subTotal = Double.parseDouble(stDatos.nextToken());
 
             Detallefactura detalleF = new Detallefactura();
- 
+
             detalleF.setIdFactura(f);
             detalleF.setIdDetalleFactura(0);
             detalleF.setIdDetalleCotizacion(repo3.findCotizacionDetalle(idCoti));
@@ -165,18 +164,69 @@ public class FacturaController {
         }
 
         repo5.create(f);
-        
+
         Pedido pedido = repo1.findPedido(idPedido);
         Cotizacion co = repo2.findCotizacion(idPedido);
 
-        if(co.getIdPedido().getIdPedido() == pedido.getIdPedido()){
+        if (co.getIdPedido().getIdPedido() == pedido.getIdPedido()) {
             pedido.setIdEstado(repo7.findEstadopedido(7));
             repo1.edit(pedido);
         }
-    
 
         return new ModelAndView("redirect:/listapedidostrabajador.htm");
     }
 
+    @RequestMapping(value = "verfactura.htm", method = RequestMethod.GET)
+
+    public ModelAndView VerFactura(Model model, HttpServletRequest request) {
+
+        ModelAndView mv = new ModelAndView();
+
+        int id = Integer.parseInt(request.getParameter("idPedido"));
+        request.setAttribute("idPedido", id);
+
+        //List<Pedido> p = repo1.findPedidoEntities();
+        List<Factura> fac = repo5.findFacturaEntities();
+        List<Detallefactura> detfac = repo6.findDetallefacturaEntities();
+        List<Detallefactura> dettem  = new ArrayList();
+        List<CotizacionDetalle> det = repo3.findCotizacionDetalleEntities();
+        List<CotizacionDetalle> dettemp  = new ArrayList();
+        List<Cliente> c = repo4.findClienteEntities();
+        List<Cliente> ctemp = new ArrayList();
+
+        boolean en = false;
+
+        Pedido obj = repo1.findPedido(id);
+
+        for (Factura f : fac) {
+            if (f.getIdCotizacion().getIdPedido().getIdPedido() == obj.getIdPedido()) {
+                for (Cliente cli : c) {
+                    if (f.getIdCotizacion().getIdPedido().getIdCliente().getIdCliente() == cli.getIdCliente()) {
+                        en = true;
+                        ctemp.add(cli);
+                    }
+                }
+            }
+        }
+
+        for (Factura f : fac) {
+            if (f.getIdCotizacion().getIdPedido().getIdPedido() == obj.getIdPedido()) {
+                mv.addObject("factura", f);
+            }
+        }
+        
+        for (Detallefactura pd : detfac) {
+            if (pd.getIdDetalleCotizacion().getIdCotizacion().getIdPedido().getIdPedido() == obj.getIdPedido()) {
+               
+                    dettem.add(pd);
+                
+            }
+        }
+
+        mv.addObject("cliente", ctemp);
+        mv.addObject("detalle", dettem);
+        mv.setViewName("VerFactura");
+        return mv;
+    }
 
 }

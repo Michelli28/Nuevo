@@ -85,6 +85,9 @@
                                         <c:if test="${item.idEstado.idEstado == 6}">
                                         <td ></td>
                                     </c:if>
+                                        <c:if test="${item.idEstado.idEstado == 7}">
+                                        <td style="text-align: center;"><a class="btn btn-info" role="button" href="verfactura.htm?idPedido=${item.idPedido}" style="text-decoration: none;">Ver Factura <i class="fas fa-edit"></i></a></td>
+                                    </c:if>
       
                                 </tr>
                             </c:forEach>
