@@ -99,28 +99,29 @@
         </div>
 
 
-        <script>
+         <script>
             $(function () {
                 $("#btn").on("click", function () {
                     $("#formulario").validate({
                         rules:
                                 {
-                                    razonSocial: {required: true, minlength: 3, maxlength: 20, lettersonly: true},
-                                    direccion: {required: true, maxlength: 30},
-                                    telefono: {required: true, minlength: 7, maxlength: 9, numbersonly: true},
-                                    broker: {required: true, minlength: 15, maxlength: 30, lettersonly: true},
+                                    razonSocial: {required: true, minlength: 3, maxlength: 20, alfanumOespacio: true},
+                                    ruc: {required: true, minimo8: true},
+                                    direccion: {required: true, maxlength: 30, alfanumOespacio: true},
+                                    telefono: {required: true,  minimo7: true},
+                                    broker: {required: true, minlength: 15, maxlength: 30, alfanumOespacio: true},
                                     correo: {required: true, email: true, minlength: 15, maxlength: 30},
-                                    usuario: {required: true, minlength: 5, maxlength: 20},
-                                    clave: {required: true, minlength: 7, maxlength: 9, numbersonly: true}
+                                    usuario: {required: true, minlength: 5, maxlength: 20, alfanumOespacio: true},
+                                    clave: {required: true, minlength: 7, maxlength: 9, numbersonly: true, alfanumOespacio: true}
+
                                 },
                         messages:
                                 {
                                     razonSocial: {required: 'El campo es requerido', minlength: 'El mínimo permitido son 3 caracteres',
                                         maxlength: 'El máximo permitido son 20 caracteres'},
+                                     ruc: {required: 'El campo es requerido', minimo8: 'Deben ser 11 dígitos'},
                                     direccion: {required: 'El campo es requerido', maxlength: 'El máximo permitido son 30 caracteres'},
-                                    telefono: {required: 'El campo es requerido', minlength: 'El mínimo permitido son 7 caracteres para teléfono',
-                                        maxlength: 'El máximo permitido son 9 caracteres para celular',
-                                        numbersonly: 'Por favor, solo ingrese números'},
+                                    telefono: {required: 'El campo es requerido', minimo7: 'Deben ser 7 dígitos o 9 dígitos'},
                                     broker: {required: 'El campo es requerido', minlength: 'El mínimo permitido son 15 caracteres',
                                         maxlength: 'El máximo permitido son 30 caracteres'},
                                     correo: {required: 'El campo es requerido', email: 'El caracter "@" es requerido', minlength: 'El mínimo permitido son 15 caracteres', maxlength: 'El máximo permitido son 30 caracteres'},
@@ -142,7 +143,17 @@
                 jQuery.validator.addMethod("numbersonly", function (value, element) {
                     return this.optional(element) || /^[0-9]+$/i.test(value);
                 }, "Por favor, solo números");
+                jQuery.validator.addMethod("alfanumOespacio", function (value, element) {
+                    return this.optional(element) || /^[ a-z0-9áéíóúüñ]*$/i.test(value);
+                }, "Ingrese sólo letras, números o espacios.");
+                jQuery.validator.addMethod("minimo8", function (value, element) {
+                    return this.optional(element) || /^(?=.*\d)[0-9\d]{11,11}$/i.test(value);
+                }, "Minimo 8 caracteres, con al menos una letra y un número.");
+                jQuery.validator.addMethod("minimo7", function (value, element) {
+                    return this.optional(element) || /^(?=.*\d)[0-9\d]{7,9}$/i.test(value);
+                },
             });
+
         </script>
 
     </body>
