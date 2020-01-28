@@ -39,8 +39,8 @@
                         </div>
 
                         <div class="p-4"  id="escritos">
-                            <p>Cal. Mercaderes Nro. 164 Dpto. 203 </p>
-                            <p>Urb. Las Gardenias (Alt. Cuadra 50 de la Avenida Benavides)</p>
+                            <p style="font-family: arial;">Cal. Mercaderes Nro. 164 Dpto. 203 </p>
+                            <p style="font-family: arial;">Urb. Las Gardenias (Alt. Cuadra 50 de la Avenida Benavides)</p>
 
                         </div>
 
@@ -48,8 +48,8 @@
 
                             <fieldset style="border:1px solid black" id="fld" >
 
-                                <h3> R.U.C. N° 20111807958 </h3>
-                                <h3><strong>Factura</strong></h3>
+                                <h5> R.U.C. N° 20111807958 </h5>
+                                <h2 style="font-family: cambria;"><strong>Factura</strong></h2>
                                 <div class="row" id="ngui">
                                     N° &nbsp;&nbsp;&nbsp;<input type="text"style="background: #F0E9FF;"  id="idCotizacion">&nbsp;-&nbsp;0000041
                                 </div>

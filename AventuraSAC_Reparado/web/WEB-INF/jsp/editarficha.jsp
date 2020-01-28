@@ -32,7 +32,7 @@
         <div class="container m-8" >
 
             <div class="card"  id="carta" style="margin: 6% auto;">
-                <form:form method="post" modelAttribute="fichatecnica" id="formulario" enctype="multipart/form-data">
+                <form:form method="post" modelAttribute="fichatecnica" id="formulario">
 
                     <div class="card-header" id="cardheader">
                         <br>
@@ -138,13 +138,8 @@
                                 <form:input path="cantidad"  style="background: #F0E9FF;" cssClass="form-control" value="${fichatecnica.cantidad}"/>
                             </div>
                         </div>
-                        <br>
-                        <div class="row" style="text-align: left;">  
-                            <div class="col-sm-4"> 
-                                <label for="filename"><strong>Imagen:</strong></label>
-                                <input type="file" name="filename"/>
-                            </div>
-                        </div>
+                   
+                        
                         <hr style="border: 1px solid gray">
 
                         <center>

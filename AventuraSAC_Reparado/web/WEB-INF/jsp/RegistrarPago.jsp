@@ -22,7 +22,7 @@
         <script src="<c:url value="webapp/resources/theme1/js/jquery.min.js" />"></script>
 
     </head>
-    <body id="body">
+    <body id="body" style="background-color:rgba(100,0,0, 0.2);">
 
         <header id="header">
             <a class="logo" href="menu.htm">Aventura S.A.C.</a>
@@ -32,21 +32,22 @@
         </header>
 
         <div class="container md-8">
+<div style="background-color:rgba(100,0,0, 0.4);">
+                
+            <div class="card"  id="carta" style="margin-left:10px;">
+                
 
- 
-                <div class="card" id="carta">
-
-                    <div class="card-header" id="cardheader">
+                    <div class="card-header" id="cardheader" style="background-color:rgba(100,0,0, 0.4);"> 
                         <br>
-                        <center><h1>Registrar Voucher </h1></center>
+                        <center><h2 style="font-family: cambria; font-size: 30px;">Registrar Voucher </h2></center>
                         <br>
                     </div>
 
                     <div class="card-body">
 
-                        <p style="text-align: left;">Ingresar los datos del comprobante de su deposito</p>    
+                        <p style="text-align: left;">Ingresar los datos del comprobante de su depósito.</p>    
 
-                        <fieldset style="border: 1px solid gray; width:40%; height: 50%; margin: 0% 30%; padding: 3% 4% 2% 0%;"  >
+                        <fieldset style="border: 1px solid gray; width:40%; height: 50%; margin: 0% 30%; padding: 3% 6% 2% 0%;"  >
                             <div class="form-group row">
                                 <div class="col-sm-5" style="left:15%;">
                                     <label for="numeroOperacion">N° de Operación:</label>
@@ -91,14 +92,14 @@
                         <hr style="border: solid gray 1px;">
 
                         <center>
-                            <input type="button" class="btn btn-dark" value="Enviar" onclick="Enviar()"/>
-                            <a class="btn btn-dark" id="a" href="menucliente.htm" style="text-decoration: none;" role="button">Regresar al Menú</a> 
+                            <input type="button" class="btn btn-dark" value="Enviar" style="width: 150px; height: 48px; " onclick="Enviar()"/>
+                            <a class="btn btn-dark" id="a" href="menucliente.htm" style="text-decoration: none;width: 150px; height: 48px; padding: 13px;" role="button">Regresar al Menú</a> 
                         </center>
 
                         <input type="hidden" name="idEstado" id="idEstado" value="4">
                     </div>
                 </div>
- 
+</div>
 
         </div>
 

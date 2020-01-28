@@ -18,7 +18,7 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    border-radius: 1.5%;
+    border-radius: 0.4%;
 }
 
 .card-header{
@@ -46,19 +46,20 @@
 }
 
 #img img{
-    margin:30px 0px;
-    width: 270px;
-    height: 150px;
+    margin:10px 10px 0px 10px;
+    width: 250px;
+    height: 130px;
 }
 
 #escritos {
     margin: 0px 0px;
     position: relative;
     right: 0px;
-    top:70px;
+    top:35px;
 }
 
 #escritos h3{
+    
     font-family: 'Arial', serif;
     font-size: 10px;
 }
@@ -67,7 +68,7 @@
 
 #fieldset {
     
-    margin: 40px 20px;
+    margin: 10px 20px;
     padding: 33px 30px;
     text-align: center;
     position: relative;
@@ -104,6 +105,7 @@
 #fld{
     background-color: white;
     width: 105%;
+    padding-right: 10px;
 }
 
 #fieldset1 {
@@ -176,7 +178,7 @@ table,td  {
 #fieldset3 {
     background-color: #ffcccc;
     margin: 0% -30%;
-    padding: 10px 20px;
+    padding: 10px 15px;
     height: 100%; /*Ancho*/
     width: 92%;/*Largoo*/
     text-align: left;
@@ -188,7 +190,7 @@ table,td  {
 
 #fieldset3 label{
     margin: 5px 0px;
-    width: 110px;
+    width: 90px;
 }
 
 #fieldset3 input{
@@ -201,7 +203,7 @@ table,td  {
 
 
 #fieldset4 {
-    margin: 0% 72%;
+    margin: 4% 38%;
     padding: 0% 2% 3% 5%;
     height: 43%; /*Ancho*/
     width: 27%;/*Largoo*/

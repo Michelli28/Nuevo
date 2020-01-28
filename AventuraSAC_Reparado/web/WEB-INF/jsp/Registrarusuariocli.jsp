@@ -57,18 +57,18 @@
                         <div class="d-flex flex-row">
                             <div class="form-group" class="p-3" id="razon1">
                                 <label for="razonSocial">Razón Social:</label>
-                                <form:input path="razonSocial" placeholder="Ingresar razón social" id="razon" cssClass="form-control" />
+                                <form:input path="razonSocial" style="font-family: arial;" placeholder="Ingresar razón social" id="razon" cssClass="form-control" />
                             </div>
 
                             <div class="form-group" class="p-3" id="ruc2">
                                 <label for="ruc">RUC:</label>
-                                <form:input path="ruc"  id="ruc" placeholder="Ingresar ruc" cssClass="form-control" />
+                                <form:input path="ruc"  id="ruc" style="font-family: arial;" placeholder="Ingresar ruc" cssClass="form-control" />
                             </div>
 
 
                             <div class="form-group" class="p-3" id="dis1">
                                 <label for="idDistrito">Distrito:</label>
-                                <form:select path="idDistrito.idDistrito" id="idDistrito" >
+                                <form:select path="idDistrito.idDistrito" id="idDistrito"  style="font-family: arial;">
                                     <c:forEach items="${listaDistrito}" var="x">
                                         <option value="${x.idDistrito}" required="required">${x.detalle}</option>
                                     </c:forEach>
@@ -80,7 +80,7 @@
                             <div class="form-group" class="p-3" id="dir1">
                                 <div class="form-group">
                                     <label for="direccion">Dirección:</label>
-                                    <form:input path="direccion" cssClass="form-control" placeholder="Ingresar dirección" />
+                                    <form:input path="direccion" cssClass="form-control" style="font-family: arial;" placeholder="Ingresar dirección" />
                                 </div>
                             </div>
                         </div>
@@ -88,20 +88,20 @@
 
                             <div class="form-group" class="p-3" id="tel">
                                 <label for="telefono">Teléfono:</label>
-                                <form:input path="telefono" cssClass="form-control" id="tel1" placeholder="Ingresar N° de teléfono" />
+                                <form:input path="telefono" cssClass="form-control" style="font-family: arial;" id="tel1" placeholder="Ingresar N° de teléfono" />
                             </div>
                             <div class="form-group" class="p-3" id="brok1">
                                 <label for="broker">Broker:</label>
-                                <form:input path="broker" cssClass="form-control" placeholder="Ingresar broker" />
+                                <form:input path="broker" cssClass="form-control" style="font-family: arial;" placeholder="Ingresar broker" />
                             </div>
                             <div class="form-group" class="p-3" id="corr1">
                                 <label for="correo">Correo:</label>
-                                <form:input path="correo" cssClass="form-control"  placeholder="Ingresar correo" />
+                                <form:input path="correo" cssClass="form-control" style="font-family: arial;" placeholder="Ingresar correo" />
                             </div>
                             <div class="form-group" class="p-3" id="usu">
 
                                 <label for="usuario">Usuario:</label>
-                                <form:input path="usuario"  cssClass="form-control" placeholder="Ingresar nombre de usuario"/>
+                                <form:input path="usuario"  cssClass="form-control" style="font-family: arial;" placeholder="Ingresar nombre de usuario"/>
                             </div>
                         </div>
                         <div class="d-flex flex-row">
@@ -134,20 +134,18 @@
                     $("#formulario").validate({
                         rules:
                                 {
-                                    razon: {required: true, minlength: 3, maxlength: 20, lettersonly: true},
-                                    direccion: {required: true, maxlength: 30},
+                                    razonSocial: {required: true, minlength: 3, maxlength: 20, alfanumOespacio: true},
+                                    direccion: {required: true, maxlength: 30, alfanumOespacio: true},
                                     telefono: {required: true, minlength: 7, maxlength: 9, numbersonly: true},
-                                    broker: {required: true, minlength: 15, maxlength: 30, lettersonly: true},
+                                    broker: {required: true, minlength: 15, maxlength: 30, alfanumOespacio: true},
                                     correo: {required: true, email: true, minlength: 15, maxlength: 30},
-                                    usuario: {required: true, minlength: 5, maxlength: 20},
-                                    clave: {required: true, minlength: 7, maxlength: 9, numbersonly: true}
+                                    usuario: {required: true, minlength: 5, maxlength: 20, alfanumOespacio: true},
+                                    clave: {required: true, minlength: 7, maxlength: 9, numbersonly: true, alfanumOespacio: true}
 
                                 },
                         messages:
-                                
-                      
                                 {
-                                    razon: {required: 'El campo es requerido', minlength: 'El mínimo permitido son 3 caracteres',
+                                    razonSocial: {required: 'El campo es requerido', minlength: 'El mínimo permitido son 3 caracteres',
                                         maxlength: 'El máximo permitido son 20 caracteres'},
                                     direccion: {required: 'El campo es requerido', maxlength: 'El máximo permitido son 30 caracteres'},
                                     telefono: {required: 'El campo es requerido', minlength: 'El mínimo permitido son 7 caracteres para teléfono',
@@ -174,7 +172,15 @@
                 jQuery.validator.addMethod("numbersonly", function (value, element) {
                     return this.optional(element) || /^[0-9]+$/i.test(value);
                 }, "Por favor, solo números");
+                jQuery.validator.addMethod("alfanumOespacio", function (value, element) {
+                    return this.optional(element) || /^[ a-z0-9áéíóúüñ]*$/i.test(value);
+                }, "Ingrese sólo letras, números o espacios.");
+                jQuery.validator.addMethod("minimo8", function (value, element) {
+                    return this.optional(element) || /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i.test(value);
+                }, "Minimo 8 caracteres, con al menos una letra y un número.");
+                
             });
+
         </script>
     </body>
 </html>

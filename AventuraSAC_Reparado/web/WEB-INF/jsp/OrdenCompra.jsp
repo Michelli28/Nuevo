@@ -85,7 +85,7 @@
                                     </c:forEach>
                                 </select>
                             </div>
-                            <div class="col-sm-6" style="margin: ;" >
+                            <div class="col-sm-6"  >
                                 <label for="fechaEmision"><strong>Fecha:</strong></label>
                                 <input type="text" name="fechaEmision" id="txtfechaactual" value="${fecha}" style="width: 50%; "/>
                             </div>

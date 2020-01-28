@@ -38,7 +38,7 @@
                 
             <div class="card"  id="carta" style="margin-left:10px;">
                 
-                <form:form method="post" modelAttribute="fichatecnica" id="formulario" enctype="multipart/form-data">
+                <form:form method="post" modelAttribute="fichatecnica" id="formulario" >
                     
                     <div class="card-header" id="cardheader" style="background-color:rgba(100,0,0, 0.4);">
                         <br>
@@ -126,7 +126,7 @@
                             </div>
                             <div class="col-sm-4">
                                 <label for="cantidad" >Cantidad:</label>
-                                <form:input path="cantidad"  style="background: #F0E9FF;font-family: arial;" cssClass="form-control" placeholder="Ingresar cantidad"/>
+                                <form:input path="cantidad"  style="background: #F0E9FF;font-family: arial;" cssClass="form-control" placeholder="Ingresar cantidad" value=""/>
                             </div>
                         </div>
                                                <hr style="border: 1px solid gray">
@@ -201,7 +201,7 @@
                     $("#formulario").validate({
                         rules:
                                 {
-                                    descripcion: {required: true, minlength: 5, maxlength: 50, lettersonly: true},
+                                    descripcion: {required: true, minlength: 5, maxlength: 50, alfanumOespacio: true},
                                     cantidad: {required: true, numbersonly: true},
                                     etiqueta: {required: true, minlength: 3, maxlength: 10}
 
@@ -209,7 +209,7 @@
                         messages:
                                 {
                                     descripcion: {required: 'El campo es requerido', minlength: 'El mínimo permitido son 5 caracteres',
-                                        maxlength: 'El máximo permitido son 50 caracteres', lettersonly: 'Porfavor, solo letras'},
+                                        maxlength: 'El máximo permitido son 50 caracteres', alfanumOespacio: 'Ingrese un nombre válido.'},
                                     cantidad: {required: 'El campo es requerido', numbersonly: 'Por favor, solo ingrese números'},
                                     etiqueta: {required: 'El campo es requerido', minlength: 'El mínimo permitido son 3 caracteres',
                                         maxlength: 'El máximo permitido son 10 caracteres', lettersonly: 'Porfavor, solo letras'}
@@ -227,6 +227,18 @@
                 jQuery.validator.addMethod("numbersonly", function (value, element) {
                     return this.optional(element) || /^[0-9]+$/i.test(value);
                 }, "Por favor, solo números");
+                jQuery.validator.addMethod("alfanumOespacio", function (value, element) {
+                    return this.optional(element) || /^[ a-z0-9áéíóúüñ]*$/i.test(value);
+                }, "Ingrese sólo letras, números o espacios.");
+                jQuery.validator.addMethod("minimo8", function (value, element) {
+                    return this.optional(element) || /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i.test(value);
+                }, "Minimo 8 caracteres, con al menos una letra y un número.");
+                jQuery.validator.addMethod("cualquiercaracter", function (value, element) {
+                    return this.optional(element) || /^(?=.*[A-Za-z])(?=.*\d).{8,}$/i.test(value);
+                }, "Cualquier caracter.");
+                jQuery.validator.addMethod("minimo50", function (value, element) {
+                    return this.optional(element) || /^(?=.*[A-Za-z])(?=.*\d).{8,}$/i.test(value);
+                }, "minimo50.");
             });
         </script>
 

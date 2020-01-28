@@ -10,9 +10,7 @@
         <link href="<c:url value="webapp/resources/theme1/css/es.css" />" rel="stylesheet">
         <link href="<c:url value="webapp/resources/theme1/fonts/font.awesome.css" />" rel="stylesheet">
         <script src="<c:url value="webapp/resources/theme1/js/jquery.min.js" />"></script>
-        <script type="text/javascript" src="<c:url value="webapp/resources/theme1/js/jquery.modal.js"/>"></script>
         <script type="text/javascript" src="<c:url value="webapp/resources/theme1/js/jquery.validate.min.js"/>"></script>
-        <link type="text/css" rel="stylesheet" href="<c:url value="webapp/resources/theme1/css/jquery.modal.css"/>" />
 
 
 
@@ -28,6 +26,7 @@
                             <img src="webapp/resources/theme1/images/logo.PNG" class="brand_logo" alt=""/>
                         </div>
                     </div>
+             
                     <div class="d-flex justify-content-center form_container">
                         <form action="validar.htm" method="post" id="formulario">
                             <div class="input-group mb-3">
@@ -65,6 +64,46 @@
                 </div>
             </div>
         </div>
+        
+        <script>
+            $(function () {
+                $("#btn").on("click", function () {
+                    $("#formulario").validate({
+                        rules:
+                                {
+                                    txtusuario: {required: true, minlength: 3, maxlength: 20, alfanumOespacio: true},
+                                    txtclave: {required: true, maxlength: 30, numbersonly: false}
+                                    
+
+                                },
+                        messages:
+                                {
+                                    txtusuario: {required: 'El campo es requerido', minlength: 'El mínimo permitido son 3 caracteres',
+                                        maxlength: 'El máximo permitido son 20 caracteres',alfanumOespacio: true},
+                                    txtclave: {required: 'El campo es requerido', maxlength: 'El máximo permitido son 30 caracteres',numbersonly: true}
+                                   
+                                }
+                    });
+                });
+            });
+        </script>
+
+        <script>
+            $(document).ready(function () {      //DOM manipulation code  
+                jQuery.validator.addMethod("lettersonly", function (value, element) {
+                    return this.optional(element) || /^[a-z]+$/i.test(value);
+                }, "Por favor, solo letras");
+                jQuery.validator.addMethod("numbersonly", function (value, element) {
+                    return this.optional(element) || /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i.test(value);
+                }, "Minimo 8 caracteres, con al menos una letra y un número.");     
+                jQuery.validator.addMethod("alfanumOespacio", function (value, element) {
+                    return this.optional(element) || /^[ a-z0-9áéíóúüñ]*$/i.test(value);
+                }, "Ingrese sólo letras, números o espacios.");
+                
+                
+            });
+
+        </script>
 
     </body>
 

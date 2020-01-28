@@ -102,10 +102,10 @@ public class FichaTecnicaController {
 
     @RequestMapping(value = "FichaTecnica.htm", method = RequestMethod.POST)
     public ModelAndView NuevaFichaTecnica(@ModelAttribute("fichatecnica") Fichatecnica f,
-            @RequestParam("filename") MultipartFile file, HttpServletRequest request) throws Exception {
+            HttpServletRequest request) throws Exception {
 
         /* Manejo de archivo */
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+       /* String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         Path path = Paths.get(request.getServletContext().getRealPath("/") + "uploads/" + fileName);
         try {
             if (file.getBytes() != null) {
@@ -115,7 +115,7 @@ public class FichaTecnicaController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+        */
         Cliente c = (Cliente) request.getSession().getAttribute("usuario");
 
         f.setIdCliente(c);
@@ -160,9 +160,9 @@ public class FichaTecnicaController {
     @RequestMapping(value = "editarficha.htm", method = RequestMethod.POST)
 
     public ModelAndView EditarFichatecnica(@ModelAttribute("fichatecnica") Fichatecnica f,
-            @RequestParam("filename") MultipartFile file, HttpServletRequest request) throws Exception {
+            HttpServletRequest request) throws Exception {
 
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+       /* String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         Path path = Paths.get(request.getServletContext().getRealPath("/") + "uploads/" + fileName);
         try {
             if (file.getBytes() != null) {
@@ -172,7 +172,7 @@ public class FichaTecnicaController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+        */
         Cliente c = (Cliente) request.getSession().getAttribute("usuario");
         
         f.setIdCliente(c);
