@@ -45,7 +45,7 @@
                         <thead class="thead-dark" > 
                             <tr>
                                 <th scope="col" style="text-align: center">IdPedido</th>
-                                <th scope="col" style="text-align: center">IdCliente</th>
+                                <th scope="col" style="text-align: center">Razón Social</th>
                                 <th scope="col" style="text-align: center">Fecha Registro</th>
                                 <th scope="col" style="text-align: center">Fecha Entrega</th>
                                 <th scope="col" style="text-align: center">Acciones</th>
@@ -57,7 +57,7 @@
                             <c:forEach var="item" items="${pedidos}">
                                 <tr> 
                                     <th scope="row" style="text-align: center">${item.idPedido}</th>
-                                    <td style="text-align: center">${item.idCliente.idCliente}</td>
+                                    <td style="text-align: center">${item.idCliente.razonSocial}</td>
                                     <td style="text-align: center">${item.fechaRegistro}</td>
                                     <td style="text-align: center">${item.fechaEntrega}</td>
                                  

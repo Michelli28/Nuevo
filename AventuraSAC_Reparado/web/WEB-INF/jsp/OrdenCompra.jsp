@@ -16,6 +16,7 @@
         <link href="<c:url value="webapp/resources/theme1/css/EstilosOrden.css" />" rel="stylesheet">
         <link href="<c:url value="webapp/resources/theme1/css/main.css" />" rel="stylesheet" />
         <script src="<c:url value="webapp/resources/theme1/js/jquery.min.js" />"></script>
+        <script type="text/javascript" src="<c:url value="webapp/resources/theme1/js/jquery.validate.min.js"/>"></script>
     </head>
 
     <body id="body" style="background-color:rgba(100,0,0, 0.2);">
@@ -30,11 +31,11 @@
         <div class="container md-8">
 
             <div style="background-color:rgba(100,0,0, 0.4);">
-            <div class="card" id="carta" style="margin-left:10px;">
+                <div class="card" id="carta" style="margin-left:10px;">
 
-                <input type="hidden" name="idPedido" id="idPedido" value="${idPedido}">
+                    <input type="hidden" name="idPedido" id="idPedido" value="${idPedido}">
                     <div class="card-header" id="cardheader" style="background-color:rgba(100,0,0, 0.4);">
-                        
+
 
                         <div class="d-flex flex-row">
 
@@ -73,92 +74,73 @@
                             </div>
                         </div>
                     </div>
+                    <form id="formulario">
+                        <div class="card-body">
+                            <input type="hidden" name="idEmpleado" id="idEmpleado" value="${usuario.idEmpleado}"/>
+                            <div class="row">
+                                <div class="col-sm-4" style="left:10%;">
+                                    <label for="idProveedor"><strong>Proveedor:</strong></label>
+                                    <select name="idProveedor" id="idProveedor" style="width: 60%; ">
+                                        <c:forEach items="${proveedor}" var="x">
+                                            <option value="${x.idProveedor}" >${x.razonSocial}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                                <div class="col-sm-4" style="left: 30%;" >
+                                    <label for="fechaEmision"><strong>Fecha:</strong></label>
+                                    <input type="text" name="fechaEmision" id="txtfechaactual" value="${fecha}" readonly="readonly" style="width: 60%; "/>
+                                </div>
+                            </div>
+                           
 
-                    <div class="card-body">
-                        <input type="hidden" name="idEmpleado" id="idEmpleado" value="${usuario.idEmpleado}"/>
-                        <div class="row" style="margin:0px 0px;">
-                            <div class="col-sm-6" style="margin: 0px 0px 0px 0px;">
-                                <label for="idProveedor"><strong>Proveedor:</strong></label>
-                                <select name="idProveedor" id="idProveedor" style="width: 50%; ">
-                                    <c:forEach items="${proveedor}" var="x">
-                                        <option value="${x.idProveedor}" >${x.razonSocial}</option>
-                                    </c:forEach>
-                                </select>
-                            </div>
-                            <div class="col-sm-6"  >
-                                <label for="fechaEmision"><strong>Fecha:</strong></label>
-                                <input type="text" name="fechaEmision" id="txtfechaactual" value="${fecha}" style="width: 50%; "/>
-                            </div>
-                        </div>
-                         <c:forEach var="item1" items="${datos}">
-                            <fieldset id="fieldset1" style="border: 1px solid gray">
-                                <div class="row" id="fila1">
-                                    <div class="col-sm-4">      
-                                        <label for="">RUC:</label>
-                                        <input type="text" id="ruc" style="background: #F0E9FF;" value="${item1.ruc}"/>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <label for="direccion">Dirección:</label>
-                                        <input type="text" style="background: #F0E9FF;" id="direccion" value="${item1.direccion}"/>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <label for="">Teléfono:</label>
-                                        <input type="text" style="background: #F0E9FF;" id="telefono" value="${item1.telefono}"/>
-                                    </div>
+
+                            <hr style="border: solid gray 1px;">
+
+                            <div class="row" >
+                                <div class="col-sm-4" style="left: 10%;">
+                                    <label for="descripcion"><strong>Descripción:</strong></label>
+                                    <input type="text" name="descripcion"  id="descripcion" style="width: 70%; "/>
+                                </div>
+                                <div class="col-sm-4" style="left: 5%;" >
+
+                                    <label for="cantidad"><strong>Cantidad:</strong></label>
+                                    <input type="text" name="cantidad" id="cantidad" style="width: 50%; ">
+
+                                </div>
+                                <div class="col-sm-4" style="left: 0%;" >
+                                    <br>
+                                    <button id="btn" class="btn btn-success" type="button" style="margin: 15px 0px; width: 200px" onclick="guardar()">Agregar</button>
                                 </div>
 
-
-                            </fieldset>
-                        </c:forEach>
-
-                        <br>
-                        <hr style="border: solid gray 1px;">
-
-                        <div class="row" style="margin:0px 80px;">
-                            <div class="col-sm-4" >
-                                <label for="descripcion"><strong>Descripción:</strong></label>
-                                <input type="text" name="descripcion"  id="descripcion" style="width: 80%; "/>
                             </div>
-                            <div class="col-sm-4" >
+                            <br>
+                            <center>
+                                <table class="table" style="width: 80%;" id="table">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th style="text-align: center;">Descripción</th>
+                                            <th style="text-align: center;">Cantidad</th>
+                                            <th style="text-align: center;">Accion</th>
 
-                                <label for="cantidad"><strong>Cantidad:</strong></label>
-                                <input type="text" name="cantidad" id="cantidad" style="width: 50%; ">
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tablita">
 
-                            </div>
-                            <div class="col-sm-4" >
-                                <br>
-                                <button id="adicionar" class="btn btn-success" type="button" style="margin: 15px 0px; width: 200px" onclick="guardar()">Agregar</button>
-                            </div>
+                                    </tbody>
+                                </table>
+                            </center>
+                            <hr style="border: solid gray 1px;">
+
+                            <center>
+                                <button type="button" class="btn btn-light"  onclick="Enviar()" style="width: 200px; height: 50px; ">Guardar</button>
+                                <a class="btn btn-dark" href="menu.htm" role="button" style="text-decoration: none; width: 200px; height: 50px; padding: 13px; margin: 0px 10px;">Regresar al Menú</a> 
+                            </center>
 
                         </div>
+                    </form>
 
 
-                        <table class="table" style="width: 100%;" id="table">
-                            <thead class="thead-dark">
-                                <tr>
-                                    <th style="text-align: center;">Descripción</th>
-                                    <th style="text-align: center;">Cantidad</th>
-                                    <th style="text-align: center;">Accion</th>
-
-                                </tr>
-                            </thead>
-                            <tbody id="tablita">
-
-                            </tbody>
-                        </table>
-
-                        <hr style="border: solid gray 1px;">
-
-                        <center>
-                            <button type="button" class="btn btn-outline-dark" onclick="Enviar()">Guardar</button>
-                            <a class="btn btn-dark"  style="text-decoration: none;" href="menu.htm" role="button">Regresar al Menú</a> 
-                        </center>
-
-                    </div>
-          
-
-
-            </div>
+                </div>
             </div>
         </div>
 
@@ -173,8 +155,8 @@
                 var _ape = document.getElementById("cantidad").value;
                 var i = 1;
                 var fila = '<tr id="row" ' + i + '><td style="text-align: center;">' + _nom + '</td><td style="text-align: center;">' + _ape + '</td><td style="text-align:center;"><button type="button" id="' + i + '" class="btn btn-danger btn_remove" onclick="remove(this)" >Quitar</button></td></tr>';
-                
-                
+
+
 
                 i = i + 1;
                 var btn = document.createElement("TR");
@@ -196,13 +178,13 @@
 
 
 
-             
+
         </script>
         <script>
             function Enviar() {
                 var detalles = obtenerDetalles();
-                
-               // alert($("#idProveedor").val());
+
+                // alert($("#idProveedor").val());
 
                 $.ajax({
                     type: 'POST',
@@ -210,18 +192,18 @@
                     data: {
                         'idPedido': $("#idPedido").val(),
                         'idEmpleado': $("#idEmpleado").val(),
-                        'idProveedor' : $("#idProveedor").val(),
+                        'idProveedor': $("#idProveedor").val(),
                         'fechaEmision': $("#txtfechaactual").val(),
                         'detalles': detalles
-                                
+
                     },
                     success: function (data) {
                         window.location.href = 'listaordenes.htm';
                     }
                 });
             }
-            
-             function obtenerDetalles() {
+
+            function obtenerDetalles() {
                 var cadena = '';
                 // Recorrer las filas TR de la tabla
                 $("#table tbody tr").each(function (i) {
@@ -230,15 +212,60 @@
                     // ESTADO
                     cadena += $(this).find('td:eq(1)').text() + ";";
                     // SUBTOTAL
-                   /* if ($(this).find('td:eq(3)').find("option:selected").val() === '2') {
-                        cadena += '0;';
-                    } else {
-                        cadena += $(this).find("input").val() + ";";
-                    }*/
+                    /* if ($(this).find('td:eq(3)').find("option:selected").val() === '2') {
+                     cadena += '0;';
+                     } else {
+                     cadena += $(this).find("input").val() + ";";
+                     }*/
                 });
                 return cadena.substring(0, cadena.length - 1);
             }
         </script>
+
+        <script>
+            $(function () {
+                $("#btn").on("click", function () {
+                    $("#formulario").validate({
+                        rules:
+                                {
+                                    descripcion: {required: true, minlength: 5, maxlength: 50, alfanumOespacio: true},
+                                    cantidad: {required: true, numbersonly: true}
+
+                                },
+                        messages:
+                                {
+                                    descripcion: {required: 'El campo es requerido', minlength: 'El mínimo permitido son 5 caracteres',
+                                        maxlength: 'El máximo permitido son 50 caracteres', alfanumOespacio: 'Ingrese un nombre válido.'},
+                                    cantidad: {required: 'El campo es requerido', numbersonly: 'Por favor, solo ingrese números'}
+                                }
+                    });
+                });
+            });
+        </script>
+
+        <script>
+            $(document).ready(function () {      //DOM manipulation code  
+                jQuery.validator.addMethod("lettersonly", function (value, element) {
+                    return this.optional(element) || /^[a-z]+$/i.test(value);
+                }, "Por favor, solo letras");
+                jQuery.validator.addMethod("numbersonly", function (value, element) {
+                    return this.optional(element) || /^[0-9]+$/i.test(value);
+                }, "Por favor, solo números");
+                jQuery.validator.addMethod("alfanumOespacio", function (value, element) {
+                    return this.optional(element) || /^[ a-z0-9áéíóúüñ]*$/i.test(value);
+                }, "Ingrese sólo letras, números o espacios.");
+                jQuery.validator.addMethod("minimo8", function (value, element) {
+                    return this.optional(element) || /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i.test(value);
+                }, "Minimo 8 caracteres, con al menos una letra y un número.");
+                jQuery.validator.addMethod("cualquiercaracter", function (value, element) {
+                    return this.optional(element) || /^(?=.*[A-Za-z])(?=.*\d).{8,}$/i.test(value);
+                }, "Cualquier caracter.");
+                jQuery.validator.addMethod("minimo50", function (value, element) {
+                    return this.optional(element) || /^(?=.*[A-Za-z])(?=.*\d).{8,}$/i.test(value);
+                }, "minimo50.");
+            });
+        </script>
+
 
     </body>
 </html>

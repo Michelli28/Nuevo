@@ -52,7 +52,7 @@
                                 <c:forEach var="item" items="${orden}">
                                     <tr>
                                         <th scope="row" >${item.idOrdenCompra}</th>
-                                        <td >${item.idEmpleado.nombre}</td>
+                                        <td >${item.idEmpleado.apellidoPaterno}</td>
                                         <td >${item.idProveedor.razonSocial}</td>
                                         <td >${item.fechaEmision}</td>
 
