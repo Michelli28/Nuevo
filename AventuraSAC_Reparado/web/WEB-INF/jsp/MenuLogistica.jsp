@@ -12,6 +12,7 @@
         <meta name="description" content="" />
         <meta name="keywords" content="" />
         <link href="<c:url value="webapp/resources/theme1/css/main.css" />" rel="stylesheet">
+        
     </head>
     <body class="is-preload">
 
@@ -33,47 +34,77 @@
         </nav>
 
         <!-- Banner -->
-        <section id="banner">
-            <div class="inner">
-                <h1>BIENVENIDO ${usuario.apellidoPaterno}</h1>
-                <p>Estas en Aventura S.A.C. una de las empresas lideres en confección<br />
-                    a nivel nacional, con la garantía de materiales y acabados de calidad.</p>
+        <section style="background-color:rgba(100,36,13, 0.7);">
+            <div class="inner" style="text-align: center; background-position: top; background: url(webapp/resources/theme1/images/confeccion.jpg) no-repeat center center fixed;
+                 background-size: cover;  width: 6000px; height: 500px;">
+                <br>
+                <br>
+                <br>
+                <br>
+                <center>
+                    <div style="background-color:rgba(255,255,255, 0.5); width: 50%; height: 35%;text-align: center; margin: 50px;">
+                        <br>
+                        <h1 style="margin: 10px; font-family: cambria;"><strong>BIENVENIDO ${usuario.apellidoPaterno}</strong></h1>
+                        <p style="font-family: arial; margin-bottom: 20px; color: black;">Estas en Aventura S.A.C. una de las empresas lideres en confección<br />
+                            a nivel nacional, con la garantía de materiales y acabados de calidad.</p>
+                        <br>
+                    </div>
+                </center>
             </div>
-            <video autoplay loop muted playsinline src="webapp/resources/theme1/images/banner.mp4"></video>
         </section>
 
         <!-- Highlights -->
-        <section class="wrapper">
+        <section class="wrapper" style="background-color:rgba(100,0,0, 0.1);">
             <div class="inner">
                 <header class="special">
-                    <h1>ÁREA DE LOGÍSTICA</color></h1>
+                    <h1 style="font-family: cambria;">ÁREA DE LOGÍSTICA</color></h1>
                     <p> </p>
                 </header>
                 <div class="highlights">
-                    <section>
-                        <div class="content">
-                            <header>
-                                <a href="listapedidoslogistica.htm" class="icon fa-list"><span class="label">Icon</span></a>
-                                <h2>PEDIDOS</h2>
-                            </header>
-                            <p>Lista los pedidos con toda la información, adicionalmente podras generar su respectiva cotización con esta herramienta.</p>								
-                        </div>
-                    </section>
-                    <section>
-                        <div class="content">
-                            <header>
-                                <a href="listaordenes.htm" class="icon fa-list"><span class="label">Icon</span></a>
-                                <h2>LISTA DE ÓRDENES DE COMPRA</h2>
-                            </header>
-                            <p>Visualiza la lista de las ordenes de compra. </p>
-                        </div>
-                    </section>
+                    <div style="margin-left: 150px;">
+
+                        <section style="background-color:rgba(150,36,13, 0.9);">
+                            <div class="content" style="margin-left: 10px; width: 100%;  height: 450px;">
+
+                                <div class="author">
+                                    <div class="image">
+                                        <header>
+                                            <a href="listapedidoslogistica.htm" class="icon fa-list"><span class="label">Icon</span></a>
+                                            <h2 style="font-family: cambria;">PEDIDOS</h2>
+                                        </header>
+                                        <blockquote>
+                                            <p>"Lista los pedidos con toda la información, adicionalmente podras generar su respectiva cotización con esta herramienta."</p>
+                                        </blockquote>
+                                    </div>
+                                </div>
+                        </section>
+                    </div>
+
+                    <div style="margin-left: 80px;">
+                        <section style="background-color:rgba(150,36,13, 0.9);">
+                            <div class="content" style="margin-left: 10px; width: 100%; height: 450px;">
+
+                                <div class="author">
+                                    <div class="image">
+                                        <header>
+                                            <a href="listaordenes.htm" class="icon fa-list"><span class="label">Icon</span></a>
+                                            <h2 style="font-family: cambria;">LISTA DE ÓRDENES DE COMPRA</h2>
+                                        </header>
+                                        <blockquote>
+                                            <p>"Visualiza la lista de las ordenes de compra."</p>
+                                        </blockquote>
+                                    </div>
+                                </div>
+                        </section>
+
+                    </div>
+
 
                 </div>
             </div>
         </section>
 
-        <!-- CTA -->
+        <!-- CTA 
 
         <div class="testimonials">
             <section>
@@ -117,8 +148,9 @@
             </section>
         </div>
 
-
+-->
         <!-- Footer -->
+        <div style="margin-top: -36px !important;">
         <footer id="footer">
             <div class="inner">
                 <div class="content">
@@ -137,7 +169,7 @@
                                 margin-left: -120px;
                             }
                         </style>
-                        <img id="yo" src="webapp/resources/theme1/images/logo.png">
+                        <img id="yo" src="webapp/resources/theme1/images/logo.PNG">
                     </section>
                     <section>
                         <h4>Contáctanos:</h4>
@@ -160,7 +192,7 @@
                 </div>
             </div>
         </footer>
-
+        </div>
         <!-- Scripts -->
         <script src="<c:url value="webapp/resources/theme1/js/browser.min.js"/>"></script>
         <script src="<c:url value="webapp/resources/theme1/js/jquery.min.js" />"></script>
@@ -169,24 +201,24 @@
         <script src="<c:url value="webapp/resources/theme1/js/main.js" />"></script>
 
         <script>
-                                    function Enviar() {
+            function Enviar() {
 
-                                        //var fichas = obtenerFichas();
+                //var fichas = obtenerFichas();
 
-                                        //alert(fichas);
-                                        $.ajax({
-                                            type: 'GET',
-                                            url: 'OrdenCompra.htm',
-                                            data: {
-                                                'idProveedor': $("#id").val()
-                                            },
-                                            success: function (data) {
-                                                window.location.href = 'OrdenCompra.htm';
+                //alert(fichas);
+                $.ajax({
+                    type: 'GET',
+                    url: 'OrdenCompra.htm',
+                    data: {
+                        'idProveedor': $("#id").val()
+                    },
+                    success: function (data) {
+                        window.location.href = 'OrdenCompra.htm';
 
 
-                                            }
-                                        });
-                                    }
+                    }
+                });
+            }
 
         </script>
     </body>

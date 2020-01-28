@@ -24,7 +24,7 @@
         <link type="text/css" rel="stylesheet" href="<c:url value="webapp/resources/theme1/css/jquery.minicolors.css"/>" />
 
     </head>
-    <body id="body">
+    <body style="background-color:rgba(100,0,0, 0.3);">
 
         <header id="header">
             <a class="logo" href="menu.htm">Aventura S.A.C.</a>
@@ -34,10 +34,10 @@
         </header>
 
         <div class="container md-8">
-
-            <div class="card" id="carta">
+            <div style="background-color:rgba(150,36,13, 0.9);">
+            <div class="card" id="carta" style="margin-left: 10px;">
                 <form:form method="post" modelAttribute="pedido" >
-                    <div class="card-header" id="cardheader">
+                    <div class="card-header" id="cardheader" style="background-color:rgba(150,36,13, 0.6);">
 
 
                         <br>
@@ -62,7 +62,7 @@
                                         <label for="fechaRegistro">Fecha Emisión: </label>
                                     </div>
                                     <div class="p-6" class="form-group">
-                                        <form:input path="fechaRegistro" style="background: #F0E9FF;" cssClass="form-control" id="femisionI"/>
+                                        <form:input path="fechaRegistro" style="background: #F0E9FF; text-align: center;" cssClass="form-control" id="femisionI"/>
                                     </div>
                                 </div>
                             </div>
@@ -93,7 +93,7 @@
                                         <th>${item.idEstado.nombre}</th>
                                         <td scope="col-2">
                                             <a class="btn btn-warning" role="button" style="height: 50%;" href="editarficha.htm?id=${item.idFicha}" ><i class="fas fa-edit"></i></a> 
-                                            <button  class="btn btn-danger" type="button" onclick="eliminar('${item.idFicha}')" ><i class="fas fa-trash-alt"></i></button>
+                                            <button  class="btn btn-danger" type="button"  style="height: 50%;" onclick="eliminar('${item.idFicha}')" ><i class="fas fa-trash-alt"></i></button>
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -109,7 +109,8 @@
                         </center>
                     </div>
                 </form:form>
-            </div>  
+            </div>
+                </div>
         </div>
     </div>
     <script type="text/javascript">

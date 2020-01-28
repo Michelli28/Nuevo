@@ -1,5 +1,4 @@
 #body{
-    background: #adb5bd;
     width:100%;
 }
 
@@ -18,7 +17,7 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    border-radius: 1.5%;
+    border-radius: 0.5%;
 }
 
 .card-header h2{
@@ -34,9 +33,9 @@
 
 
 #img img{
-    margin:0px 40px 0px 40px;
-    width: 200px;
-    height: 100px;
+    margin:0px 40px 0px 20px;
+    width: 230px;
+    height: 150px;
     
 }
 

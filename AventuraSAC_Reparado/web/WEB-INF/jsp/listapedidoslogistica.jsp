@@ -17,7 +17,7 @@
         <link href="<c:url value="webapp/resources/theme1/css/bootstrap.min.css" />" rel="stylesheet">
         <link href="<c:url value="webapp/resources/theme1/css/main.css"/>" rel="stylesheet">
         <link href="<c:url value="webapp/resources/theme1/fonts/font.awesome.css" />" rel="stylesheet">
-        <link href="../../webapp/resources/theme1/css/estilolistapedido.css" rel="stylesheet" type="text/css"/>
+        <link href="webapp/resources/theme1/css/estilolistapedido.css" rel="stylesheet" type="text/css"/>
         <title>JSP Page</title>
     </head>
     <body id="body" style="background: #adb5bd;">
@@ -31,12 +31,13 @@
 
         <div class="container md-8">
             <br>
-            <div class="card" id="carta">
+            <div style="background-color:#138496 ;">
+            <div class="card" id="carta" style="margin-left:10px;">
 
-                <div class="card-header" style="background: #C1FCEC ;"> 
+                <div class="card-header" style="background-color: rgba(75, 156, 227, 0.5) ;"> 
                     <br>
 
-                    <h2 style="font-family: Segou IU;"><center>Lista de Pedidos</center></h2>
+                    <h2 style="font-family: cambria; font-size: 35px;"><center>Lista de Pedidos</center></h2>
 
                 </div>
 
@@ -44,7 +45,7 @@
 
                     <table class="table" style="width: 100%; height: 100%;">
 
-                        <thead class="thead-dark">
+                        <thead style="background-color: #D6D9D9 !important;">
                             <tr>
                                 <th style="text-align: center;">IdPedido</th>
                                 <th style="text-align: center;">Fecha Registro</th>
@@ -94,6 +95,7 @@
 
                 </div>
 
+            </div>
             </div>
         </div>
         <br>

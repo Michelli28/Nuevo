@@ -22,7 +22,7 @@
         <link type="text/css" rel="stylesheet" href="<c:url value="webapp/resources/theme1/css/jquery.modal.css"/>" />
 
     </head>
-    <body id="body">
+    <body id="body"  style="background-color:rgba(100,0,0, 0.2);">
 
         <header id="header">
             <a class="logo" href="menu.htm">Aventura S.A.C.</a>
@@ -32,10 +32,10 @@
         </header>
 
         <div class="container md-8">
+            <div style="background-color:rgba(100,0,0, 0.4);">
+            <div class="card" id="carta" style="margin-left:10px;">
 
-            <div class="card" id="carta">
-
-                <div class="card-header" id="cardheader">
+                <div class="card-header" id="cardheader" style="background-color:rgba(100,0,0, 0.4);">
                     <div class="d-flex flex-row">
                         <div class="p-4">
                             <div class="d-flex flex-row" >
@@ -173,6 +173,7 @@
                 </div>
 
             </div>  
+</div>
         </div>
                     <br>
     <script type="text/javascript">

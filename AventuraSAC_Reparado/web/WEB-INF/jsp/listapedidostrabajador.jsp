@@ -10,10 +10,10 @@
         <link href="<c:url value="webapp/resources/theme1/css/main.css"/>" rel="stylesheet">
         <link href="<c:url value="webapp/resources/theme1/fonts/font.awesome.css" />" rel="stylesheet">
         <link href="<c:url value="webapp/resources/theme1/css/bootstrap.min.css" />" rel="stylesheet">
-        <link href="../../webapp/resources/theme1/css/estilolistapedido.css" rel="stylesheet" type="text/css"/>
+        <link href="webapp/resources/theme1/css/estilolistapedido.css" rel="stylesheet" type="text/css"/>
         <title>JSP Page</title>
     </head>
-    <body id="body">
+    <body id="body" style="background-color:rgba(20,100,20, 0.2);">
 
         <header id="header">
             <a class="logo" href="menu.htm">Aventura S.A.C.</a>
@@ -24,18 +24,19 @@
 
         <div class="container md-8">
             <br>
-            <div class="card" id="carta">
+            <div style="background-color:rgba(20,100,20, 0.7);">
+            <div class="card" id="carta" style="margin-left:10px;">
 
-                <div class="card-header" style="background: #C1FCEC ;">
+                <div class="card-header" style="background-color:rgba(20,100,30, 0.4);">
 
 
                     <div class="p-4" style="font-family: Segoe UI; text-align: center">
-                        <h2>Lista de Pedidos</h2>
+                        <h2 style="font-family: cambria; font-size: 35px;">Lista de Pedidos</h2>
                     </div>
 
 
                 </div>
-                <br>
+                
                 <div class="card-body">
 
 
@@ -83,13 +84,16 @@
                         </tbody>
                     </table>
                     <div style="text-align: center">
-                    <a href="menuventas.htm" id="regre" class="btn btn-info" style="height: 50px; width: 250px; padding: 10px; font-size: 17px">Regresar al Menú</a>
+                    <a href="menuventas.htm" id="regre" class="btn btn-secondary" style="height: 50px; width: 250px; padding: 10px; font-size: 17px">Regresar al Menú</a>
                     </div>
 
 
                 </div>
 
             </div>
+            </div>
+            <br>
+            <br>
         </div>
     </body>
 

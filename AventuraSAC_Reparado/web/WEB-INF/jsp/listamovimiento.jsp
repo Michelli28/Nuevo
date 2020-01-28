@@ -9,9 +9,10 @@
         <link href="<c:url value="webapp/resources/theme1/css/bootstrap.min.css" />" rel="stylesheet">
         <link href="<c:url value="webapp/resources/theme1/js/bootstrap.min.js" />" rel="stylesheet">
         <link href="<c:url value="webapp/resources/theme1/css/main.css" />" rel="stylesheet" />
+        <link href="webapp/resources/theme1/css/estilolistapedido.css" rel="stylesheet" type="text/css"/>
         <title>JSP Page</title>
     </head>
-    <body id="body">
+    <body id="body" style="background-color:rgba(20,100,20, 0.2);">
 
         <header id="header">
             <a class="logo" href="menu.htm">Aventura S.A.C.</a>
@@ -22,20 +23,20 @@
 
         <div class="container md-8">
             <br>
-            <div class="card" id="carta">
+            <div style="background-color:rgba(20,100,20, 0.7);">
+            <div class="card" id="carta" style="margin-left:10px;">
                 <form:form method="post" modelAttribute="movimiento" >
-                    <div class="card-header" id="cardheader">
+                    <div class="card-header" id="cardheader" style="background-color:rgba(20,100,30, 0.4);">
                         <br>
-                        <center><h2>Lista de Movimientos de Almacén</h2></center>
+                        <center><h2 style="font-family: cambria;">Lista de Movimientos de Almacén</h2></center>
                         <br>
                     </div>
 
                     <div class="card-body">
 
-                        <br>
 
                         <table class="table table-bordered" style="width: 100%;">
-                            <thead style="background-color: #D6D9D9;">
+                            <thead style="background-color: #D6D9D9 !important;">
                                 <tr>
                                     <th style="text-align: center; width: 20%;">IdMovimiento</th>
                                     <th style="text-align: center; width: 20%;">Orden de Compra</th>
@@ -62,7 +63,7 @@
                         <hr style="border: solid gray 1px;">
                         <center>
 
-                            <a class="btn btn-dark" href="menualmacen.htm" role="button">Regresar al Menú</a> 
+                            <a class="btn btn-dark" href="menualmacen.htm" role="button" style="text-decoration: none; width: 20%; height: 45px; padding: 1%;">Regresar al Menú</a> 
                         </center>
 
                     </div>
@@ -70,7 +71,7 @@
 
 
             </div>
-
+            </div>
         </div>
 
         <br>

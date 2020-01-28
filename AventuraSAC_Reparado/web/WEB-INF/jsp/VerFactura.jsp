@@ -15,7 +15,7 @@
 
         <title>Factura</title>
     </head>
-    <body id="body">
+    <body id="body" style="background-color:rgba(100,0,0, 0.3);">
 
         <header id="header">
             <a class="logo" href="index.html">Aventura S.A.C.</a>
@@ -25,10 +25,10 @@
         </header>
 
         <div class="container md-8">
+<div style="background-color:rgba(150,36,13, 0.9);">
+            <div class="card" id="carta" style="margin-left: 10px;">
 
-            <div class="card" id="carta">
-
-                <div class="card-header" id="cardheader">
+                <div class="card-header" id="cardheader" style="background-color:rgba(150,36,13, 0.6);">
 
                     <div class="d-flex flex-row">
 
@@ -50,15 +50,15 @@
 
                                 <h3 style="font-family: arial; font-size: 16px; margin: 10px;"> R.U.C. N° 20111807958 </h3>
                                 <h3 style="font-family: arial;"><strong>Factura</strong></h3>
-                                <div class="row" id="ngui">
-                                    <div class="d-flex flex-row">
-                                        <div class="p-1">
+                                <div class="row" >
+                                    <div class="d-flex flex-row" style="margin-left: 10px;">
+                                        <div class="p-2">
                                             N° 
                                         </div>
-                                        <div class="p-1">
-                                            <input type="text"style="background: #F0E9FF; font-family: arial;"  id="idCotizacion">
+                                        <div class="p-2">
+                                            <input type="text"style="background: #F0E9FF; font-family: arial; width: 45px; height: 30px;"  id="idCotizacion" value="${factura.idFactura}">
                                         </div>
-                                        <div class="p-1">
+                                        <div class="p-2">
                                            - 0000041
                                         </div>
                                     </div>
@@ -95,7 +95,7 @@
                                     </div>
                                     <div class="col-sm-4">      
                                         <label for="fechaEmision">Fecha de Emision:</label>
-                                        <input type="text" style="background: #F0E9FF;" id="txtfechaactual" value="${fecha}" name="fechaEmision" readonly="readonly"/>
+                                        <input type="text" style="background: #F0E9FF;" id="txtfechaactual" value="${factura.fecha}" name="fechaEmision" readonly="readonly"/>
                                     </div>
                                 </div>
 
@@ -122,7 +122,7 @@
 
                         <center>
                             <table class="table" id="table">
-                                <thead class="thead-dark">
+                                <thead style="background-color: #D6D9D9 !important;">
                                     <tr class="encabezado">
                                         <th style="text-align: center;">IdFicha</th>
                                         <th style="text-align: center;">Descripcion</th>
@@ -149,7 +149,7 @@
                         <div class="row">
 
                             <div class="col-sm-3" id="col2">
-                                <fieldset id="fieldset3" style="border: 1px solid gray; background: white;">
+                                <fieldset id="fieldset3" style="border: 1px solid gray; background: white; background-color:rgba(150,36,13, 0.4);">
 
                                     <div class="d-flex flex-row" >
                                         <div class="p-6">
@@ -197,7 +197,7 @@
                 </div>
 
             </div>
-
+</div>
 
         </div>
         <br>

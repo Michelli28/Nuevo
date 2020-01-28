@@ -25,24 +25,28 @@
 
 
     </head>
-    <body id="bodys">
+    <body id="bodys" style="background-color:rgba(100,0,0, 0.2);">
         <header id="header">
             <a class="logo" href="index.html">Aventura S.A.C.</a>
             <nav>
                 <a href="#menu">Menu</a>
             </nav>
         </header>
+        
         <div class="container m-8" >
-            <div class="card" style="margin: 3% auto;" id="carta">
+            <div style="background-color:rgba(100,0,0, 0.4);">
+                
+            <div class="card"  id="carta" style="margin-left:10px;">
+                
                 <form:form method="post" modelAttribute="fichatecnica" id="formulario" enctype="multipart/form-data">
-                    <div class="card-header" id="cardheader">
+                    
+                    <div class="card-header" id="cardheader" style="background-color:rgba(100,0,0, 0.4);">
                         <br>
-                        <center><h2><strong>Ficha Técnica</strong></h2></center>
                         <div class="d-flex flex-row">
 
                             <div  class="p-4" id="img">
 
-                                <img src="webapp/resources/theme1/images/logo2.png">
+                                <img src="webapp/resources/theme1/images/logo.PNG">
 
                             </div>
 
@@ -56,15 +60,16 @@
 
                                 <fieldset style="border:1px solid black" id="fld" >
 
-                                    <h5><strong> R.U.C. N° 20111807958 </strong></h5>
+                                    <h5 style="font-family: arial;"><strong> R.U.C. N° 20111807958 </strong></h5>
+                                    <h2 style="font-family: cambria; font-size: 23px;"><strong>Ficha Técnica</strong></h2>
                                     <div class="d-flex flex-row" id="ngui">
-                                        <div class="p-3">
+                                        <div class="p-3" style="font-family: arial;">
                                             N° 
                                         </div>
                                         <div class="p-3">
                                             <input type="text" style="background: #F0E9FF;" name="idFicha">
                                         </div>
-                                        <div class="p-3">
+                                        <div class="p-3" style="font-family: arial;">
                                             -&nbsp;0000041
                                         </div>
                                     </div>
@@ -77,7 +82,7 @@
                     </div>
                     <div class="card-body">
 
-                        <center><h3 style="font-family: Segou IU; font-size: 20px;"><strong>Ingresar datos de la Prenda</strong></h3></center>
+                        <center><h3 style="font-family: cambria; font-size: 25px;"><strong>Ingresar datos de la Prenda</strong></h3></center>
 
 
                         <form:input path="idEstado.idEstado" id="fentregaI" type="hidden" value="1"/>
@@ -86,7 +91,7 @@
                         <div class="row" style="text-align: left;">
                             <div class="col-sm-4">
                                 <label for="descripcion">Descripción:</label>
-                                <form:input path="descripcion" style="background: #F0E9FF;" cssClass="form-control" placeholder="Ingresar descripcion" />
+                                <form:input path="descripcion" style="background: #F0E9FF;font-family: arial;" cssClass="form-control" placeholder="Ingresar descripcion" />
                             </div>
                             <div class="col-sm-4">
                                 <label for="idTipoModelo" >Modelo: </label>
@@ -109,7 +114,7 @@
                         <div class="row" style="text-align: left;">  
                             <div class="col-sm-4"> 
                                 <label for="etiqueta"><strong>Etiqueta:</strong></label>
-                                <form:input path="etiqueta" style="background: #F0E9FF;" cssClass="form-control" placeholder="Ingresar nombres de etiqueta"/>
+                                <form:input path="etiqueta" style="background: #F0E9FF;font-family: arial;" cssClass="form-control" placeholder="Ingresar nombres de etiqueta"/>
                             </div>
                             <div class="col-sm-4">
                                 <label for="idTalla"><strong>Talla:</strong></label>
@@ -121,17 +126,10 @@
                             </div>
                             <div class="col-sm-4">
                                 <label for="cantidad" >Cantidad:</label>
-                                <form:input path="cantidad"  style="background: #F0E9FF;" cssClass="form-control" placeholder="Ingresar cantidad"/>
+                                <form:input path="cantidad"  style="background: #F0E9FF;font-family: arial;" cssClass="form-control" placeholder="Ingresar cantidad"/>
                             </div>
                         </div>
-                        <br>
-                        <div class="row" style="text-align: left;">  
-                            <div class="col-sm-4"> 
-                                <label for="filename"><strong>Imagen:</strong></label>
-                                <input type="file" name="filename"/>
-                            </div>
-                        </div>
-                        <hr style="border: 1px solid gray">
+                                               <hr style="border: 1px solid gray">
 
                         <center>
                             <div class="card" id="carta2" >
@@ -140,8 +138,8 @@
                                     <h6 class="card-subtitle mb-2 text-muted">Seleccionar 1 color como mínimo..</h6>
                                     <div class="d-flex flex-row">
                                         <div  class="p-4">
-                                            <label for="color1" >Color 1:</label>
-                                            <form:input path="color1" id="c1" style="height: 35px;" cssClass="form-control" value="ffff00"/>
+                                            <label for="color1" style="font-family: arial;">Color 1:</label>
+                                            <form:input path="color1" id="c1" style="height: 35px; font-family: arial;" cssClass="form-control" value="ffff00"/>
                                             <script>
                                                 $(function () {
 
@@ -155,8 +153,8 @@
 
                                         <div  class="p-4">
 
-                                            <label for="color2" >Color 2:</label>
-                                            <form:input path="color2" id="c2" style="height: 35px;" value="00ffff" cssClass="form-control"/>
+                                            <label for="color2" style="font-family: arial;">Color 2:</label>
+                                            <form:input path="color2" id="c2" style="height: 35px; font-family: arial;" value="00ffff" cssClass="form-control"/>
 
                                             <script>
                                                 $(function () {
@@ -170,8 +168,8 @@
 
                                         <div  class="p-4">
 
-                                            <label for="color3" >Color 3:</label>
-                                            <form:input path="color3" id="c3" style="height: 35px;" value="ff00ff" cssClass="form-control"/>
+                                            <label for="color3" style="font-family: arial;">Color 3:</label>
+                                            <form:input path="color3" id="c3" style="height: 35px; font-family: arial;" value="ff00ff" cssClass="form-control"/>
 
                                             <script>
                                                 $(function () {
@@ -194,6 +192,7 @@
 
                     </div>
                 </form:form>
+            </div>
             </div>
         </div>
         <script>

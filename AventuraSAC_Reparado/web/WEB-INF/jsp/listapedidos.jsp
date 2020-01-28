@@ -17,7 +17,7 @@
         <link href="<c:url value="webapp/resources/theme1/css/bootstrap.min.css" />" rel="stylesheet">
         <link href="<c:url value="webapp/resources/theme1/css/main.css"/>" rel="stylesheet">
         <link href="<c:url value="webapp/resources/theme1/fonts/font.awesome.css" />" rel="stylesheet">
-        <link href="../../webapp/resources/theme1/css/estilolistapedido.css" rel="stylesheet" type="text/css"/>
+        <link href="webapp/resources/theme1/css/estilolistapedido.css" rel="stylesheet" type="text/css"/>
         <title>JSP Page</title>
     </head>
     <body id="body" style="background: #adb5bd;">
@@ -31,12 +31,13 @@
 
         <div class="container md-8">
             <br>
-            <div class="card" id="carta">
+            <div style="background-color:rgba(20,100,20, 0.7);">
+                <div class="card" id="carta" style="margin-left:10px;">
 
-                <div class="card-header" style="background: #C1FCEC ;"> 
+                <div class="card-header" style="background-color:rgba(20,100,30, 0.4);"> 
                     <br>
 
-                    <h2 style="font-family: Segou IU;"><center>Lista de Pedidos</center></h2>
+                    <h2 style="font-family: cambria;"><center>Lista de Pedidos</center></h2>
 
                 </div>
 
@@ -44,7 +45,7 @@
 
                     <table class="table" style="width: 100%; height: 100%;">
 
-                        <thead class="thead-dark">
+                        <thead  style="background-color: #D6D9D9 !important;">
                             <tr>
                                 <th style="text-align: center;">IdPedido</th>
                                 <th style="text-align: center;">Fecha Registro</th>
@@ -86,7 +87,7 @@
                                         <td ></td>
                                     </c:if>
                                         <c:if test="${item.idEstado.idEstado == 7}">
-                                        <td style="text-align: center;"><a class="btn btn-info" role="button" href="verfactura.htm?idPedido=${item.idPedido}" style="text-decoration: none;">Ver Factura <i class="fas fa-edit"></i></a></td>
+                                        <td style="text-align: center;"><a class="btn btn-outline-success" role="button" href="verfactura.htm?idPedido=${item.idPedido}" style="text-decoration: none; background-color: #C1FCEC;">Ver Factura <i class="fas fa-edit"></i></a></td>
                                     </c:if>
       
                                 </tr>
@@ -102,6 +103,7 @@
 
                 </div>
 
+            </div>
             </div>
         </div>
         <br>

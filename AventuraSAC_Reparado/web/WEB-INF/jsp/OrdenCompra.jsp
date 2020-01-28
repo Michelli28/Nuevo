@@ -18,9 +18,9 @@
         <script src="<c:url value="webapp/resources/theme1/js/jquery.min.js" />"></script>
     </head>
 
-    <body id="body">
+    <body id="body" style="background-color:rgba(100,0,0, 0.2);">
 
-        <header id="header">
+        <header id="header" >
             <a class="logo" href="menu.htm">Aventura S.A.C.</a>
             <nav>
                 <a href="login.htm">Salir</a>
@@ -29,24 +29,24 @@
 
         <div class="container md-8">
 
-            <div class="card" id="carta">
+            <div style="background-color:rgba(100,0,0, 0.4);">
+            <div class="card" id="carta" style="margin-left:10px;">
 
                 <input type="hidden" name="idPedido" id="idPedido" value="${idPedido}">
-                    <div class="card-header" id="cardheader">
-                        <br>
-                        <center><h2><strong>Orden de Compra</strong></h2></center>
+                    <div class="card-header" id="cardheader" style="background-color:rgba(100,0,0, 0.4);">
+                        
 
                         <div class="d-flex flex-row">
 
                             <div  class="p-4" id="img">
 
-                                <img src="webapp/resources/theme1/images/logo2.png">
+                                <img src="webapp/resources/theme1/images/logo.PNG">
 
                             </div>
 
                             <div class="p-4"  id="escritos">
-                                <p>Cal. Mercaderes Nro. 164 Dpto. 203 </p>
-                                <p>Urb. Las Gardenias (Alt. Cuadra 50 de la Avenida Benavides)</p>
+                                <p style="font-family: arial;">Cal. Mercaderes Nro. 164 Dpto. 203 </p>
+                                <p style="font-family: arial;">Urb. Las Gardenias (Alt. Cuadra 50 de la Avenida Benavides)</p>
 
                             </div>
 
@@ -54,16 +54,17 @@
 
                                 <fieldset style="border:1px solid black" id="fld" >
 
-                                    <h5><strong> R.U.C. N° 20111807958 </strong></h5>
+                                    <h5 style="font-family: arial;"><strong> R.U.C. N° 20111807958 </strong></h5>
+                                    <h2 style="font-family: cambria; font-size: 23px;"><strong>Orden de Compra</strong></h2>
                                     <div class="d-flex flex-row" id="ngui">
-                                        <div class="p-3">
+                                        <div class="p-3" style="font-family: arial;">
                                             N° 
                                         </div>
                                         <div class="p-3">
                                             <input name="idCotizacion">
-                                            <input type="hidden" name="idOrdenCompra" cssClass="form-control"/>
+                                            <input type="hidden" name="idOrdenCompra"  cssClass="form-control"/>
                                         </div>
-                                        <div class="p-3">
+                                        <div class="p-3" style="font-family: arial;">
                                             -&nbsp;0000041
                                         </div>
                                     </div>
@@ -75,18 +76,18 @@
 
                     <div class="card-body">
                         <input type="hidden" name="idEmpleado" id="idEmpleado" value="${usuario.idEmpleado}"/>
-                        <div class="row">
-                            <div class="col-sm-6" >
+                        <div class="row" style="margin:0px 0px;">
+                            <div class="col-sm-6" style="margin: 0px 0px 0px 0px;">
                                 <label for="idProveedor"><strong>Proveedor:</strong></label>
-                                <select name="idProveedor" id="idProveedor">
+                                <select name="idProveedor" id="idProveedor" style="width: 50%; ">
                                     <c:forEach items="${proveedor}" var="x">
                                         <option value="${x.idProveedor}" >${x.razonSocial}</option>
                                     </c:forEach>
                                 </select>
                             </div>
-                            <div class="col-sm-6" >
+                            <div class="col-sm-6" style="margin: ;" >
                                 <label for="fechaEmision"><strong>Fecha:</strong></label>
-                                <input type="text" name="fechaEmision" id="txtfechaactual" value="${fecha}"/>
+                                <input type="text" name="fechaEmision" id="txtfechaactual" value="${fecha}" style="width: 50%; "/>
                             </div>
                         </div>
                          <c:forEach var="item1" items="${datos}">
@@ -113,15 +114,15 @@
                         <br>
                         <hr style="border: solid gray 1px;">
 
-                        <div class="row">
+                        <div class="row" style="margin:0px 80px;">
                             <div class="col-sm-4" >
                                 <label for="descripcion"><strong>Descripción:</strong></label>
-                                <input type="text" name="descripcion"  id="descripcion"/>
+                                <input type="text" name="descripcion"  id="descripcion" style="width: 80%; "/>
                             </div>
                             <div class="col-sm-4" >
 
                                 <label for="cantidad"><strong>Cantidad:</strong></label>
-                                <input type="text" name="cantidad" id="cantidad">
+                                <input type="text" name="cantidad" id="cantidad" style="width: 50%; ">
 
                             </div>
                             <div class="col-sm-4" >
@@ -158,7 +159,7 @@
 
 
             </div>
-
+            </div>
         </div>
 
         <br>
